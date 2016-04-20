@@ -1,0 +1,3 @@
+User-Agent: *
+Allow: /
+Sitemap: http://complaintsblaster.com/sitemap.xml
