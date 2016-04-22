@@ -242,17 +242,20 @@ if ($var_action == 'businesslist') {
                         $country = "";
                         $row = "";
 			while ($row_rs = $rs->fetch_array()){
-			   $address = $row_rs[1]; 	
+			   $address = trim($row_rs[1]); 
 			   
 			   $county = trim($row_rs[2]); 	
 			   $country = trim($row_rs[3]); 	
 			   if ((!empty($county))){
-					$county = ", ". $county;  
+                               if ((!empty($address)))
+                                    $county = ", ". $county;  
 			   }
 			   
 			   if ((!empty($country))){
-				$country = ", ". $country;  
-			   }
+                                if ((!empty($address)) || (!empty($county) ))
+                                     $country = ", ". $country;
+                           }
+                           
 			   $row_rs[0] = $row_rs[0]." (".$address.$county.$country.")"  ;
                            $row[] = array("Label" => $row_rs[5], "value" => $row_rs[0], "CompanyName" => $row_rs[4], "IndustryID"=> $row_rs[6]);
 			}

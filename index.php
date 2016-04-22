@@ -4,13 +4,11 @@
     $logged = 0;
     if (!empty($nameuser))
         $logged = 1;
-    
-//require_once __DIR__ . '/lib/lib\ReCaptcha/autoload.php';    
-require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
+//require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
 ?>
 
 <body>
-    <script src='js/api.js'></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <input id="logged" value="<?php echo $logged ?>" type="hidden">
   
   <div id="body">
@@ -20,7 +18,7 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
           <div class="gridContainer clearfix content-with-footer">
               <h1 align="center" class="footer">Feeling <em>dissatisfied</em>?</h1>
               <h3 align="center" class="medium deslis-top">Receiving a poor product or lousy service is never nice. Let’s get the company to put it right; if they refuse, well, let’s tell the whole world about it. Posting a complaint far and wide on the web often gets businesses to see sense…</h3>
-              <p class="buttons"><a href="#who" class="button button-next" onclick="businessnamefocus();"><span>Let’s go</span></a></p>
+              <p class="buttons"><a id = "cmdLetsgo" href="#who" class="button button-next" onclick="businessnamefocus();"><span>Let’s go</span></a></p>
           </div>
       </div>
         <footer id="secondfooter" style="width: 100%;">
@@ -76,7 +74,7 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
                     <span id="RegionBusinessReputation"></span>
                     <span id="PostCodeBusinessReputation"></span>
                   </div>
-                  <div id="nocomplaintsbusiness"  style="font-size:14px; padding-top:10px; font-weight:bold;" class="responsive">
+                  <div id="nocomplaintsbusiness"  style=" font-size:14px; margin-top:-20px !important; font-weight:bold;" class="responsive">
                     No complaints registered
                   </div>
                   <div id="raitingvalues"  style ="padding-top: 30px; margin-bottom: 30px;" class = "detailspaddingreview">
@@ -134,9 +132,11 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
                    onfocus="whatsyourcomplaintsclean();" 
                    maxlength="50" 
                    style ="width: 100%; font-size: 30px; "
-                   class="inputindex" 
+                   class="input inputindex" 
                    onkeyup="countChar(this, 50, charNum1, ' chars')" >
+                   
                    <label id="whatsyourcomplaints" class="instruction">Describe your complaint in a sentence <label style="color:red;">&nbsp;*</label><div id="charNum1" style="padding-top:-10px;  text-align:right; width:15%; font-weight:600; float:right">50 chars</div></label> 
+                   <div style="float:left; margin-top: -15px; width: 15%; "><a id = "spellchecktitle" class="checkspell" href="javascript:checkSpell()"><img src = "img/spellcheck.png" style="float:left; width: 20px">Check Spell</a></div>
                 </form>
             </div>
             <div style="width: 100%; text-align: center; float: left;">
@@ -146,7 +146,7 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
               id="nextMyComplaints" 
               tabindex="4" 
               href="#complainer" 
-              class="button button-next"><span>Next</span></a></p>
+              class="button button-next "><span>Next</span></a></p>
             </div>
         </div>
     </div>
@@ -217,8 +217,11 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
                     onkeyup="countChar(this, 2500, charNum, ' characters remaining')" 
                     class="description" ></textarea>
                 <div id="charNum" style="padding-top:10px; text-align:right; width:80%; font-weight:800;">2500 characters remaining</div>
+                
+                
                 <div class="col-lg-2 col-sm-2 col-xs-2"></div>
                 <div class="forms col-lg-8 col-sm-8 col-xs-8" align="center">
+                    <div style="float:left; margin-left: 30px; margin-top: -15px; width: 15%; " ><a class="checkspell" href="javascript:checkSpellComplaint()" ><img src = "img/spellcheck.png" style="float:left; width: 20px">Spell Check</a></div>    
                     <div id="imcompletecomplaints" style="font-size:14px; visibility: hidden;">&nbsp;<br></div>
                 </div>
                 <div class="col-lg-2 col-sm-2 col-xs-2"></div><br>
@@ -282,7 +285,7 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
                         <a 
                           alt="Register your facebook credentials"    
                           data-toggle="modal" 
-                          data-target=".loginfb"
+                          onclick="showSocialMedia('f')"
                           href="#" 
                           class="button social" 
                           tabindex="15"><span>Facebook</span>
@@ -295,13 +298,13 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
                         <a 
                           alt="Register your Google+ credentials"
                           data-toggle="modal" 
-                          data-target=".logingplus"
+                          onclick="showSocialMedia('g')"
                           href="#" 
                           data-reveal-id="socialModalG"
                           class="button social" 
                           tabindex="16"><span>Gmail</span>
                         </a>
-                      </p>
+                      </p> 
                       <p id="googleplusdetails" class="fbdetails">Awaiting details</p>
                     </div>
                   </div>
@@ -331,21 +334,21 @@ require dirname(__FILE__ ) . '/lib/ReCaptcha/autoload.php';
       
       <label id="cnc" for="soon" class="instruction"><input type="radio" id="soon" name="broadcast" checked="checked" tabindex="19" value = "5" /> <p> <strong>5</strong> days to broadcast unless resolved</p></label>
     </div>
-    <div style="margin-top:5%; vertical-align:center;">
+    <div style="margin-top:2%; vertical-align:center;">
       <label for="confirmterm" style="margin-left:10px; font-size:10px;" class="instruction" onclick="cleanmsgerrorsend();">
       <input type="checkbox" id="confirmterm" name="confirmterm" onclick="cleanmsgerrorsend();" checked="checked"/>
            I confirm my complaint is true to the best of my belief and I accept the <a target="_blank" class="linkclean" style="font-size: inherit;" href="termsofuse.php">terms of use</a>
       </label><br><br>
       <span id="msgerrorsend"></span>
     </div>
-    <div style = "width: 100%; text-align: center;  margin:auto;">  
+    <div style = "width: 100%; text-align: center;  margin:auto; margin-top: 2%">  
         <form id = "frmCaptcha" action="fun_jq.php" method="post">
-            <div class="g-recaptcha" data-sitekey="<?php echo SITEKEY  ?>" style = "background: green;display:inline-table;"></div>
+            <div id = "captchaid" class="g-recaptcha" data-sitekey="<?php echo SITEKEY  ?>" style = "display:inline-table;"></div>
         </form>
     </div>
   
     <p class="send" style="margin-top:-5px;">
-        <a href="#done" id="gotodone" title="Send" class="button button-next" style="margin-top:50px;" onclick="return generalnotice()">
+        <a href="#done" id="gotodone" title="Send" class="button button-next" style="margin-top:50px;" onclick="return generalnotice(); return false">
         <span>Broadcast</span>
       </a>
     </p>
@@ -845,8 +848,6 @@ function gpluspassclean()
                         }
                     });
                 };
-
-
                
 
             }
@@ -874,7 +875,7 @@ function gpluspassclean()
             function confirmterm(){
               var flag = false;
 
-              $("#gotodone").attr("href", "#");
+              //$("#gotodone").attr("href", "#");
 
               if ($("#confirmterm").is(':checked')) {
                 flag=true;
@@ -973,8 +974,16 @@ function validatemail()
                 return false;    
             }
         }
-        if (flag)
-            {$("#buttomnextdescomplainer").attr("href", "#description"); return true;}
+        if (flag){
+            $("#buttomnextdescomplainer").attr("href", "#description"); 
+            setTimeout(function (){
+            $('#complaintscomplete').focus();
+           }, 100);
+            
+            
+            return true;
+        }
+        
         
       return flag;
 }
@@ -1107,7 +1116,7 @@ function generalnotice(){
   var flag4 = false;
   var flag5 = false;
   var flag6 = false;
-  $("#gotodone").attr("href", "#");
+ $("#gotodone").attr("href", "#");
   
   cleangeneralnotice();
   flag1 = validationbusiness();
@@ -1116,24 +1125,63 @@ function generalnotice(){
   flag4 = fullcomplaints();
   flag5 = validatebigstar();
   flag6 = confirmterm();
+  
+  
   if (flag1 == false || flag2 == false || flag3 == false || flag4 == false || flag5 == false || flag6 == false ) {
-    $("#generalnotice").html('Please complete all fields...');
-                $('#generalnotice').addClass('error-messages ng-active');
+            $("#generalnotice").html('Please complete all fields...');
+            $('#generalnotice').addClass('error-messages ng-active');
             flag = false;
   }
   else
   {
+           
             var doneb = $('#businessname').val();
-            insertComplaint();
-            $("#gotodone").attr("href", "#done");
-            cleanComplaintsFields();
-            $('#doneb').html(doneb);
-            flag=true;
+            var success = insertComplaint();
+            console.log(success)
+            if (success){ 
+                $("#gotodone").attr("href", "#done");
+                cleanComplaintsFields();
+                $('#doneb').html(doneb);
+                grecaptcha.reset();
+                flag=true;
+            }else{
+                $("#gotodone").attr("href", "#send");
+                flag = false;
+            }
   }
+  
+  if (!flag1){ 
+    $("#cmdLetsgo").get(0).click();
+      return flag1;
+   }
+
+  if (!flag2){ 
+    $("#nextOne").get(0).click();
+    return flag2;
+  }
+  
+  if (!flag3){ 
+    $("#myComplaints").get(0).click();
+    return flag3;
+  }
+
+  if (!flag4){ 
+    $("#nextMyComplaints").get(0).click();
+    return flag4;
+  }
+  
+  if (!flag5){ 
+    $("#tellfullcomplaints").get(0).click();
+    return flag5;
+  }  
+  
+  if (!flag6){ 
+    $("#nexttargetsites").get(0).click();
+    return flag6;
+  }    
+  
   return flag;
 }
-
-
 
  //footer in index when resolution screen is small
  $(function() {
@@ -1210,7 +1258,24 @@ $( document ).ready(function() {
 $(window).trigger('resize');
 
     internetExplorerMessage();
+    
+function checkSpell(){
+    if ($('#myComplaints').val().length > 0){
+        AtD.checkTextAreaCrossAJAX('myComplaints', 'spellchecktitle', '<img src = "img/spellcheck.png" style="float:left; width: 20px">Check Spell');
+    }
+}    
+
+
+function checkSpellComplaint(){
+    if ($('#complaintscomplete').val().length > 0){
+        //AtD.checkTextAreaCrossAJAX('complaintscomplete', 'spellcheckcomplaint', 'Check Spell');
+    }
+}   
+
+
+
 </script>
     </body>
 
 </html>
+

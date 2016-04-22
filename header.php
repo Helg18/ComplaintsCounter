@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
     <head>
         <meta name="google-site-verification" content="2ORbV--wXiCjJ2V9ahJglzqj0ws7mer6WjUNfRm7RQk" />
@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="css/reveal.css">
         <link rel="stylesheet" type="text/css" href="css/review.css">
         <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="css/atd.css" />
 
 
         <!--[if lt IE 9]>
@@ -36,6 +37,13 @@
         <script src="js/functions.js"></script>
         <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
         <script src="js/respond.min.js"></script>
+        <script src="js/jquery.atd.js"></script>
+        <script src="js/jquery.atd.textarea.js"></script>
+        <script src="js/csshttprequest.js"></script>
+        
+ 
+ 
+
         
         <script>
             //SearchCountryIp() 
@@ -263,10 +271,10 @@ function validatelogin(){
   var passwordlogin = $("#txtPassword").val();
  
   if (userlogin.length < 3 && passwordlogin < 7) {
-    $("#txtUsername").attr("style", "border-color:#ff0000");    
-    $("#txtPassword").attr("style", "border-color:#ff0000");
-    $("#errorinlogin").html('Enter your credentials here...');
-    $('#errorinlogin').addClass('error-messages ng-active');
+    //$("#txtUsername").attr("style", "border-color:#ff0000");    
+    //$("#txtPassword").attr("style", "border-color:#ff0000");
+    $("#spanmsg").html('Enter your credentials here...');
+    $('#spanmsg').addClass('error-messages ng-active');
     return false;
   }//
   CheckLogin();

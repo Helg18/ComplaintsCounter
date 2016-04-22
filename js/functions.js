@@ -590,10 +590,13 @@ function removeErrorMessage(selector, spanSelector){
         
     if ($('#txtUsername').val().length == 0)
        return false;
+   
+    if ($('#password').val().length == 0)
+       return false;
+   
     
     $('#spanmsg').html('');
         $('#spanmsg').removeClass('ng-msgbox ');
-    
              $.ajax({
                 url: 'subscription.php?action=login',
                 type: "POST",
@@ -610,8 +613,8 @@ function removeErrorMessage(selector, spanSelector){
                             msg = 'User is blocked please send a email to '+ data.emailadmin;
                         }
                         
-                        $("#errorinlogin").html(msg);
-                        $('#errorinlogin').addClass('error-messages ng-active');
+                        $("#spanmsg").html(msg);
+                        $('#spanmsg').addClass('error-messages ng-active');
                     }
                 },
                     error: function(data) {
@@ -628,10 +631,17 @@ function removeErrorMessage(selector, spanSelector){
  * @param string type of screen to show  "b" = business login or "u" = user login;
  */
  function showLogin(type){
-    errorMessage('spanmsg','', false);
+     
+  $("#spanmsg").html('');
+  $('#spanmsg').removeClass('error-messages ng-active');
 
+    //errorMessage('spanmsg','', false);
     $('#frmLogin').trigger("reset");
-    $('#spanmsg').html('');
+    //$('#spanmsg').html('');
+    //errorMessage('spanUserEmail','', true);
+    
+    
+    
     $('#logintype').val(type);
         $('#usertype').val(type);
     
@@ -642,11 +652,14 @@ function removeErrorMessage(selector, spanSelector){
         $('#registerlogin').show();
                 
     }
-    
+ 
+ 
     $('#myModalbusinneslogin').modal('show');
             setTimeout(function (){
              $("#txtUsername").focus();
              }, 600);
+             
+             
 
  
  }
@@ -959,7 +972,7 @@ function RecoverPassword(){
  * @return boolean
  */
 function insertComplaint() {
-    successful = false;
+    var successful = false;
         
     var organisationid = $('#exist').val();
     var title = $('#myComplaints').val(); 
@@ -970,8 +983,6 @@ function insertComplaint() {
     var email = $('#email_conf').val(); 
     var industryid = $('#industryid').val(); 
     
-    var validCaptcha;
-    validCaptcha = false;
     if ($('#txtValid').val() == 0){
         alert('You should complete all the steps before broadcast');
         return false;
@@ -982,23 +993,25 @@ function insertComplaint() {
          
          //CAPTCHA
          $.ajax({
+                async:false,
+                cache:false,
                 url: 'fun_jq.php?action=complaintcaptcha',
                 type: "POST",
                 data:$('#frmCaptcha').serialize(), 
                 dataType: 'json',
                 success:function(data){
-                    $("#ajaxiconcomplaint").html('');
+                    
                     if (data.success){
-                        validCaptcha = true;
-                        
                         $.ajax({
+                            async:false,
+                            cache:false,
                             url: 'fun_jq.php',
                             type: "POST",
                             data:{action:'insertcomplaint',organisationid:organisationid,  name: name, email:email, title:title, complaint:complaint, review:review, broadcast:broadcast, industryid:industryid},
                             dataType: 'json',
                             success:function(data){
                                 successful = true;
-                                $("#ajaxiconcomplaint").html('');
+                               $("#ajaxiconcomplaint").html('');
                             },
                                 error: function(data) {
                                     console.log(data)
@@ -1010,7 +1023,7 @@ function insertComplaint() {
                         });
                     }        
                     else{
-                        validCaptcha = false;
+                        successful = false;       
                         alert('Captcha is not valid!');
                     }
                  // alert(validCaptcha);
@@ -1018,7 +1031,7 @@ function insertComplaint() {
                     error: function(data) {
                         $("#ajaxiconcomplaint").html('<img src="'+path +'"/>');
                         alert('An error occurred with captcha');
-                        successful = false;                        
+                        successful = false;
                         console.log(data)
                 }
                 
@@ -1026,25 +1039,6 @@ function insertComplaint() {
          /**/   
 
        
-        return successful;
-        
-         /*$.ajax({
-                url: 'fun_jq.php',
-                type: "POST",
-                data:{action:'insertcomplaint',organisationid:organisationid,  name: name, email:email, title:title, complaint:complaint, review:review, broadcast:broadcast, industryid:industryid},
-                dataType: 'json',
-                success:function(data){
-                    successful = true;
-                    $("#ajaxiconcomplaint").html('');
-                },
-                    error: function(data) {
-                        console.log(data)
-                        $("#ajaxiconcomplaint").html('');
-                        alert('An error occurred inserting complaint');
-                        successful = false;                        
-                }
-                
-            });*/
         return successful;
 }     
 
@@ -1254,6 +1248,7 @@ function errorMessage(idSpan, message, show){
         $(idSpan).addClass('error-messages ng-active');
     }else {
         $(idSpan).html('');
+        $(idSpan).removeClass();
         $(idSpan).attr("class", "");
         $(idSpan).hide();
     }
@@ -1365,6 +1360,10 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
         
         
         $('#myModalB').modal('show');
+         setTimeout(function (){
+             $("#txtBusinessNameAdd").focus();
+             }, 600);
+        
         $("#countrylist").html('');
         
         fillDropdownRegions('countrylist', 'country','');
@@ -3153,7 +3152,36 @@ function sendLetter() {
             });
     }
     
+    
+/**
+ * Show modal Social Media Login
+ * @param string type of screen to show  type = "f" = facebook, type = "g" = gmail;
+ */
+ function showSocialMedia(type){
+    $('#registerlogin').hide();
+    $('#modalLoginTitle').html('User Login'); 
+    if (type == 'f'){
+        $('#loginfb').modal('show');
+              setTimeout(function (){
+                $("#username_f").focus();
+             }, 600);
 
+    }
+    
+    if (type == 'g'){
+        $('#logingplus').modal('show');
+             setTimeout(function (){
+                $("#username_g").focus();
+             }, 600);
+
+    }
+    
+             
+             
+
+ 
+ }    
+    
     /**
      * Functions developed by Delstone Services, LTD
      * Carlos Parra -> parraparicio@gmail.com

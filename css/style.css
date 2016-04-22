@@ -465,7 +465,7 @@ li#logout {
   display: none;
 }
 .when{
-  margin-top:60px;
+  margin-top:20px;
 }
 .when label {
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
@@ -473,7 +473,9 @@ li#logout {
   display: -ms-flexbox;      /* TWEENER - IE 10 */
   display: -webkit-flex;     /* NEW - Chrome */
   display: flex;  
-  margin: 0 0 60px 22%;
+  /*margin: 0 0 20px 0;*/
+  margin-bottom: 40px;
+  margin: 0 0 20px 22%;
 }
 .instruction > p {
   line-height: 1.5;
@@ -2965,3 +2967,11 @@ article.page {
 .tooltipcp:hover .tooltiptext {
   visibility: visible;
 }
+
+.checkspell{
+    font-size: 14px; 
+    
+    font-weight: bold;
+    
+}
+

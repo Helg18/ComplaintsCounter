@@ -33,7 +33,7 @@ else
 
     <div id="body" style="width: 100%; float:left; padding: 0% 10% 0% 10%; text-align: center ">
 
-        <h1 align="center">Explore <em>Complaints</em></h1>
+        <h1 align="center">Explore <em>Complaint(s)</em></h1>
 
         
         <div class="input-group order-reviews" id="dropdownorderby">

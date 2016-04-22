@@ -88,7 +88,6 @@
         }
         else
         {
-          alert('no match');
           return false;
         }
       } //end event.which

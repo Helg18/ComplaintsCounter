@@ -320,7 +320,10 @@ function validatePaidPlan(){
 		$("#step2").attr("href", "#payment");
 		$('#spanPaidPlan').html('');
                 $('#spanPaidPlan').attr("class", "");
-		}
+                 setTimeout(function (){
+                     $("#txtBusinessName").focus();
+                }, 600);                
+	}
 	
 	return result;
 }	 

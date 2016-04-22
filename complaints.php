@@ -463,7 +463,7 @@ $sSql.= $orderby;
 		            <p class='name-business-review-avg' style='text-align:center; float: left; width:100%' id='BusinessComplainer'> ".$gotowebsite."</p>
 		          </div>
         		</div> <!--end review-info-->
-          		<p align='center' style='font-size:14px; float: left; width:100%'>It has no registered complaints. </p>
+          		<p align='center' style='font-size:14px; float: left; width:100%'>No registered complaints. </p>
   			</div> <!--end review-->
 		</div>
 	</div>";

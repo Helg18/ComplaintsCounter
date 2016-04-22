@@ -4,7 +4,7 @@ $title = "Reset Password";
    
 ?>
 
-<body>
+<body onload="$('#txtEmailRecover').focus();">
 
     <div id="payment" class="section_article medium" >
             <h1 class="title_page">Reset your <em>password</em></h1>
@@ -33,6 +33,20 @@ $title = "Reset Password";
      
     
 <script>
+    $("#txtEmailRecover").keypress(function(event){ 
+      if (event.which == 13) { 
+        if ($("#txtEmailRecover").val().length > 7 ) {
+          ResetPassword();
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      } //end event.which
+    });
+
+
     $( document ).ready(function() {
         removeErrorMessage('txtEmailRecover', 'spanEmailRecover');
     });

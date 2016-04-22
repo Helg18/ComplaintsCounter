@@ -67,6 +67,7 @@ $title = "Contact us";
 ?>	
 
 <script>
+    $('#txtNameContact').focus();
     removeErrorMessage('txtNameContact', 'spanNameContact');
     removeErrorMessage('txtEmailContact', 'spanEmailContact');
     removeErrorMessage('txtMessage', 'spanMessageContact');
