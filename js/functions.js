@@ -591,7 +591,7 @@ function removeErrorMessage(selector, spanSelector){
     if ($('#txtUsername').val().length == 0)
        return false;
    
-    if ($('#password').val().length == 0)
+    if ($('#txtPassword').val().length == 0)
        return false;
    
     
@@ -1023,10 +1023,11 @@ function insertComplaint() {
                         });
                     }        
                     else{
+                        $("#ajaxiconcomplaint").html('');
                         successful = false;       
                         alert('Captcha is not valid!');
                     }
-                 // alert(validCaptcha);
+                 
                 },
                     error: function(data) {
                         $("#ajaxiconcomplaint").html('<img src="'+path +'"/>');

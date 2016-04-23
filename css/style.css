@@ -755,7 +755,7 @@ a.button.social:hover {
 textarea.description {
   border: 1px dashed #BBB;
   height: 250px;
-  width: 60%;
+  width: 100%;
   font-size:20px;
   text-align:left;
   padding: 5px;    
@@ -2167,6 +2167,22 @@ article.page {
   .error-messages.ng-active {
     font-size: 80% !important;
   }
+  
+  .descriptioncontainer{
+      width: 100% !important;
+      height: 100% !important;
+      
+      
+  }
+  .checkspellcontainer{
+      width: 100% !important;
+  }
+  
+  
+  .checkspelltitle{
+      margin-top: 0 !important; 
+      
+  }
 
   /*cpa*/
 }
@@ -2970,8 +2986,30 @@ article.page {
 
 .checkspell{
     font-size: 14px; 
-    
     font-weight: bold;
-    
 }
 
+.boxsection{
+    overflow:hidden;
+    text-align: center;
+    margin:auto;
+    width: 100%;
+}
+.descriptioncontainer{
+    width: 70%;
+    display:inline-table;
+}
+
+
+
+.checkspellcontainer{
+    float:left; 
+    /*margin-top: -15px; */
+    width: 15%; 
+    padding-top: 10px;
+}
+
+.imgspell{
+    float:left; 
+    width: 20px;
+}

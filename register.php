@@ -313,7 +313,7 @@ function validatePaidPlan(){
    $("#step2").attr("href", "#")
    result = true
    if (!$('input:radio[name=paidplans]:checked').val()){
-        $('#spanPaidPlan').html('Should select a Payment Plan');
+        $('#spanPaidPlan').html('Select a Payment Plan');
 	$('#spanPaidPlan').addClass('error-messages ng-active');
        result = false;
 	}else{

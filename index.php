@@ -131,12 +131,12 @@
                    alt="Type a title for your complaint" 
                    onfocus="whatsyourcomplaintsclean();" 
                    maxlength="50" 
-                   style ="width: 100%; font-size: 30px; "
-                   class="input inputindex" 
+                   style ="width: 100%; font-size: 30px; height: 40px "
+                   class="inputindex" 
                    onkeyup="countChar(this, 50, charNum1, ' chars')" >
                    
                    <label id="whatsyourcomplaints" class="instruction">Describe your complaint in a sentence <label style="color:red;">&nbsp;*</label><div id="charNum1" style="padding-top:-10px;  text-align:right; width:15%; font-weight:600; float:right">50 chars</div></label> 
-                   <div style="float:left; margin-top: -15px; width: 15%; "><a id = "spellchecktitle" class="checkspell" href="javascript:checkSpell()"><img src = "img/spellcheck.png" style="float:left; width: 20px">Check Spell</a></div>
+                   <div class="checkspellcontainer checkspelltitle"  style = "margin-top: -22px;"><a id = "spellchecktitle" class="checkspell" href="javascript:checkSpell()"><img src = "img/spellcheck.png" class = "imgspell" >Check Spell</a></div>
                 </form>
             </div>
             <div style="width: 100%; text-align: center; float: left;">
@@ -208,24 +208,23 @@
             <div>
                 <h2>Tell us about your complaint in more detail…</h2>
             </div>
-            <div class="forms">
+            <div class="boxsection">
+                <div class = "descriptioncontainer" >
                     <textarea tabindex="8" 
                     onfocus="cleanfullcomplaints();" 
                     id="complaintscomplete"
-          alt="Describe your complaint with more details"
+                    alt="Describe your complaint with more details"
                     maxlength="2500" 
                     onkeyup="countChar(this, 2500, charNum, ' characters remaining')" 
                     class="description" ></textarea>
-                <div id="charNum" style="padding-top:10px; text-align:right; width:80%; font-weight:800;">2500 characters remaining</div>
+                <div id="charNum" style="padding-top:10px; float:right; width:auto; font-weight:bold; font-size: 14px;" >2500 characters remaining</div>
                 
                 
-                <div class="col-lg-2 col-sm-2 col-xs-2"></div>
-                <div class="forms col-lg-8 col-sm-8 col-xs-8" align="center">
-                    <div style="float:left; margin-left: 30px; margin-top: -15px; width: 15%; " ><a class="checkspell" href="javascript:checkSpellComplaint()" ><img src = "img/spellcheck.png" style="float:left; width: 20px">Spell Check</a></div>    
-                    <div id="imcompletecomplaints" style="font-size:14px; visibility: hidden;">&nbsp;<br></div>
-                </div>
-                <div class="col-lg-2 col-sm-2 col-xs-2"></div><br>
-                <div class="col-lg-2 col-sm-2 col-xs-2"></div>
+                
+                
+                    <div class="checkspellcontainer" ><a id = "spellcheckcomplaint" class="checkspell" href="javascript:checkSpellComplaint()" ><img src = "img/spellcheck.png" style="float:left; width: 20px">Spell Check</a></div>    
+                    <div id="imcompletecomplaints" style="float:left; width: 100%; background: green; font-size:14px; visibility: hidden;"></div>
+                
 
                 <div style="width: 100%; float: left; text-align: center;">
                     <p class="buttons next" id="buttontellfullcomplaint">
@@ -239,8 +238,10 @@
                     </p>
                     
                 </div>
-                <div class="col-lg-2 col-sm-2 col-xs-2"></div>
+                
             </div>
+                </div>
+                
     </div>
 </div>
 
@@ -1003,6 +1004,7 @@ function validatemail()
 
 
             function fullcomplaints(){
+                AtD.restoreTextArea('complaintscomplete');
                 var flag = false;
                 $("#tellfullcomplaints").attr("href", "#");
 
@@ -1021,7 +1023,6 @@ function validatemail()
                     $("#tellfullcomplaints").attr("href", "#rating");
                     flag = true;
                 }
-
                 return flag;
 
             }
@@ -1036,6 +1037,7 @@ function validatemail()
             function whatsyourcomplaints()
             {
                 var flag=false;
+                AtD.restoreTextArea('myComplaints');
                 $("#nextMyComplaints").attr("href","#");
 
                 if ($("#myComplaints").val()=='' || $("#myComplaints").val()==null) {
@@ -1116,6 +1118,10 @@ function generalnotice(){
   var flag4 = false;
   var flag5 = false;
   var flag6 = false;
+  AtD.restoreTextArea('myComplaints');
+  AtD.restoreTextArea('complaintscomplete');
+  
+
  $("#gotodone").attr("href", "#");
   
   cleangeneralnotice();
@@ -1260,16 +1266,14 @@ $(window).trigger('resize');
     internetExplorerMessage();
     
 function checkSpell(){
-    if ($('#myComplaints').val().length > 0){
-        AtD.checkTextAreaCrossAJAX('myComplaints', 'spellchecktitle', '<img src = "img/spellcheck.png" style="float:left; width: 20px">Check Spell');
-    }
+        AtD.checkTextAreaCrossAJAX('myComplaints', 'spellchecktitle', 'Edit Text');
 }    
 
 
 function checkSpellComplaint(){
-    if ($('#complaintscomplete').val().length > 0){
-        //AtD.checkTextAreaCrossAJAX('complaintscomplete', 'spellcheckcomplaint', 'Check Spell');
-    }
+        AtD.checkTextAreaCrossAJAX('complaintscomplete', 'spellcheckcomplaint', 'Edit Text');
+        
+    
 }   
 
 
