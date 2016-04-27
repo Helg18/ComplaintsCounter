@@ -1,0 +1,31 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Complaints Counter</title>
+		<script src="js/jquery-2.2.0.min.js"></script>
+		<script src="js/functions.js"></script>
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    </head>
+
+<body>
+	<div style = "text-align: center; font-size: 200%; width:100%; float:left; margin-top:10%;" >
+		<img style = "width:30%;" class = "logo" src="img/Logo.png" alt="logo">
+	</div>
+	
+	<div style = "text-align: center; font-size: 200%; width:100%; float:left ">
+		<h1>Coming soon<span id="spancountry"></span></h1>
+	</div>
+
+<script>
+        
+    $( document ).ready(function() {
+        var name = getParameterByName('name');
+		if (name.length > 0)  
+			$("#spancountry" ).html(' in '+ name);
+    });
+   
+</script>	
+</body>
+</html>
