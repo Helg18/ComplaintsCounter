@@ -437,7 +437,7 @@ $sSql.= $orderby;
 						$showlogo="";
 			 		} else {
                                          $site = "";
-					 $site = "http://www.google.com/s2/favicons?domain=$site".$row['WebsiteAddress'];
+					 $site = "http://www.google.com/s2/favicons?domain=$site".$row_rs['WebsiteAddress'];
                                          $showlogo="
 					           <div class='user-info'>
 					             <div class='user-review-picture containerfavicon' > <div class = 'faviconexplore' style = 'background: url($site) no-repeat; '></div></div>
@@ -468,7 +468,9 @@ $sSql.= $orderby;
 					$without ="
 	<div align='center' style='width:100%; text-align:center; float:left;'>
 		<div class='well-small-no-complaint'>
+                        <div style = 'margin-top: 10px' >
 			".$showlogo."
+                        </div>    
 			<div align='center'>
         		<div>
 		          <div align='center' class='show-details-full-complaints'>

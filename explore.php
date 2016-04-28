@@ -58,11 +58,9 @@ else
               </p>
             </div>
         </div>   
+         
     </div>  
     
-    <?php 
-    include_once('footer.php');
-    ?>
         <div  style="margin-left: 10px;">
           <div id="lastreview" style="visibility:hidden;"></div>
           <div id="lastrating" style="visibility:hidden;">0</div>
@@ -77,7 +75,10 @@ else
           <div id="businessdetail" style="visibility:hidden;"></div>
         </div>
 
-  </div>
+    <?php 
+    include_once('footer.php');
+    ?>
+
   <script>
   /**
    * Start loadcomplaintsforusers function
