@@ -317,9 +317,6 @@
 
             &nbsp;
 
-    <div id= "ajaxiconcomplaint" class="ajaxicon" >
-    
-    </div>      
             
 <div  class = "section_article">
   <div id="send" class="content section_page" >
@@ -347,6 +344,7 @@
             <div id = "captchaid" class="g-recaptcha" data-sitekey="<?php echo SITEKEY  ?>" style = "display:inline-table;"></div>
         </form>
     </div>
+ 
   
     <p class="send" style="margin-top:-5px;">
         <a href="#done" id="gotodone" title="Send" class="button button-next" style="margin-top:50px;" onclick="return generalnotice(); return false">
@@ -355,6 +353,8 @@
     </p>
     <span id="generalnotice"></span>
   </div>
+    
+  <div id= "ajaxiconcomplaintinsert" class="ajaxicon" style="margin-left: 45%;" ></div>     
 </div>
 
             <div class = "section_article">
@@ -381,8 +381,10 @@
       <div class="modal-body" style="width: 100%; float: left; text-align: left;">
         <label style="width: 100%; text-align: left; float: left; font-weight: bold; font-size: 16px; font-family: georgia; margin-bottom: 1%">Subject</label>
         <input type="text" class="inputform form-control" autofocus="on" id="feedbacktitle" name="feedbacktitle">
+        <div class = "messagesform"><span id = "spanFeedbackTitle"></span></div>
         <label style="font-size: 16px; font-weight: bold; font-family: georgia; margin-bottom: 10px; margin-top:3%;">Message</label>
         <textarea name="feedback" id="feedbackcontent" cols="90" class="inputform form-control" style=" margin-top:2%;"></textarea>
+        <div class = "messagesform"><span id = "spanFeedbackMessage"></span></div>
         <label id="notify-success" style="color: green;" style=" margin-top:2%;"></label>
         <label id="notify-error" style="color: red;" style=" margin-top:2%;"></label>
       </div>
@@ -412,7 +414,8 @@
             
             function showFeedBack(){
                 if ( $("#email_conf").val().length == 0 || $("#name_config").val().length == 0){
-                    alert("To make a feedback you must fill Name and Email.");
+                    $("#pmessages").html('To make a feedback you must fill Name and Email.');
+                    $('#mgInformacion').modal('show');
                 return false;
             }
                 $('#myModalF').modal('show');
@@ -542,22 +545,30 @@
   });
 
 function feedBackSumbitEnable(){
-      if (($('#feedbackcontent').val().length == 0  && $("#feedbacktitle").val().length == 0) ||
-       ( $('#feedbackcontent').val().length != 0  && $("#feedbacktitle").val().length == 0 ) ||
-       ( $('#feedbackcontent').val().length == 0  && $("#feedbacktitle").val().length != 0 ) ){
-        $("#notify-error").html('Complete all fields');
-        alert('Complete all fields');
-        return false;
-    } else {
+    
+    if ( $("#feedbacktitle").val().length == 0 ) {
+         errorMessage('spanFeedbackTitle','Field Subject should not be blank', true);
+         return false;
+    } 
+    
+    if ( $("#feedbackcontent").val().length == 0 ) {
+         errorMessage('spanFeedbackMessage','Field Message should not be blank', true);
+         return false;
+    } 
+     
         sendFeedBack();
         return true;
-    }
-}
-$('.bs-example-modal-lg').on('shown.bs.modal', function () {
-    $('#feedbacktitle').focus();
-})
 
+}
+
+    $('.bs-example-modal-lg').on('shown.bs.modal', function () {
+        $('#feedbacktitle').focus();
+    })
 function sendFeedBack() {
+    
+  errorMessage('spanFeedbackTitle','', false);
+  errorMessage('spanFeedbackMessage','', false);
+
   $("#notify-error").html('');
   $("#notify-success").html('');
   var name = $("#name_config").val();
@@ -1279,9 +1290,10 @@ function checkSpellComplaint(){
     
     showSpellCheck('myComplaints', 'divspelltitle');
     showSpellCheck('complaintscomplete', 'divspellcomplaint');
-
-
-
+    
+    removeErrorMessage('feedbacktitle','spanFeedbackTitle' );
+    removeErrorMessage('feedbackcontent','spanFeedbackMessage');
+    
 </script>
     </body>
 

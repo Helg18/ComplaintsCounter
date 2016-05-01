@@ -476,6 +476,7 @@ function registerBusiness() {
                    type: "POST",
                    data:$('#frmSubscription').serialize(), 
                    dataType: 'json',
+                   //timeout: 60000,
                    success:function(data){
                        $("#ajaxiconsubscription").html('');
                        $("#cmdSaveSubscription").removeAttr("disabled");
@@ -500,11 +501,12 @@ function registerBusiness() {
                    type: "POST",
                    data:$('#frmSubscription').serialize(), 
                    dataType: 'json',
+                   //timeout: 60000,
                    success:function(data){
-                       window.top.location = data.approvalurl;
-
+                            window.top.location = data.approvalurl;
                    },
                        error: function(data) {
+                           $("#ajaxiconsubscription").html('');
                            alert('Error procesing payment');
                            console.log(data)
                    }
@@ -994,7 +996,7 @@ function RecoverPassword(){
                         $("#cmdRecoverPassword").removeAttr("disabled");
                         $('#frmReset').trigger("reset");
                         $("#ajaxiconpassword").html('');
-                        $("#pmessages").html('Password update successfully');
+                        $("#pmessages").html('Password Updated Successfully');
                         $('#mgInformacion').modal('show');
                         $("#mgInformacion").on('hidden.bs.modal', function () {
                             window.top.location = 'index.php';
@@ -1056,9 +1058,11 @@ function insertComplaint() {
         alert('You should complete all the steps before broadcast');
         return false;
     }
+    var path = getBaseUrl()+'img/ajax-loader.gif';
+    $("#ajaxiconcomplaintinsert").html('<img src="'+path +'"/>');
     
-      var path = getBaseUrl()+'img/ajax-loader.gif';
-         $("#ajaxiconcomplaint").html('<img src="'+path +'"/>');
+    
+    
          
          //CAPTCHA
          $.ajax({
@@ -1070,6 +1074,7 @@ function insertComplaint() {
                 dataType: 'json',
                 success:function(data){
                     
+                    
                     if (data.success){
                         $.ajax({
                             async:false,
@@ -1080,11 +1085,11 @@ function insertComplaint() {
                             dataType: 'json',
                             success:function(data){
                                 successful = true;
-                               $("#ajaxiconcomplaint").html('');
+                               $("#ajaxiconcomplaintinsert").html('');
                             },
                                 error: function(data) {
                                     console.log(data)
-                                    $("#ajaxiconcomplaint").html('');
+                                    $("#ajaxiconcomplaintinsert").html('');
                                     alert('An error occurred inserting complaint');
                                     successful = false;                        
                             }
@@ -1092,14 +1097,14 @@ function insertComplaint() {
                         });
                     }        
                     else{
-                        $("#ajaxiconcomplaint").html('');
+                        $("#ajaxiconcomplaintinsert").html('');
                         successful = false;       
                         alert('Captcha is not valid!');
                     }
                  
                 },
                     error: function(data) {
-                        $("#ajaxiconcomplaint").html('<img src="'+path +'"/>');
+                        $("#ajaxiconcomplaintinsert").html('<img src="'+path +'"/>');
                         alert('An error occurred with captcha');
                         successful = false;
                         console.log(data)
@@ -1127,7 +1132,11 @@ function cleanComplaintsFields(){
     $("#detailsbusiness").attr("hidden", true);
     $("#raitingvalues").attr("hidden", true);
     $("#nocomplaintsbusiness").attr("hidden", false);
-
+    $("#detailsbusiness").hide();
+    $("#detailsbusiness").hide();
+    $("#divspelltitle").hide();
+    $("#divspellcomplaint").hide();
+    $('input[name="star"]').prop('checked', false);
 }
 
 /**
@@ -1559,7 +1568,6 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
         var postcode = $("#postcode").val();
         var industryid = $("#industrylist").val();
         
-
         
         if (name.length == 0 ){
             errorMessage('spanBusinessNameAdd','Field Business Name should not be blank', true);
@@ -1626,7 +1634,11 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                     }
                 }	
                     
-                        $("#cmdAddBusiness").attr("disabled", "disabled");   
+                $("#cmdAddBusiness").attr("disabled", "disabled");   
+                var path = getBaseUrl()+'img/ajax-loader.gif';
+                $("#ajaxiconaddbusiness").html('<img src="'+path +'"/>');
+                
+        
                         
                         $.ajax({
                         url: 'fun_jq.php',
@@ -1635,12 +1647,13 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                         data: {action: 'addB', name: name, address: address, city: city, countryid: country, phone: phone, email: email, countyid: countyid, website:website, postcode: postcode, industryid:industryid  },
                         dataType: 'json',
                         error: function (data) {
+                        $("#ajaxiconaddbusiness").html('');    
                         alert('Error saving business');
                         console.log(data);
                        },
                        success: function (data) {
                            if (data.success){
-                
+                            $("#ajaxiconaddbusiness").html('');
                             $("#cmdAddBusiness").removeAttr("disabled");
                             $('#myModalB').modal('hide');
                             $("#pmessages").html('Business saved');
@@ -2407,7 +2420,7 @@ function updateNewOrganisation(){
                     $("#namebusiness"+id).html(businessName);
                     $("#addressbusiness"+id).html(address);
                     $('#modalBusiness').modal('hide')
-                    $("#pmessages").html('Update successfully');
+                    $("#pmessages").html('Updated Successfully');
                     $('#mgInformacion').modal('show');
                 },
                     error: function(data) {
@@ -2599,7 +2612,7 @@ function updateEditUser(usertype){
                 dataType: 'json',
                 success:function(data){
                     $(ajaxicon).html(''); 
-                    $("#pmessages").html('Update successfully');
+                    $("#pmessages").html('Updated Successfully');
                     $(modal).modal('hide');
                     $('#mgInformacion').modal('show');
                     
@@ -3100,7 +3113,7 @@ function updateOrganisation(){
                     $('#townorganisation'+id).html(cityName);
                     
                     $('#modalBusiness').modal('hide')
-                    $("#pmessages").html('Update successfully');
+                    $("#pmessages").html('Updated Successfully');
                     $('#mgInformacion').modal('show');
                 },
                     error: function(data) {

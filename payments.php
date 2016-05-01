@@ -94,11 +94,14 @@ if (isset($_GET['action'])){
             $payments->planname = GetPlanName($data['planpaid']);
             $payments->datapost = $data; 
             $payment = $payments->CreateAgreementWithPaypal();
-            if ($payment){ 
+            if (isset($payment->start_date)){ 
                 $approvalurl = $payment->getApprovalLink();
                 $approvalurl = str_replace("\\", "/", $approvalurl);
                 $row['approvalurl'] = $approvalurl;
-            }
+                $row['success'] = true;
+                
+            }else
+                $row = $payment['error'];
             
             /*if ($payment->plan['state'] == "ACTIVE"){
                 $row['success'] = true;
@@ -432,7 +435,7 @@ function ShowPaymentDetails($organisationid){
  */    
 function CheckPendingPayments(){
         $sucess = false;
-        $query = "SELECT a.organisationID, a.nextpaymentdate, a.cardid, a.paidplan, a.amount FROM subscriptions a WHERE a.nextpaymentdate <= CURRENT_DATE ";  
+        $query = "SELECT a.organisationID, a.nextpaymentdate, a.cardid, a.paidplan, a.amount, a.status  FROM subscriptions a WHERE a.status = 'active' and a.nextpaymentdate <= CURRENT_DATE ";  
         $result = phpmkr_query($query);
         if ($result){
             while ($row = $result->fetch_assoc()) {
@@ -554,7 +557,6 @@ return $payment;
 function ExecutePaymentWithPaypal(){
     
 require dirname(__FILE__ ) . '/lib/bootstrap.php';
-//require dirname(__FILE__ ) . '/lib/common.php';
     
 // ### Approval Status
 // Determine if the user approved the payment or not
@@ -607,7 +609,6 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     
    function CreateBillingPlan($data){
         require dirname(__FILE__ ) . '/lib/bootstrap.php';
-        //require dirname(__FILE__ ) . '/lib/common.php';
         
         $fields = "";    
         foreach ($data as $key => $value) {
@@ -644,14 +645,14 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         $plan->setPaymentDefinitions(array($paymentDefinition));
         $plan->setMerchantPreferences($merchantPreferences);
 
-        $request = clone $plan;
+       // $request = clone $plan;
 
         try {
             $output = $plan->create($apiContext);
         } catch (Exception $ex) {
             $row['error'] = $ex;
             return $row;
-            exit(1);
+            
         }
 
            //echo "PLAN CREADO<br>";
@@ -667,6 +668,12 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     function UpdateBillingPlan(){
         require dirname(__FILE__ ) . '/lib/bootstrap.php';
         $createdPlan = $this->CreateBillingPlan($this->datapost); 
+        if (!is_object ($createdPlan)){
+            $row['error'] = $createdPlan['error'];
+            $row['success'] = false; 
+            return  $row;
+        }
+        
         try {
 
             $patch = new Patch();
@@ -688,7 +695,7 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         } catch (Exception $ex) {
             $row['error'] = $ex;
             return $row;
-            exit(1);
+            
           }
 
         return $plan;
@@ -705,6 +712,10 @@ require dirname(__FILE__ ) . '/lib/bootstrap.php';
         date_default_timezone_set('UTC');
 
         $createdPlan = $this->UpdateBillingPlan();
+        if (!isset($createdPlan->update_time)){
+            return false;
+        }
+        
         //yyyy-MM-dd z
         $agreement = new Agreement();
         
@@ -729,18 +740,7 @@ require dirname(__FILE__ ) . '/lib/bootstrap.php';
         $payer->setPaymentMethod('paypal');
         $agreement->setPayer($payer);
 
-        // Add Shipping Address
-        /*$shippingAddress = new ShippingAddress();
-        $shippingAddress->setLine1('111 First Street')
-            ->setCity('Saratoga')
-            ->setState('CA')
-            ->setPostalCode('95070')
-            ->setCountryCode('US');
-        $agreement->setShippingAddress($shippingAddress);*/
-
-        // For Sample Purposes Only.
-        //$request = clone $agreement;
-
+       
         // ### Create Agreement
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
@@ -755,7 +755,7 @@ require dirname(__FILE__ ) . '/lib/bootstrap.php';
         } catch (Exception $ex) {
             $row['error'] = $ex;
             return $row;
-            exit(1);
+            
         }
 
         return $agreement;        

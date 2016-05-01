@@ -144,7 +144,7 @@ table.sortable thead {
                           <table  width="100%" border="0" cellpadding="15" cellspacing="10" class="xxwide sortable">
                               <thead>
                                     <tr id="titles" align="center">
-                                        <th width="5%">date</th>
+                                        <th width="5%">Date</th>
                                         <th width="1%">ID</th>                              
                                         <th width="10%">Business Name</th>
                                         <th width="9%">Address</th>

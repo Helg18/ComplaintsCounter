@@ -488,7 +488,7 @@ class subscription{
  */	    
     public function CheckSubscriptionEmail($email){
         
-        $query ="SELECT count(*) as count FROM users WHERE email = '$email' ";
+        $query ="SELECT count(*) as count FROM users WHERE email = '$email' and status <> 'deleted' ";
         $result = phpmkr_query($query);
         $row = $result->fetch_assoc();
         if ($row['count'] == 0) 
@@ -706,7 +706,7 @@ class subscription{
  * @return array 
  */      
     public function CheckSubscriptionEmailChange($userid, $email){
-        $query ="SELECT count(*) as count FROM users WHERE email = '$email' and  userid <> $userid ";
+        $query ="SELECT count(*) as count FROM users WHERE email = '$email' and  userid <> $userid and status <> 'deleted' ";
         $result = phpmkr_query($query);
         
         $row = $result->fetch_assoc();
@@ -725,7 +725,7 @@ class subscription{
  * @return array 
  */        
     public function EmailForgotPassword($email){
-        $query ="SELECT concat(md5(md5(username)), md5(password)) as hash, email FROM users WHERE trim(email)  = trim('$email') ";
+        $query ="SELECT concat(md5(md5(username)), md5(password)) as hash, userid,  email FROM users WHERE trim(email)  = trim('$email') and status <> 'deleted'";
         $result = phpmkr_query($query);
         
         if ($result){ 
@@ -1191,6 +1191,16 @@ class subscription{
     $query  = " UPDATE users SET status = 'deleted' where userid = $userid ";
     $result = phpmkr_query($query);
     if ($result){
+        $query  = "SELECT businessid FROM users WHERE userid = $userid ";
+        $result = phpmkr_query($query);
+        if ($result){
+            $row = $result->fetch_assoc();
+            if ($row['businessid'] > 0 ){
+                $organisationid = $row['businessid'];
+                $query  = "UPDATE subscriptions SET  status = 'udeleted' WHERE organisationID = $organisationid ";
+                $result = phpmkr_query($query);
+            } 
+        }    
         $success = true;		
     }
     $row['success'] = $success;		

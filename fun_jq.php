@@ -427,12 +427,12 @@ function CreateUser($businessid, $email, $status, $name, $forename = "", $surnam
     require_once('lib/geoplugin.class.php');
     
     $ip = $_SERVER["REMOTE_ADDR"];
-
-    $geoplugin = new geoPlugin();
-    $geoplugin->locate($ip);
     
-    $usercity = $geoplugin->city;
-
+    $usercity = ""; 
+    $location = GetGeolocation($ip);
+    
+    if (!empty($location['cityName']))
+        $usercity = $location['cityName']; 
 
 	$password = generateRandomString();
         $passencr = md5( $password );
@@ -444,7 +444,7 @@ function CreateUser($businessid, $email, $status, $name, $forename = "", $surnam
         $pos = strpos($email, '@');
         $username = substr($email, 0, $pos ); 
 
-        $query  = " SELECT userid, email, status from users where email = '$email'";
+        $query  = " SELECT userid, email, status from users where email = '$email' and status <> 'deleted' ";
         $result = phpmkr_query($query); 
 
         if ($result){
@@ -553,7 +553,7 @@ if ($var_action == "insertcomplaint") {
 if ($var_action == "feedback") {
 	$to = EMAIL;
 	$subject = '';
-	$subject = "FeedBack - ";
+	$subject = "ComplaintBlaster feedback received - ";
 	$txt ="";
 	$name = $_POST['name'];
 	$email = $_POST['email'];
@@ -568,7 +568,7 @@ if ($var_action == "feedback") {
 	if (isset($_POST['title']) && !empty($_POST['title'])) {
 		$subject .= $_POST['title'];
 	} else {
-		$subject = "FeedBack";
+		$subject = "ComplaintBlaster feedback received";
 	}
 
 	if (isset($_POST['content']) && !empty($_POST['content'])) {

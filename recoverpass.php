@@ -37,7 +37,7 @@
                                 <div class = "messagesform"><span id = "spanPasswordRecover" ></span></div>
                            </div>
                    </div>
-					<div id= "ajaxiconpassword" class="ajaxicon" >
+					<div id= "ajaxiconpassword" class="ajaxicon"  style ="margin-left: 20% " >
 										
 					</div>
 				   

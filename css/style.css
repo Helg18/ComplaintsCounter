@@ -2661,6 +2661,7 @@ article.page {
   height:100px;
   position:fixed;
   top:30%;
+  z-index:60 !important;
 }
 
 .ajaxicon img{

@@ -129,7 +129,7 @@
                                 
 			
                                                 <div class="formsubscriber">
-                                                    <div id= "ajaxiconuserbusinessedit" class="ajaxicon" >
+                                                    <div id= "ajaxiconuserbusinessedit" class="ajaxicon" style =" margin-left: 40% " >
 
                                                     </div>
                                                 </div>
@@ -186,7 +186,7 @@
                                             
 			
                                                 <div class="formsubscriber">
-                                                    <div id= "ajaxiconuseredit" class="ajaxicon" >
+                                                    <div id= "ajaxiconuseredit" class="ajaxicon" style =" margin-left: 40% " >
 
                                                     </div>
                                                 </div>

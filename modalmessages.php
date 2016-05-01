@@ -100,7 +100,7 @@
                                             <div class = "messagesform"><span id ="spanPostcodeAdd"></span></div>
                                         </div>
 				</div>                          
-                        
+                               
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">EMAIL</div>
 					<div class = "controlform-inline" >
@@ -116,7 +116,7 @@
                                             <div class = "messagesform"><span id ="spanWebsiteAdd"></span></div>
                                         </div>
 				</div>                          
-                            
+                        <div id= "ajaxiconaddbusiness" class="ajaxicon" style="margin-left: 40%" ></div>         
                         <div class="action_btns" style="text-align: center; padding-top: 10px;" >
                             <input type="submit"  class="btn btn-primary btn-default" name = "cmdAddBusiness" id = "cmdAddBusiness"  value ="Save" onclick="addB()" >
                             <button type="button" class="btn btn-primary" data-dismiss="modal" id = "myBtn" >Cancel</button>

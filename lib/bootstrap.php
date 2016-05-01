@@ -15,19 +15,4 @@ $apiContext = new \PayPal\Rest\ApiContext(
     )
 );
 
-/*
-email parrapariciobusiness@gmail.com
-$clientId = 'AWgW8GwlJtftFOaE0NXHlaVrh135VB4z4alFHkjD0wHAZh7Pm6XWp_AudLVb9hbyOypF_icXY2gu5cV3';
-			 
-$clientSecret = 'EJr0UZrU0k-l69TAOP7G1RQX8hoBWMldd_E7X7L3djO927O7Vv_HaS2Fqd4p7kd6bSyP0cOiVYkm4AXg';
-*/
-
-
-//$clientId = 'Adi-HpErigSXR0SAeUkIQGasvnJPb-zSTtnqXufnXi42tPOCSBpo6AfwPWnUCDPStOPYZNavP1rTMHTV';
-//$clientSecret = 'EHEgXbno96IU5PjM3IPdC8ikF0dpNcswvWlZLf6Y1R40ZuztB3je6mAG0chRFLkmLVIC-Ove4MTMKcGI';
-		/*works
-        $clientId =  'AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS',
-        $clientSecret = 'EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL'
-         * 
-         */
 		

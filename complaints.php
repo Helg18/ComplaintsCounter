@@ -462,25 +462,25 @@ $sSql.= $orderby;
 							$comilla = '"';
 							$gotowebsite =" <a href='#' class='linkclean' onclick='alert(".$comilla."The company not has website registered.".$comilla."); return false;'>".$row_rs['CompanyName']."</a>";
 						}
-/**
- * No complaints registered.
- */						
+                                        /**
+                                         * No complaints registered.
+                                         */						
 					$without ="
-	<div align='center' style='width:100%; text-align:center; float:left;'>
-		<div class='well-small-no-complaint'>
-                        <div style = 'margin-top: 10px' >
-			".$showlogo."
-                        </div>    
-			<div align='center'>
-        		<div>
-		          <div align='center' class='show-details-full-complaints'>
-		            <p class='name-business-review-avg' style='text-align:center; float: left; width:100%' id='BusinessComplainer'> ".$gotowebsite."</p>
-		          </div>
-        		</div> <!--end review-info-->
-          		<p align='center' style='font-size:14px; float: left; width:100%'>No registered complaints. </p>
-  			</div> <!--end review-->
-		</div>
-	</div>";
+                                            <div align='center' style='width:100%; text-align:center; float:left;'>
+                                                    <div class='well-small-no-complaint'>
+                                                            <div style = 'margin-top: 10px' >
+                                                            ".$showlogo."
+                                                            </div>    
+                                                            <div align='center'>
+                                                            <div>
+                                                              <div align='center' class='show-details-full-complaints'>
+                                                                <p class='name-business-review-avg' style='text-align:center; float: left; width:100%' id='BusinessComplainer'> ".$gotowebsite."</p>
+                                                              </div>
+                                                            </div> <!--end review-info-->
+                                                            <p align='center' style='font-size:14px; float: left; width:100%'>No registered complaints. </p>
+                                                            </div> <!--end review-->
+                                                    </div>
+                                            </div>";
 				}
 
 		}
@@ -1192,11 +1192,11 @@ public function DeleteUploadFile($filename){
     $body = "Date:" .$date."\r\n\r\n";
     $body .="Dear Sir or Madam,\r\n\r\n";
 
-    $body .="ComplaintBlaster is a web site that empowers customers. It not only lists customer business complaints, but also disseminates them across numerous websites focusing on those visited most frequently by customers of that business. This increases a customer’s complaint visibility and ensures future customers are made aware of concerns raised by previous customers. \r\n\r\n"; 
-    $body .="The ultimate aim is to help businesses improve their products and services and deliver on their promises. A happy customer will come back again and again. It’s a win-win for everyone. \r\n\r\n";
+    $body .="ComplaintBlaster is a web site that empowers customers. It not only lists customer business complaints, but also disseminates them across numerous websites focusing on those visited most frequently by customers of that business. This increases a customer's complaint visibility and ensures future customers are made aware of concerns raised by previous customers. \r\n\r\n"; 
+    $body .="The ultimate aim is to help businesses improve their products and services and deliver on their promises. A happy customer will come back again and again. It's a win-win for everyone. \r\n\r\n";
     $body .="In this context, we are therefore sorry to inform you that we have received a complaint (shown below) regarding your business. The customer has asked us to post their complaint on 50 plus websites within the next 5 days. \r\n\r\n";
     $body .="You have the opportunity to turn this customer from a detractor to a supporter by registering with our site. We will provide you with a dashboard that allows you to communicate with the customer as well as any future complainants. If you cannot resolve the complaint with the customer, we can help you reach a resolution by reviewing the communication and making a final decision. \r\n\r\n"; 
-    $body .="We recommend you try to understand what went wrong from the customer’s perspective and how they want things put right. We understand this can take time, however it does make the customer feel valued and often that is enough for them to retract their complaint. \r\n\r\n"; 
+    $body .="We recommend you try to understand what went wrong from the customer's perspective and how they want things put right. We understand this can take time, however it does make the customer feel valued and often that is enough for them to retract their complaint. \r\n\r\n"; 
     $body .="Alternatively, you can simply let us have your reply to the complaint below via email and we will review and make a decision whether to disseminate the complaint or request the user retract it. Our decision in this case will be final and is binding. \r\n\r\n";
     $body .="Finally, whichever way you choose to deal with the issue, via our dashboard or by email, we look forward to hearing from you soon. \r\n\r\n";
     $body .="Best Regards, \r\n\r\n";

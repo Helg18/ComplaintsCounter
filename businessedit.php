@@ -22,7 +22,7 @@
 	
                                 <div class="modal-body" style="float:left; width: 100%">                            
                                     
-                                        <form  role="form" method="post" name="frmSubscription" id="frmSubscription" accept-charset="utf-8" style="text-align:left;" >
+                                        <form  role="form" method="post" onsubmit = "return false;" name="frmSubscription" id="frmSubscription" accept-charset="utf-8" style="text-align:left;" >
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">BUSINESS NAME*</div>
                                                         <div class = "controlform" >
@@ -161,6 +161,14 @@
 	?>
   
 <script>
+    
+    $("#modalBusiness").keydown(function (event) {
+        if (event.keyCode == 13) {
+             $('#cmdUpdateOrganisation').click();
+            return true;
+        }
+    });
+    
     	
 $( document ).ready(function() {
     removeErrorMessage('txtWebsite', 'spanWebsite');
