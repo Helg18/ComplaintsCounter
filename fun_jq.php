@@ -352,7 +352,7 @@ if ($var_action == "activateuser") {
 	$newpass = md5($pass);
         $token = $_POST['token'];
         
-	$sSql = "SELECT email, password, userid FROM users where email = '$email';";
+	$sSql = "SELECT email, password, userid FROM users where email = '$email' and status <> 'deleted';";
 	$rs = phpmkr_query($sSql);
         if ($rs){
             $row = $rs->fetch_assoc();

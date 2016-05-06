@@ -133,7 +133,6 @@ $title = "Terms of use";
                 <p>                    
                 11.1 These Terms are governed by English law. The English courts shall have exclusive jurisdiction over any dispute relating to these Terms.
                 </p>
-                <p><a href="javascript:window.top.location = 'index.php'" >Go to Index</a></p>
 	</div>
 
 </div>

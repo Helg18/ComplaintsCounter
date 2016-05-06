@@ -13,7 +13,6 @@ $title = "How it works";
                 <p>3.	If the user confirms the email address, then we post the complaint onto our site and multiple websites (and email the business in question) within twenty four hours, or within five days depending on the option chosen by the user.</p>
                 <p>4.	If the user chose the five day option and the business replies within the five days, this reply will be forwarded to the user. At any time before the end of the five days the user can withdraw the complaint.</p>
                 <p>5.	The user confirms their complaint is true to the best of their knowledge.</p>
-                <p><a href="javascript:window.top.location = 'index.php'" >Go to Index</a></p>
             </div>
         </div>
     

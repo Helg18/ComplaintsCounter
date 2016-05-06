@@ -26,8 +26,8 @@
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">BUSINESS NAME*</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtBusinessName" id="txtBusinessName" class="inputform" >
-                                                                <div class = "messagesform"><span id = "spanBusinessName" ></span></div>
+                                                                <input type = "text" name="txtBusinessName" id="txtBusinessName" class="inputform"  maxlength="59" >
+                                                                <div class = "messagesform"><span id = "spanBusinessNameEdit" ></span></div>
                                                         </div>
                                                 </div>
 
@@ -44,7 +44,7 @@
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">STREET ADDRESS</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtStreet" id="txtStreet" class="inputform" >
+                                                                <input type = "text" name="txtStreet" id="txtStreet" class="inputform" maxlength="59">
                                                                 <div class = "messagesform"><span id = "spanStreetregister" ></span></div>
                                                         </div>
                                                 </div>
@@ -86,7 +86,7 @@
                                                 <div class="formsubscriber2col">
                                                         <div class = "labelform">POSTAL CODE</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtPostal" id="txtPostal" class="inputform">
+                                                                <input type = "text" name="txtPostal" id="txtPostal" class="inputform" maxlength="8">
                                                                 <div class = "messagesform"><span id = "spanPostalregister" ></span></div>
                                                         </div>
                                                 </div>
@@ -103,14 +103,14 @@
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">CONTACT NAME</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtContactName" id="txtContactName" class="inputform" >
+                                                                <input type = "text" name="txtContactName" id="txtContactName" class="inputform" maxlength="128">
                                                         </div>
                                                 </div>
 
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">CONTACT EMAIL*</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtContactEmail" id="txtContactEmail" class="inputform" onblur= "SubscriptionEmailChange()">
+                                                                <input type = "text" name="txtContactEmail" id="txtContactEmail" class="inputform" onblur= "SubscriptionEmailChange()" maxlength="100">
                                                                 <div class = "messagesform"><span id = "spanContactEmail" ></span></div>
                                                         </div>
                                                 </div>
@@ -118,7 +118,7 @@
                                                 <div class="formsubscriber2col">
                                                         <div class = "labelform">TELEPHONE</div>
                                                         <div class = "controlform" >
-                                                            <input type = "text" name="txtPhone" id="txtPhone" class="inputform">					
+                                                            <input type = "text" name="txtPhone" id="txtPhone" class="inputform" maxlength="15">					
                                                             <div class = "messagesform"><span id = "spanPhoneregister" ></span></div>
                                                         </div>
                                                 </div>
@@ -126,7 +126,7 @@
                                                 <div class="formsubscriber2col">
                                                         <div class = "labelform">WEBSITE</div>
                                                         <div class = "controlform" >
-                                                            <input type = "text" name="txtWebsite" id="txtWebsite" class="inputform">
+                                                            <input type = "text" name="txtWebsite" id="txtWebsite" class="inputform" maxlength="59">
                                                             <div class = "messagesform"><span id = "spanWebsite" ></span></div>
                                                         </div>
                                                 </div>
@@ -171,6 +171,8 @@
     
     	
 $( document ).ready(function() {
+    removeErrorMessage('txtBusinessName', 'spanBusinessName');
+    removeErrorMessage('txtWebsite', 'spanWebsite');
     removeErrorMessage('txtWebsite', 'spanWebsite');
     removeErrorMessage('txtContactEmail', 'spanContactEmail');
     removeErrorMessage('txtStreet', 'spanStreetregister');

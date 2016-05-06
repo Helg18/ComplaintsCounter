@@ -17,8 +17,8 @@
       <div style="padding-top: 17.5px; margin-bottom:27.5px;">
           <div class="gridContainer clearfix content-with-footer">
               <h1 align="center" class="footer">Feeling <em>dissatisfied</em>?</h1>
-              <h3 align="center" class="medium deslis-top">Receiving a poor product or lousy service is never nice. Let’s get the company to put it right; if they refuse, well, let’s tell the whole world about it. Posting a complaint far and wide on the web often gets businesses to see sense…</h3>
-              <p class="buttons"><a id = "cmdLetsgo" href="#who" class="button button-next" onclick="businessnamefocus();"><span>Let’s go</span></a></p>
+              <h3 align="center" class="medium deslis-top">Receiving a poor product or lousy service is never nice. Let's get the company to put it right; if they refuse, well, let's tell the whole world about it. Posting a complaint far and wide on the web often gets businesses to see sense...</h3>
+              <p class="buttons"><a id = "cmdLetsgo" href="#who" class="button button-next" onclick="businessnamefocus();"><span>Let's go</span></a></p>
           </div>
       </div>
         <footer id="secondfooter" style="width: 100%;">
@@ -32,11 +32,11 @@
     <div class="section_article">
       <div id="who" class="content content-with-progress section_page">
         <div>
-            <h2 >What’s the company you want to complain about?</h2>
+            <h2 >What's the company you want to complain about?</h2>
             <label class="instruction">just let us have their business name</label>
         </div>
         
-        <div style="width:100%;float:left; height: auto; margin-bottom: 10px;">
+        <div style="width:100%;float:left; height: auto; margin-bottom: 10px;" >
           
             <form onsubmit="return false;" class="no-submit team-members business-name wide ng-pristine ng-valid inputindex " style="width:100%; "  >
               <input
@@ -54,19 +54,21 @@
               <label class="instruction" id="msg-error-businessname" style="float: left; width:100%; text-align: center;">Business name</label>
             </form>
             <input id="exist" value="" type="hidden">
-            <input id="industryid" name = "industryid" value="" type="hidden">
-            <p class="buttonson">
+            <input id="industryid" name = "industryid" value="" type="hidden" >
+            
+            <div class="buttonson" >
               <a href= "#" onclick="showAddBusiness(); return false;" id="addBusiness" class="button button-large button-next" alt="Register a new business">
                 <span>Add Business</span>
               </a>
-            </p>
+            </div>
+            
        </div>
 
           <!-- details rating -->
           
           <div style ="float:left; width: 100%; margin-left: 9%;" class ="detailspadding" >
             <div id="detailsbusiness" hidden="true"  >
-                  <div id="ratingstatus" class="responsive">    
+                  <div id="ratingstatus" class="responsive" >    
                     <span id="AddressBusinessReputation"></span>
                     <span id="Address2BusinessReputation"></span>
                     <span id="TwonBusinessReputation"></span>
@@ -96,28 +98,27 @@
                   </div>
               
             </div>
-        
-            <div class = "responsive" >
-                <p>
-                    <a
-                          tabindex="2"
-                          onclick="return validationbusiness();"
-                          id="nextOne" 
-                          href="#what"
-                          class="button button-next">
-                          <span>Next</span>
-                      </a>
-               </p>
+        </div>                    
+            <div class = "positionnextadd" > 
+                <div class = "responsive">
+                    <p>
+                        <a
+                              tabindex="2"
+                              onclick="return validationbusiness();"
+                              id="nextOne" 
+                              href="#what"
+                              class="button button-next">
+                              <span>Next</span>
+                          </a>
+                   </p>
+                </div> 
             </div>    
-              
-              </div>
-      
     </div>
 
     <div class="section_article">
         <div id="what" class="content content-with-progress section_page" >
             <div>
-                <h2>What’s the title of your complaint?</h2>
+                <h2>What's the title of your complaint?</h2>
                 <label class="instruction">KEEP IT BRIEF AND MEANINGFUL</label>
             </div>
             <div class="forms">
@@ -136,7 +137,7 @@
                    onkeyup="countChar(this, 50, charNum1, ' chars')" >
                    
                    <label id="whatsyourcomplaints" class="instruction">Describe your complaint in a sentence <label style="color:red;">&nbsp;*</label><div id="charNum1" style="padding-top:-10px;  text-align:right; width:15%; font-weight:600; float:right">50 chars</div></label> 
-                   <div id = "divspelltitle" class="checkspellcontainer checkspelltitle"  style = "margin-top: -22px;"><a id = "spellchecktitle" class="checkspell" href="javascript:checkSpell()"><img src = "img/spellcheck.png" class = "imgspell" >Check Spelling</a></div>
+                   <div id = "divspelltitle" class="checkspellcontainer checkspelltitle"  style = "margin-top: -22px;"><a id = "spellchecktitle" class="checkspell" href="javascript:checkSpell()"><div style = "float:left;"><img src = "img/spellcheck.png" class = "imgspell" ></div>Check Spelling</a></div>
                 </form>
             </div>
             <div style="width: 100%; text-align: center; float: left;">
@@ -156,7 +157,7 @@
       <div id="complainer" class="content content-with-progress section_page" >
         <div>
           <h2>What is your name and email address?</h2>
-          <label class="instruction">We’ll need this to create your account and send you replies </label>
+          <label class="instruction">We'll need this to create your account and send you replies </label>
         </div>
           <div class="forms" >
           <form id="frmcomplainer" class="no-submit team-members wide ng-pristine ng-valid">
@@ -206,7 +207,7 @@
 <div class = "section_article " style="margin-top:80px;" style="align:center;">
     <div id="description" class="content content-with-progress section_page">
             <div>
-                <h2>Tell us about your complaint in more detail…</h2>
+                <h2>Tell us about your complaint in more detail...</h2>
             </div>
             <div class="boxsection">
                 <div class = "descriptioncontainer" >
@@ -220,9 +221,7 @@
                 <div id="charNum" style="padding-top:10px; float:right; width:auto; font-weight:bold; font-size: 14px;" >2500 characters remaining</div>
                 
                 
-                
-                
-                    <div id = "divspellcomplaint" class="checkspellcontainer" ><a id = "spellcheckcomplaint" class="checkspell" href="javascript:checkSpellComplaint()" ><img src = "img/spellcheck.png" style="float:left; width: 20px">Check Spelling</a></div>    
+                    <div id = "divspellcomplaint" class="checkspellcontainer" ><a id = "spellcheckcomplaint" class="checkspell" href="javascript:checkSpellComplaint()" ><div style = "float:left;"> <img src = "img/spellcheck.png" style="float:left; width: 20px">Check Spelling</div></a></div>    
                     <div id="imcompletecomplaints" style="float:left; width: 100%; background: green; font-size:14px; visibility: hidden;"></div>
                 
 
@@ -359,14 +358,14 @@
 
             <div class = "section_article">
                 <div id="done"  class="content section_page" >
-                    <h2 id="msgfinal" class="wide ng-binding">We’ll send your complaint to <em id='doneb'>Business</em> and email you once they reply
+                    <h2 id="msgfinal" class="wide ng-binding">We'll send your complaint to <em id='doneb'>Business</em> and email you once they reply
                         <br><br>
                         In the meanwhile feel free to explore reviews others have left...
                     </h2>
                     <div class="fine-print small">
                         <a href="explore.php" class="edit-answers" tabindex="20"><i class="back-arrow"></i>Explore Complaints</a>
                         <a href="index.php#who" class="edit-answers" tabindex="21"><i class="back-arrow"></i>Another Complaint</a>
-                        <a href="#" class="edit-answers" tabindex="21" data-toggle="modal" onclick="showFeedBack()"><i class="back-arrow"></i>FeedBack</a>
+                        <a id = "feedbacklink" href="#" class="edit-answers" tabindex="21" data-toggle="modal" onclick="showFeedBack()"><i class="back-arrow"></i>FeedBack</a>
                     </div>
                 </div>
             </div>
@@ -395,22 +394,22 @@
     </div>
   </div>
 </div>
-
   <!-- End feedback -->
 
             &nbsp;
-          <footer id="footer-scroll" style = "position:fixed; " >
-            <p class="terms"><a href="explore.php" target="_self" class="button-small smaller-button">Explore Complaints</a>
-            <p class="terms"><a href="howitworks.php" target="_self" class="button-small smaller-button">How it Works</a>
-            <p class="terms"><a href="termsofuse.php" target="_self" class="button-small smaller-button">Terms of use</a></p>
-            <p class="terms"><a href="contact.php" target="_self" class="button-small smaller-button">Contact Us</a></p>
+          <footer id="footer-scroll" style = "position:fixed;" >
+                <div class="footer_items footer_items_1"><a href="explore.php" target="_self"><p class = "footer_p">Explore Complaints<p></a></div>
+                <div class="footer_items"><a href="howitworks.php" target="_self"><p class = "footer_p">How it Works</p></a></div>
+                <div class="footer_items"><a href="termsofuse.php" target="_self"><p class = "footer_p">Terms of use<p></a></div>
+                <div class="footer_items"><a href="contact.php" target="_self"><p class = "footer_p">Contact Us<p></a></div>
           </footer>
 
         </div><!-- end body-->
         
 </div>
-
+        <input type = "hidden" id = "allvalid" value = 0>
         <script>
+            
             
             function showFeedBack(){
                 if ( $("#email_conf").val().length == 0 || $("#name_config").val().length == 0){
@@ -546,12 +545,11 @@
 
 function feedBackSumbitEnable(){
     
-    if ( $("#feedbacktitle").val().length == 0 ) {
+    if ( checkIfBlank('feedbacktitle') ) {
          errorMessage('spanFeedbackTitle','Field Subject should not be blank', true);
          return false;
     } 
-    
-    if ( $("#feedbackcontent").val().length == 0 ) {
+    if ( checkIfBlank('feedbackcontent') ) {
          errorMessage('spanFeedbackMessage','Field Message should not be blank', true);
          return false;
     } 
@@ -896,6 +894,7 @@ function gpluspassclean()
               {
                 $("#msgerrorsend").html('You must confirm this.');
                 $("#msgerrorsend").addClass('error-messages ng-active');
+                    $("#confirmterm").focus();
               }
               return flag;
             }
@@ -920,9 +919,10 @@ function gpluspassclean()
                
                 if (businessname != "" && businessname != 'undefined' && idOption != "") {
                     $("#nextOne").attr("href", "#what");
-                    setTimeout(function (){
-                      $("#myComplaints").focus();
-                    }, 100);
+                    if (allvalid == false)
+                        setTimeout(function (){
+                                $("#myComplaints").focus();
+                        }, 100);
                     return true;
                 } else {
                     $('#msg-error-businessname').html("Please, complete this field.");
@@ -950,15 +950,15 @@ function validatemail()
   var flag = true;
 
       $("#buttomnextdescomplainer").attr("href", "#");
-        name = $("#name_config").val();
-        if (name.length ==0) {
+        name = $("#name_config").val().trim();
+        if (checkIfBlank('name_config')) {
             $('#namecomplainer').html('Enter your name');
             $('#namecomplainer').addClass('error-messages ng-active');
             flag = false;
         }
         
-        email = $("#email_conf").val();
-        if (email.length ==0){
+        
+        if (checkIfBlank('email_conf')) {
             $('#emailcomplainer').html('Enter your email address');
             $('#emailcomplainer').addClass('error-messages ng-active');
             flag = false;    
@@ -985,12 +985,21 @@ function validatemail()
                 $('#emailcomplainer').addClass('error-messages ng-active');
                 return false;    
             }
+            email = $("#email_conf").val();  
+            pattern = validEmail(email);
+            if (!pattern){
+                errorMessage('emailcomplainer', 'Email is not valid', true);
+                return false;
+            }
+            
+            
         }
         if (flag){
             $("#buttomnextdescomplainer").attr("href", "#description"); 
-            setTimeout(function (){
-            $('#complaintscomplete').focus();
-           }, 100);
+            if (allvalid == false)
+                setTimeout(function (){
+                        $('#complaintscomplete').focus();
+               }, 100);
             
             
             return true;
@@ -1051,7 +1060,7 @@ function validatemail()
                 AtD.restoreTextArea('myComplaints');
                 $("#nextMyComplaints").attr("href","#");
 
-                if ($("#myComplaints").val()=='' || $("#myComplaints").val()==null) {
+                if ($("#myComplaints").val().trim() === '' || $("#myComplaints").val()==null) {
                     $('#whatsyourcomplaints').html('Please, complete this field.');
                     $('#whatsyourcomplaints').addClass('error-messages ng-active');
                     flag = false;
@@ -1063,9 +1072,10 @@ function validatemail()
                         $("#nextMyComplaints").attr("href","#description");
                     }else
                         $("#nextMyComplaints").attr("href","#complainer");
-                        setTimeout(function (){
-                          $("#name_config").focus();
-                        }, 100);
+                        if (allvalid == false)
+                            setTimeout(function (){
+                                    $("#name_config").focus();
+                            }, 100);
                     flag = true;
                 }
                 return flag;
@@ -1132,71 +1142,76 @@ function generalnotice(){
   AtD.restoreTextArea('myComplaints');
   AtD.restoreTextArea('complaintscomplete');
   
-
  $("#gotodone").attr("href", "#");
+ 
+ allvalid = true;
+ flag6 = confirmterm();
+  if (!flag6){ 
+      
+    $("#confirmterm").focus();
+    return false;
+  }    
   
-  cleangeneralnotice();
   flag1 = validationbusiness();
+  
+  if (!flag1){ 
+    $("#cmdLetsgo").get(0).click();
+      return false;
+   } 
+   
   flag2 = whatsyourcomplaints();
+  if (!flag2){ 
+    $("#nextOne").get(0).click();
+    return false;
+  }
   flag3 = validatemail();
+  if (!flag3){ 
+    $("#myComplaints").get(0).click();
+    return false;
+  }
   flag4 = fullcomplaints();
+  
+  if (!flag4){ 
+    $("#nextMyComplaints").get(0).click();
+    return false;
+  }
+  
   flag5 = validatebigstar();
-  flag6 = confirmterm();
-  
-  
-  if (flag1 == false || flag2 == false || flag3 == false || flag4 == false || flag5 == false || flag6 == false ) {
+  if (!flag5){ 
+    $("#tellfullcomplaints").get(0).click();
+    return false;
+  }  
+ 
+ 
+  cleangeneralnotice();
+ 
+  if (flag1 == false || flag2 == false || flag3 == false || flag4 == false || flag5 == false || flag6 == false) {
             $("#generalnotice").html('Please complete all fields...');
             $('#generalnotice').addClass('error-messages ng-active');
             flag = false;
   }
   else
   {
-           
-            var doneb = $('#businessname').val();
+           allvalid = false;
+            
             var success = insertComplaint();
-            console.log(success)
-            if (success){ 
+            /*if (success){ 
+                var doneb = $('#businessname').val();
                 $("#gotodone").attr("href", "#done");
                 cleanComplaintsFields();
                 $('#doneb').html(doneb);
                 grecaptcha.reset();
                 flag=true;
+                return true;
             }else{
                 $("#gotodone").attr("href", "#send");
                 flag = false;
-            }
+                
+            }*/
   }
   
-  if (!flag1){ 
-    $("#cmdLetsgo").get(0).click();
-      return flag1;
-   }
-
-  if (!flag2){ 
-    $("#nextOne").get(0).click();
-    return flag2;
-  }
   
-  if (!flag3){ 
-    $("#myComplaints").get(0).click();
-    return flag3;
-  }
-
-  if (!flag4){ 
-    $("#nextMyComplaints").get(0).click();
-    return flag4;
-  }
-  
-  if (!flag5){ 
-    $("#tellfullcomplaints").get(0).click();
-    return flag5;
-  }  
-  
-  if (!flag6){ 
-    $("#nexttargetsites").get(0).click();
-    return flag6;
-  }    
-  
+  allvalid = false;
   return flag;
 }
 

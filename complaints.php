@@ -1103,7 +1103,8 @@ $sSql.= $orderby;
  * @return array
  */		
  public function InsertResponse($complaintid,$from, $to, $response, $file="", $complainttitle = ""){
-     
+    $message = addslashes($response); 
+    
     $attachmentid = 0;      
     if (!empty($file)){
         $file = str_replace("\\", "/", $file);
@@ -1116,7 +1117,7 @@ $sSql.= $orderby;
     
     $success = false;
     $query  = " INSERT INTO correspondence (`from`, `to` ,`date`, `message`, `attachmentsid`, `complaintsid`) ";
-    $query .= " VALUES ('$from','$to', CURRENT_TIMESTAMP,'$response', $attachmentid, $complaintid)";
+    $query .= " VALUES ('$from','$to', CURRENT_TIMESTAMP,'$message', $attachmentid, $complaintid)";
     
     $subject = "Re: ". $complainttitle;    
     $message = $response;    

@@ -27,9 +27,10 @@ $title = "Contact us";
 				</div>
 
 				<div class="formsubscriber">
-					<div class = "labelform">SUBJECT</div>
+					<div class = "labelform">SUBJECT *</div>
 					<div class = "controlform" >
 						<input type = "text" name="txtSubjectContact" id="txtSubjectContact" class="inputform" alt="Enter a subject of contact">
+                                                <div class = "messagesform"><span id = "spanSubjectContact" ></span></div>
 					</div>
 				</div>
 
@@ -48,7 +49,7 @@ $title = "Contact us";
                                 </div>
 			</div>
 
-			<div class="formsubscriber" style = "text-align:center">
+			<div class="formsubscriber" style = "text-align:center; margin-bottom: 50px">
 			   <p class="" onclick = "contactUs()" ><a id = "cmdContact" href="#who" class="button button-next"><span>Submit</span></a></p>
 			</div>
 		 </form>  
@@ -66,6 +67,7 @@ $title = "Contact us";
     removeErrorMessage('txtNameContact', 'spanNameContact');
     removeErrorMessage('txtEmailContact', 'spanEmailContact');
     removeErrorMessage('txtMessage', 'spanMessageContact');
+    removeErrorMessage('txtSubjectContact', 'spanSubjectContact');
 </script>    
 </body>
 </html>

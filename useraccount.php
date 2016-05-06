@@ -32,7 +32,7 @@ $title ="User Account";
                   <div class="formsubscriber">
                       <div class = "labelform">NAME*</div>
                       <div class = "controlform" >
-                          <input type = "text" name="txtUserUsername" id="txtUserUsername" class="inputform" value ="<?php echo $subscription['name'] ?>" >
+                          <input type = "text" name="txtUserUsername" id="txtUserUsername" class="inputform" value ="<?php echo $subscription['name'] ?>" maxlength="50"> >
                           <div class = "messagesform"><span id = "spanUsername" ></span></div>
                       </div>
                   </div>
@@ -40,7 +40,7 @@ $title ="User Account";
                   <div class="formsubscriber">
                        <div class = "labelform">EMAIL*</div>
                        <div class = "controlform" >
-                          <input type = "text" name="txtUserEmail" id="txtUserEmail" class="inputform" value ="<?php echo $subscription['email'] ?>" onblur ="UserEmailChange()" >
+                          <input type = "text" name="txtUserEmail" id="txtUserEmail" class="inputform" value ="<?php echo $subscription['email'] ?>" onblur ="UserEmailChange()" maxlength="100"> >
                            <div class = "messagesform"><span id = "spanUserEmail" ></span></div>
                       </div>
                   </div>
@@ -48,7 +48,7 @@ $title ="User Account";
                   <div class="formsubscriber">
                        <div class = "labelform">CITY</div>
                        <div class = "controlform" >
-                          <input type = "text" name="txtCity" id="txtCity" class="inputform" value ="<?php echo $subscription['usercity'] ?>" >
+                          <input type = "text" name="txtCity" id="txtCity" class="inputform" value ="<?php echo $subscription['usercity'] ?>" maxlength="40">>
                       </div>
                   </div>
 

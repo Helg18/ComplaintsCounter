@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">
     <head>
+        
         <meta name="google-site-verification" content="2ORbV--wXiCjJ2V9ahJglzqj0ws7mer6WjUNfRm7RQk" />
         <!-- Force latest IE rendering engine or ChromeFrame if installed -->
         <!--[if IE]>
@@ -44,6 +45,20 @@
         <script>
             //SearchCountryIp() 
         </script>
+        
+        <noscript>
+                        <div id="thank" class="page fine-print smallhead section_article"  >
+				<p style="text-align: center;">
+					<img src="img/cancel.png" 
+					alt="" width="128" align="center" 
+					height="128" 
+					style="margin-left: auto; margin-right: auto; text-align:center;"/>
+				</p>
+				<div style="text-align: center;" >
+					<p style="text-align: center;" align="center">JavaScript is turned off in your web browser. Turn it on to take full advantage of this site.</p>
+				</div>
+			</div>        
+        </noscript>        
     </head>
   
 <?php 
@@ -84,7 +99,6 @@
        if ($_SESSION['usertype'] == 'a'){
             $dashboard = "DASHBOARD";
        }
-       
    }
    
    if (isset($_COOKIE['remember_me']))
@@ -129,7 +143,7 @@
         </div>
         
 <header>
-<div class = "main_header">
+<div class = "main_header" style = "border: solid 0px #000; padding-right: 3%" >
     <div class = "header_nav header_logo" style="border: solid 0px #000;">
             <div class = "logo" >
                 <a href = "index.php">
@@ -154,7 +168,7 @@
 
     </div>
     
-    <div class= "header_right"  style="border: solid px #000 ">    
+    <div class= "header_right"  style="border: solid 0px #000">    
     <?php 
       if (!$menuloginhidden){
     ?>      
@@ -266,7 +280,7 @@ function validatelogin(){
   var userlogin = $("#txtUsername").val();
   var passwordlogin = $("#txtPassword").val();
  
-  if (userlogin.length < 3 && passwordlogin < 7) {
+  if (userlogin.length == 0 || passwordlogin == 0) {
     //$("#txtUsername").attr("style", "border-color:#ff0000");    
     //$("#txtPassword").attr("style", "border-color:#ff0000");
     $("#spanmsg").html('Enter your credentials here...');

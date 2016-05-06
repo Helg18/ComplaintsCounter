@@ -44,7 +44,7 @@
 				<div class="formsubscriber">
 					<div class = "labelform">BUSINESS NAME*</div>
 					<div class = "controlform" >
-						<input type = "text" name="txtBusinessName" id="txtBusinessName" class="inputform" value ="<?php echo $subscription['businessname'] ?>" >
+						<input type = "text" name="txtBusinessName" id="txtBusinessName" class="inputform" value ="<?php echo $subscription['businessname'] ?>" maxlength="59"> >
 						<div class = "messagesform"><span id = "spanBusinessName" ></span></div>
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 				<div class="formsubscriber">
 					<div class = "labelform">STREET ADDRESS*</div>
 					<div class = "controlform" >
-						<input type = "text" name="txtStreet" id="txtStreet" class="inputform" value ="<?php echo $subscription['address'] ?>" >
+						<input type = "text" name="txtStreet" id="txtStreet" class="inputform" value ="<?php echo $subscription['address'] ?>" maxlength="59"> >
                                                 <div class = "messagesform"><span id = "spanStreetRegister"></span></div>
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 				<div class="formsubscriber2col">
 					<div class = "labelform">POSTAL CODE</div>
 					<div class = "controlform" >
-						<input type = "text" name="txtPostal" id="txtPostalRegister" class="inputform" value ="<?php echo $subscription['postalcode'] ?>">
+						<input type = "text" name="txtPostal" id="txtPostalRegister" class="inputform" value ="<?php echo $subscription['postalcode'] ?>" maxlength="8">>
                                                 <div class = "messagesform"><span id = "spanPostalregister"></span></div>
 					</div>
 				</div>
@@ -130,7 +130,7 @@
 				<div class="formsubscriber">
 					<div class = "labelform">CONTACT EMAIL*</div>
 					<div class = "controlform" >
-						<input type = "text" name="txtContactEmail" id="txtContactEmail" class="inputform" onblur= "SubscriptionEmailChange()" value ="<?php echo $subscription['contactemail'] ?>">
+						<input type = "text" name="txtContactEmail" id="txtContactEmail" class="inputform" onblur= "SubscriptionEmailChange()" value ="<?php echo $subscription['contactemail'] ?>" maxlength="100"> >
 						<div class = "messagesform"><span id = "spanContactEmail" ></span></div>
 					</div>
 				</div>
@@ -138,7 +138,7 @@
 				<div class="formsubscriber2col">
 					<div class = "labelform">TELEPHONE</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtPhone" id="txtPhone" class="inputform" value = "<?php echo $subscription['TelephoneNumber'] ?>">					
+                                            <input type = "text" name="txtPhone" id="txtPhone" class="inputform" value = "<?php echo $subscription['TelephoneNumber'] ?>" maxlength="15">>					
                                             <div class = "messagesform"><span id = "spanPhoneregister"></span></div>
 					</div>
 				</div>
@@ -146,7 +146,7 @@
 				<div class="formsubscriber2col">
 					<div class = "labelform">WEBSITE</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtWebsite" id="txtWebsite" class="inputform" value = "<?php echo $subscription['WebsiteAddress'] ?>">
+                                            <input type = "text" name="txtWebsite" id="txtWebsite" class="inputform" value = "<?php echo $subscription['WebsiteAddress'] ?>" maxlength="59">>
                                         </div>
 				</div>
   	    </div>
@@ -189,6 +189,7 @@
     fillDropdownRegions('townlistregister', 'town',$("#town").val());
     fillDropdownOrganisationIndustries('industrylistregister', $("#industryid").val());
     
+    removeErrorMessage('txtBusinessName', 'spanBusinessName');
     removeErrorMessage('txtStreet', 'spanStreetRegister');
     removeErrorMessage('txtPhone', 'spanPhoneregister');
     removeErrorMessage('txtPostalRegister', 'spanPostalregister');    

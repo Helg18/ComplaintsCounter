@@ -1,5 +1,6 @@
 var arrayautocomplete = new Array();
 var arrayautocompleteid = new Array();
+var allvalid = false;
 
 /** 
  * Trim a text
@@ -256,7 +257,23 @@ function validatephone(number){
     return phone.test(number);
 }
 
+/**
+ * Function validate field check if a field is blank
+ * @param selector id
+ * return boolean    
+ */
 
+function checkIfBlank(selector){
+    var blank = false;
+    selector = selector.replace('#', ''); 
+    selector = '#'+selector;
+    value = $(selector).val().trim();
+    if (value === '' )
+        blank = true;
+    
+    return blank;
+    
+}
 /** 
  * check if browser is internet explorer version 6,7,8
  * @return boolean
@@ -288,6 +305,8 @@ function CheckInternetExplorer(){
     }
     
 }
+
+
 
 /**
  * Show modal message when browser is < 9 
@@ -332,7 +351,7 @@ function registerBusiness() {
     
     }
     
-    if ($('#txtBusinessName').val().length == 0 ){
+    if (checkIfBlank('txtBusinessName')){
             errorMessage('spanBusinessNameregister','Field Business Name should not be blank', true);
             return false;
     }    
@@ -342,13 +361,12 @@ function registerBusiness() {
         return false;
     }   
     
-    
-    if ($('#txtStreet').val().length == 0 ){
+    if (checkIfBlank('txtStreet')){
             errorMessage('spanStreetregister','Field Address Should not be blank', true);
             return false;
     }    
     
-    if ($('#txtContactEmail').val().length == 0){
+    if (checkIfBlank('txtContactEmail')){
         errorMessage('spanContactEmail','Field E-mail should not be blank', true);
         return false;
     }    
@@ -363,8 +381,8 @@ function registerBusiness() {
         errorMessage('spanCountyRegister','You must select a County', true);
         return false;
     }   
-    
-    if ($('#txtPasswordRegister').val().length == 0){
+
+    if (checkIfBlank('txtPasswordRegister')){
         errorMessage('spanPasswordRegister','Field Password should not be blank', true);
         return false;
     }    
@@ -413,20 +431,16 @@ function registerBusiness() {
     }    
     
     if ($('#paymentmethod').val() == 0){
-        
-        
-    
-        if ($('#txtCard').val().length == 0){
+        if (checkIfBlank('txtCard')){
             errorMessage('spanCard','Field Number Card should not be blank', true);
             return false;
         }    
         
-        if ($('#txtExp').val().length == 0){
+        if (checkIfBlank('txtExp')){
             errorMessage('spanExp','Field Expiration Date should not be blank', true);
             return false;
         }    
-
-        if ($('#txtCvc').val().length == 0){
+        if (checkIfBlank('txtCvc')){
             errorMessage('spanCvc','Field CVC should not be blank', true);
             return false;
         }    
@@ -562,7 +576,7 @@ function CheckSubscriptionEmail() {
 */    
 function loadRegisterPage(){
     removeErrorMessage('txtBusinessName', 'spanBusinessNameregister');                                         
-    removeErrorMessage('txtContactEmailName', 'spanContactEmail');
+    removeErrorMessage('txtContactEmail', 'spanContactEmail');
     removeErrorMessage('txtCard', 'spanCard');
     removeErrorMessage('txtExp', 'spanExp');
     removeErrorMessage('txtCvc', 'spanCvc');
@@ -618,11 +632,10 @@ function showSpellCheck(selector, divSelector){
 * @return boolean
 */  
  function CheckLogin(){
-        
-    if ($('#txtUsername').val().length == 0)
+   if (checkIfBlank('txtUsername'))      
        return false;
    
-    if ($('#txtPassword').val().length == 0)
+   if (checkIfBlank('txtPassword'))
        return false;
    
     
@@ -639,6 +652,7 @@ function showSpellCheck(selector, divSelector){
                             window.top.location = 'userlog.php';
                     } 
                     else{
+                        
                         var msg = 'Please, verify your credentials and try again..';
                         if (data.blocked == 'blocked'){
                             msg = 'User is blocked please send a email to '+ data.emailadmin;
@@ -726,24 +740,34 @@ function updateBusiness(){
    $('#spanBusinessname').removeClass();
    $('#spanContactemail').removeClass();
    
+   errorMessage('spanBusinessName','', false);
+   
+   errorMessage('spanTownRegister','', false);
+   errorMessage('spanCountyRegister','', false);
+   errorMessage('spanStreetRegister','', false);
+   errorMessage('spanTownRegister','', false);
+   errorMessage('spanContactEmail','', false);
+   errorMessage('spanPostalregister','', false);
+   errorMessage('spanPhoneregister','', false);
+   
+
+   
     pattern = validEmail($('#txtContactEmail').val())
     
-    
-    if ($('#txtBusinessName').val().length == 0 ){
-        $('#spanBusinessName').html('Field Business Name should not be blank');
-        $('#spanBusinessName').addClass('error-messages ng-active');
+    if (checkIfBlank('txtBusinessName')){
+        errorMessage('spanBusinessName','Field Business Name should not be blank', true);
         return false;
     }    
     
     if ($('#industrylistregister').val() == 0 ){
+        
         $('#spanIndustryRegister').html('You must select a Industry');
         $('#spanIndustryRegister').addClass('error-messages ng-active');
         return false;
     }        
     
-    if ($('#txtStreet').val().length == 0 ){
-        $('#spanStreetRegister').html('Field Street Adddress should not be blank');
-        $('#spanStreetRegister').addClass('error-messages ng-active');
+    if (checkIfBlank('txtStreet')){
+        errorMessage('spanStreetRegister','Field Street Adddress should not be blank', true);
         return false;
     }    
     
@@ -757,24 +781,19 @@ function updateBusiness(){
         return false;
     }            
     
-    if ($('#txtContactEmail').val().length == 0){
-        $('#spanContactEmail').html('Field E-mail should not be blank');
-        $('#spanContactEmail').addClass('error-messages ng-active');
+    if (checkIfBlank('txtContactEmail')){
+        errorMessage('spanContactEmail','Field E-mail should not be blank', true);
         return false;
     }    
     
     
     if (!pattern){
-        $('#spanContactEmail').html('Email not valid!');
-        $('#spanContactEmail').addClass('error-messages ng-active');
-
+        errorMessage('spanContactEmail','Email not valid!', true);
         return false;
     }  
     
-    
     if ($('#txtValid').val()  == 0 ){
-        $('#spanContactEmail').html('Email is not valid or already registered');
-        $('#spanContactEmail').addClass('error-messages ng-active');
+        errorMessage('spanContactEmail','Email is not valid or already registered', true);
         return false;
     }    
     
@@ -797,6 +816,16 @@ function updateBusiness(){
         }
     }    
     
+    
+    url = $('#txtWebsite').val();
+    if (url.length > 0){
+        valid = validUrl(url);
+        if (!valid){
+           errorMessage('spanWebsite','Website is not valid', true);
+            return false;
+        }    
+    }      
+    
       var path = getBaseUrl()+'img/ajax-loader.gif';
       
       
@@ -813,7 +842,7 @@ function updateBusiness(){
                     $("#cmdUpdateSubscription").removeAttr("disabled");
                     $("#ajaxiconsubscription").html('');
                     
-                    $("#pmessages").html('Update subscribe successfully');
+                    $("#pmessages").html('Updated subscribe successfully');
                     $('#mgInformacion').modal('show');
                     
                     $("#myBtn").click(function(){
@@ -837,7 +866,6 @@ function updateBusiness(){
  */
 function SubscriptionEmailChange() {
     var pattern = validEmail($('#txtContactEmail').val());
-   
     if ($('#txtContactEmail').val().length == 0 || !pattern)
        return false;
        
@@ -913,17 +941,14 @@ function ResetPassword(){
    $('#spanEmailRecover').html('');
    $('#spanEmailRecover').removeClass('ng-msgbox ');
    
-    if ($('#txtEmailRecover').val().length == 0){
-        $('#spanEmailRecover').html("Field should not be blank");
-        $('#spanEmailRecover').addClass('error-messages ng-active');
+    if (checkIfBlank('txtEmailRecover')){
+        errorMessage('spanEmailRecover','Field should not be blank', true);
         return false; 
     } 
 
     
    if (!pattern){
-        $('#spanEmailRecover').html('Email not valid!');
-        $('#spanEmailRecover').addClass('error-messages ng-active');
-
+       errorMessage('spanEmailRecover','Email not valid', true);
         return false;
     }  
 
@@ -968,8 +993,7 @@ function ResetPassword(){
  */
 function RecoverPassword(){
 
-    
-    if ($('#txtPasswordRecover').val().length == 0){
+    if (checkIfBlank('txtPasswordRecover')){
         $('#spanPasswordRecover').html('Field Password should not be blank');
         $('#spanPasswordRecover').addClass('error-messages ng-active');
         return false; 
@@ -1058,15 +1082,15 @@ function insertComplaint() {
         alert('You should complete all the steps before broadcast');
         return false;
     }
-    var path = getBaseUrl()+'img/ajax-loader.gif';
-    $("#ajaxiconcomplaintinsert").html('<img src="'+path +'"/>');
     
-    
-    
-         
+        $("#gotodone").attr("href", "#done");   
+        
+       var path = getBaseUrl()+'img/ajax-loader.gif';
+       $("#ajaxiconcomplaintinsert").html('<img src="'+path +'"/>');
+             
          //CAPTCHA
          $.ajax({
-                async:false,
+                //async:false,
                 cache:false,
                 url: 'fun_jq.php?action=complaintcaptcha',
                 type: "POST",
@@ -1074,18 +1098,29 @@ function insertComplaint() {
                 dataType: 'json',
                 success:function(data){
                     
-                    
                     if (data.success){
                         $.ajax({
-                            async:false,
+                            //async:false,
                             cache:false,
                             url: 'fun_jq.php',
                             type: "POST",
                             data:{action:'insertcomplaint',organisationid:organisationid,  name: name, email:email, title:title, complaint:complaint, review:review, broadcast:broadcast, industryid:industryid},
                             dataType: 'json',
                             success:function(data){
+                                
                                 successful = true;
-                               $("#ajaxiconcomplaintinsert").html('');
+                              //  setTimeout(function (){
+                                   $("#ajaxiconcomplaintinsert").html('');
+                                    //$('#feedbacklink').focus();
+                                    var doneb = $('#businessname').val();
+                                    
+                                    cleanComplaintsFields();
+                                    $('#doneb').html(doneb);
+                                    grecaptcha.reset();
+                                    
+                                  // }, 100);                                
+                                  
+                                    
                             },
                                 error: function(data) {
                                     console.log(data)
@@ -1099,11 +1134,13 @@ function insertComplaint() {
                     else{
                         $("#ajaxiconcomplaintinsert").html('');
                         successful = false;       
-                        alert('Captcha is not valid!');
+                        showPopupMessage('Captcha is not valid!');
+                        $("#gotodone").attr("href", "#send");
                     }
                  
                 },
                     error: function(data) {
+                        $("#gotodone").attr("href", "#send");
                         $("#ajaxiconcomplaintinsert").html('<img src="'+path +'"/>');
                         alert('An error occurred with captcha');
                         successful = false;
@@ -1144,32 +1181,34 @@ function cleanComplaintsFields(){
   */
 function deleteComplaint(id){
 var complaintid = parseInt(id);
-var op = confirm("Are you sure that you want delete this complaint?");
-    if (!op)
-    {
-        return false;
-    }
 
-var path = getBaseUrl()+'img/ajax-loader.gif';
-      
-     $("#imageajax"+complaintid).html('<img src="'+path +'"/>');
 
-             $.ajax({
-                url: 'complaints.php?action=deletecomplaint&complaintsid='+ complaintid,
-                type: "POST",
-                
-                dataType: 'json',
-                success:function(data){
-                    $('#complaintrow'+complaintid).remove();
-                    $("#imageajax"+complaintid).html('');
-                },
-                    error: function(data) {
-                     console.log(data)
-                     $("#imageajax"+complaintid).html('');
-                     alert('An error occurred');
-                }
-                
-            });
+        $('#pmessagesconfirm').html('Are you sure that you want delete this complaint?');
+        $('#mgConfirmation').modal('show');
+        $("#btn_confirm").click(function(){
+                     
+                    var path = getBaseUrl()+'img/ajax-loader.gif';
+
+                     $("#imageajax"+complaintid).html('<img src="'+path +'"/>');
+
+                             $.ajax({
+                                url: 'complaints.php?action=deletecomplaint&complaintsid='+ complaintid,
+                                type: "POST",
+
+                                dataType: 'json',
+                                success:function(data){
+                                    $('#complaintrow'+complaintid).remove();
+                                    $("#imageajax"+complaintid).html('');
+                                },
+                                    error: function(data) {
+                                     console.log(data)
+                                     $("#imageajax"+complaintid).html('');
+                                     alert('An error occurred');
+                                }
+
+                            });                     
+                        
+                   });       
 }
 /**
  * call ajax function to broadcast a complaint by admin user
@@ -1332,7 +1371,6 @@ function errorMessage(idSpan, message, show){
         $(idSpan).attr("class", "");
         $(idSpan).hide();
     }
-    
 }
 
 /**
@@ -1345,22 +1383,20 @@ function updateUser(){
 
     pattern = validEmail($('#txtUserEmail').val())
 
-    
-    if ($('#txtUserUsername').val().length == 0 ){
-        errorMessage('spanUsername','Field Business Name should not be blank', true);
+    if (checkIfBlank('txtUserUsername')){
+        errorMessage('spanUsername','Field Name should not be blank', true);
         return false;
     }    
-
-    if ($('#txtUserEmail').val().length == 0){
-        errorMessage('spanUsername','Field E-mail should not be blank', true);
+    
+    if (checkIfBlank('txtUserEmail')){
+        errorMessage('spanUserEmail','Field E-mail should not be blank', true);
         return false;
     }    
     
     if (!pattern){
-        errorMessage('spanUsername','Email not valid!', true);
+        errorMessage('spanUserEmail','Email not valid!', true);
         return false;
     }  
-    
     
     if ($('#txtValid').val()  == 0 ){
         errorMessage('spanUserEmail','Email is not valid or already registered!', true);
@@ -1369,9 +1405,7 @@ function updateUser(){
     
       var path = getBaseUrl()+'img/ajax-loader.gif';
       
-      
       $("#ajaxiconsubscription").html('<img src="'+path +'"/>');
-        
         
         $.ajax({
                 url: 'subscription.php?action=updateuser',
@@ -1381,7 +1415,7 @@ function updateUser(){
                 success:function(data){
                     $("#ajaxiconsubscription").html('');
                     
-                    $("#pmessages").html('Update subscribe successfully');
+                    $("#pmessages").html('Updated subscribe successfully');
                     $('#mgInformacion').modal('show');
                     
                     $("#myBtn").click(function(){
@@ -1546,7 +1580,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                 },
                     error: function(data) {
                      console.log(data)
-             alert('error response')
+                     alert('error response')
                 }
                 
             });
@@ -1556,18 +1590,26 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
  * call ajax function register a new business
  */
  function addB() {
-        var name = $("#txtBusinessNameAdd").val();
-        var address = $("#address").val();
+        var name = $("#txtBusinessNameAdd").val().trim();
+        var address = $("#address").val().trim();
         var city = $("#townlist").val();
-        var country = $("#countrylist").val();
+        var country = $("#countrylist").val().trim();
 
-        var phone = $("#phone").val();
-        var email = $("#email").val();
+        var phone = $("#phone").val().trim();
+        var email = $("#email").val().trim();
         var countyid = $("#countylist").val();
-        var website  = $("#website").val();
-        var postcode = $("#postcode").val();
+        var website  = $("#website").val().trim();
+        var postcode = $("#postcode").val().trim();
         var industryid = $("#industrylist").val();
-        
+
+        errorMessage('spanBusinessNameAdd','',false);
+        errorMessage('spanIndustryAdd','',false);
+        errorMessage('spanTownAdd','',false);
+        errorMessage('spanCountyAdd','',false);
+        errorMessage('spanEmailAdd','',false);
+        errorMessage('spanWebsiteAdd','',false);
+        errorMessage('spanPostcodeAdd','',false);
+
         
         if (name.length == 0 ){
             errorMessage('spanBusinessNameAdd','Field Business Name should not be blank', true);
@@ -1594,7 +1636,6 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
             return false;
         }          
         
-
                 if (email != ""){
                     pattern = validEmail(email)
                     if (!pattern){
@@ -1845,8 +1886,9 @@ function checkCompanyName() {
     selectorOrganisation = '#organisationid';
     spanSelector = '#spanBusinessNameregister';
     selectorValid = '#txtValidCompany';
-    var companyName =  $(selectorId).val();   
+    var companyName =  $(selectorId).val().trim();   
     var organisationid =  $(selectorOrganisation).val();   
+    
     if (companyName.length == 0)
         return false;
     
@@ -1877,7 +1919,7 @@ function checkCompanyNameAddBussiness( ) {
     selectorOrganisation = '#organisationid';
     spanSelector = '#spanBusinessNameAdd';
     selectorValid = '#txtValidCompany';
-    var companyName =  $(selectorId).val();   
+    var companyName =  $(selectorId).val().trim();   
     var organisationid =  0;   
     if (companyName.length == 0)
         return false;
@@ -1940,16 +1982,23 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
  */
 function contactUs() {
     
+    errorMessage('spanNameContact','', false);
+    errorMessage('spanEmailContact','', false);
+    errorMessage('spanMessageContact','', false);
+    errorMessage('spanSubjectContact','', false);
     
-    if ($('#txtNameContact').val().length == 0 ){
+    
+    
+    if (checkIfBlank('txtNameContact')){
         errorMessage('spanNameContact','Field name should not be blank', true);
         return false;
     }    
-        
-    if ($('#txtEmailContact').val().length == 0){
+    
+    if (checkIfBlank('txtEmailContact')){    
         errorMessage('spanEmailContact','Field E-mail should not be blank ', true);
         return false;
     }    
+    
 
     var pattern = validEmail($('#txtEmailContact').val())
     if (!pattern){
@@ -1957,7 +2006,12 @@ function contactUs() {
         return false;
     }    
     
-    if ($('#txtMessage').val().length == 0){
+    if (checkIfBlank('txtSubjectContact')){    
+        errorMessage('spanSubjectContact','Field Subject should not be blank ', true);
+        return false;
+    }    
+    
+    if (checkIfBlank('txtMessage')){    
         errorMessage('spanMessageContact','Field Subject should not be blank ', true);
         return false;
     }    
@@ -2055,7 +2109,7 @@ function showMoreUsers(){
                 },
                     error: function(data) {
                      $("#ajaxiconmoreusers").html('');
-             alert('An error occurred load users');
+                     alert('An error occurred load users');
                      console.log(data)
                 }
                 
@@ -2179,7 +2233,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                     error: function(data) {
                      console.log(data)
                      $("#imageajaxbusiness"+id).html('');
-            alert('An error occurred');
+                     alert('An error occurred');
                 }
                 
             });
@@ -2219,7 +2273,7 @@ function blockUser(id, block){
                     error: function(data) {
                      console.log(data)
                      $("#imageajaxusers"+id).html('');
-            alert('An error occurred');
+                     alert('An error occurred');
                 }
                 
             });
@@ -2231,30 +2285,29 @@ function blockUser(id, block){
 function deleteUser(id){
 id = parseInt(id);
 
-    var op = confirm("Are you sure that you want delete this user?");
-    if (!op)
-    {
-        return false;
-    }
+$('#pmessagesconfirm').html('Are you sure that you want delete this user?');
+$('#mgConfirmation').modal('show');
 
-var path = getBaseUrl()+'img/ajax-loader.gif';
-      
-     $("#imageajaxusers"+id).html('<img src="'+path +'"/>');
-             $.ajax({
-                url: 'subscription.php?action=deleteuser&userid='+ id,
-                type: "POST",
-                dataType: 'json',
-                success:function(data){
-                    $("#imageajaxusers"+id).html('');
-                    $('#usersrow'+id).remove();
-                },
-                    error: function(data) {
-                     console.log(data)
-                     $("#imageajaxusers"+id).html('');
-            alert('An error occurred');
-                }
-                
-            });
+$("#btn_confirm").click(function(){
+    var path = getBaseUrl()+'img/ajax-loader.gif';
+
+         $("#imageajaxusers"+id).html('<img src="'+path +'"/>');
+                 $.ajax({
+                    url: 'subscription.php?action=deleteuser&userid='+ id,
+                    type: "POST",
+                    dataType: 'json',
+                    success:function(data){
+                        $("#imageajaxusers"+id).html('');
+                        $('#usersrow'+id).remove();
+                    },
+                        error: function(data) {
+                         console.log(data)
+                         $("#imageajaxusers"+id).html('');
+                        alert('An error occurred');
+                    }
+
+                });
+        });            
 }
 
 
@@ -2314,7 +2367,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                 },
                     error: function(data) {
                      console.log(data)
-             alert('error showing business edit')
+                     alert('error showing business edit')
                 }
             });
 }
@@ -2328,14 +2381,23 @@ function updateNewOrganisation(){
    $('#spanBusinessname').removeClass();
    $('#spanContactemail').removeClass();
    
-   var address = $('#txtStreet').val();
-   var businessName =  $('#txtBusinessName').val();
+   var address = $('#txtStreet').val().trim();
+   var businessName =  $('#txtBusinessName').val().trim();
 
    
     pattern = validEmail($('#txtContactEmail').val())
     
-    if ($('#txtBusinessName').val().length == 0 ){
-            errorMessage('spanBusinessName','Field Business Name should not be blank', true);
+ errorMessage('spanBusinessName','',false); 
+ errorMessage('spanIndustryEdit','',false); 
+ errorMessage('spanStreetregister','',false); 
+ errorMessage('spanCity','',false); 
+ errorMessage('spanCounty','',false); 
+ errorMessage('spanPostalregister','',false);  
+ errorMessage('spanContactEmail','',false);  
+ errorMessage('spanWebsite','',false);      
+    
+    if(checkIfBlank('txtBusinessName')){
+        errorMessage('spanBusinessName','Field Business Name should not be blank', true);
         return false;
     }    
     
@@ -2354,25 +2416,25 @@ function updateNewOrganisation(){
             return false;
     } 
     
-    if ($('#txtStreet').val().length == 0 ){
-            errorMessage('spanStreetregister','Field Street Address should not be blank', true);
+    if(checkIfBlank('txtStreet')){
+        errorMessage('spanStreetregister','Field Street Address should not be blank', true);
         return false;
     }    
     
     
     
     if (!pattern && $('#txtContactEmail').val().length > 0 ){
-            errorMessage('spanContactEmail','Email not valid!', true);
+        errorMessage('spanContactEmail','Email not valid!', true);
         return false;
     }  
     
     
     if ($('#txtValid').val()  == 0 ){
-            errorMessage('spanContactEmail','Email is not valid or already registered', true);
+        errorMessage('spanContactEmail','Email is not valid or already registered', true);
         return false;
     }    
     
-    var postcode = $('#txtPostal').val();
+    var postcode = $('#txtPostal').val().trim();
     if (postcode.length > 0){
         var validate = validatepostcode(postcode);
 
@@ -2382,7 +2444,7 @@ function updateNewOrganisation(){
         }
     }
     
-    var phone = $('#txtPhone').val();
+    var phone = $('#txtPhone').val().trim();
     if (phone.length > 0){    
         var validatenophone = validatephone(phone);
         if (!validatenophone) {
@@ -2392,11 +2454,11 @@ function updateNewOrganisation(){
     }	
     
     
-    url = $('#txtWebsite').val();
+    url = $('#txtWebsite').val().trim();
     if (url.length > 0){
         valid = validUrl(url);
         if (!valid){
-                errorMessage('spanWebsite','Website is not valid', true);
+            errorMessage('spanWebsite','Website is not valid', true);
             return false;
         }    
     }
@@ -2506,13 +2568,14 @@ function updateEditUser(usertype){
             ajaxicon = '#ajaxiconuseredit';
             modal = '#modalUser';
           
-            pattern = validEmail($('#txtUserEmail').val())
-            if ($('#txtNameUser').val().length == 0 ){
+            pattern = validEmail($('#txtUserEmail').val().trim())
+            
+            if(checkIfBlank('txtNameUser')){
                 errorMessage('spanNameUser','Field Name should not be blank', true);
                 return false;
             }    
 
-            if ($('#txtUserEmail').val().length == 0){
+            if(checkIfBlank('txtUserEmail')){
                 errorMessage('spanEmailUser','Field E-mail should not be blank', true);
                 return false;
             }    
@@ -2575,7 +2638,7 @@ function updateEditUser(usertype){
             }              
                 
                 
-        var postcode = $('#txtPostalEdit').val();
+        var postcode = $('#txtPostalEdit').val().trim();
             if (postcode.length > 0){
                 var validate = validatepostcode(postcode);
                 if (!validate) {
@@ -2584,7 +2647,7 @@ function updateEditUser(usertype){
                 }
             }
     
-        var phone = $('#txtPhoneEdit').val();
+        var phone = $('#txtPhoneEdit').val().trim();
         if (phone.length > 0){    
             var validatenophone = validatephone(phone);
             if (!validatenophone) {
@@ -2656,7 +2719,7 @@ function UserEditEmailChange(usertype) {
         
     }
     
-    email = $(selectorEmail).val();
+    email = $(selectorEmail).val().trim();
     
     var pattern = validEmail(email);
    
@@ -2732,7 +2795,7 @@ function showResponse(id){
  */
 function insertResponse() {
     
-    if ($('#txtMessageResponse').val().length == 0 ){
+    if(checkIfBlank('txtMessageResponse')){
         errorMessage('spanMessageResponse','Field Message should not be blank', true);
         return false;
     }    
@@ -2843,35 +2906,33 @@ function ResetPasswordEditUser(usertype) {
   */
 function deleteBusiness(id){
     id = parseInt(id);
-
-
-var op = confirm("Are you sure that you want delete this business?");
-    if (!op)
-    {
-        return false;
-    }
-
-var path = getBaseUrl()+'img/ajax-loader.gif';
       
-     $("#imageajaxbusiness"+id).html('<img src="'+path +'"/>');
+    $('#pmessagesconfirm').html('Are you sure that you want delete this business?');
+    $('#mgConfirmation').modal('show');
+    $("#btn_confirm").click(function(){
+                     
+        var path = getBaseUrl()+'img/ajax-loader.gif';
 
-             $.ajax({
-                url: 'subscription.php?action=deletebusiness&organisationid='+ id,
-                type: "POST",
-                
-                dataType: 'json',
-                success:function(data){
-                    $('#businessrow'+id).remove();
-                    $("#imageajaxbusiness"+id).html('');
-                },
-                    error: function(data) {
-                     console.log(data)
-                     $("#imageajaxbusiness"+id).html('');
-                     alert('An error occurred');
-                }
-                
-            });
-}
+        $("#imageajaxbusiness"+id).html('<img src="'+path +'"/>');
+
+                $.ajax({
+                   url: 'subscription.php?action=deletebusiness&organisationid='+ id,
+                   type: "POST",
+
+                   dataType: 'json',
+                   success:function(data){
+                       $('#businessrow'+id).remove();
+                       $("#imageajaxbusiness"+id).html('');
+                   },
+                       error: function(data) {
+                        console.log(data)
+                        $("#imageajaxbusiness"+id).html('');
+                        alert('An error occurred');
+                   }
+
+               });
+    });
+    }    
 
 
 /**
@@ -2919,34 +2980,34 @@ function showMoreOrganisations(){
  * call ajax function to delete a organisation in neworganisations table before approval
   */
 function deleteOrganisation(id){
-    id = parseInt(id);
-    
-var op = confirm("Are you sure that you want delete this business?");
-    if (!op)
-    {
-        return false;
-    }
-    
-var path = getBaseUrl()+'img/ajax-loader.gif';
-      
-     $("#imageajaxorganisation"+id).html('<img src="'+path +'"/>');
+        id = parseInt(id);
+        
+        $('#pmessagesconfirm').html('Are you sure that you want delete this business?');
+        $('#mgConfirmation').modal('show');
+        
+        $("#btn_confirm").click(function(){
 
-             $.ajax({
-                url: 'subscription.php?action=deleteorganisation&organisationid='+ id,
-                type: "POST",
-                
-                dataType: 'json',
-                success:function(data){
-                    $('#organisationrow'+id).remove();
-                    $("#imageajaxorganisation"+id).html('');
-                },
-                    error: function(data) {
-                     console.log(data)
-                     $("#imageajaxorganisation"+id).html('');
-                     alert('An error occurred');
-                }
-                
-            });
+            var path = getBaseUrl()+'img/ajax-loader.gif';
+
+            $("#imageajaxorganisation"+id).html('<img src="'+path +'"/>');
+
+                    $.ajax({
+                       url: 'subscription.php?action=deleteorganisation&organisationid='+ id,
+                       type: "POST",
+
+                       dataType: 'json',
+                       success:function(data){
+                           $('#organisationrow'+id).remove();
+                           $("#imageajaxorganisation"+id).html('');
+                       },
+                           error: function(data) {
+                            console.log(data)
+                            $("#imageajaxorganisation"+id).html('');
+                            alert('An error occurred');
+                       }
+
+                   });
+        });            
 }
 
 
@@ -3023,14 +3084,23 @@ function updateOrganisation(){
    $('#spanBusinessname').removeClass();
    $('#spanContactemail').removeClass();
    
+ errorMessage('spanBusinessName','',false); 
+ errorMessage('spanIndustryEdit','',false); 
+ errorMessage('spanStreetregister','',false); 
+ errorMessage('spanCity','',false); 
+ errorMessage('spanCounty','',false); 
+ errorMessage('spanPostalregister','',false);  
+ errorMessage('spanContactEmail','',false);  
+ errorMessage('spanWebsite','',false);   
+   
    var cityName = $('#townlistregister option:selected').html();
-   var address = $('#txtStreet').val();
-   var businessName =  $('#txtBusinessName').val();
+   var address = $('#txtStreet').val().trim();
+   var businessName =  $('#txtBusinessName').val().trim();
 
     pattern = validEmail($('#txtContactEmail').val())
     
-    if ($('#txtBusinessName').val().length == 0 ){
-            errorMessage('spanBusinessName','Field Business Name should not be blank', true);
+    if(checkIfBlank('txtBusinessName')){
+        errorMessage('spanBusinessName','Field Business Name should not be blank', true);
         return false;
     }    
     
@@ -3065,7 +3135,7 @@ function updateOrganisation(){
         return false;
     }    
     
-    var postcode = $('#txtPostal').val();
+    var postcode = $('#txtPostal').val().trim();
     if (postcode.length > 0){
         var validate = validatepostcode(postcode);
         if (!validate) {
@@ -3074,7 +3144,7 @@ function updateOrganisation(){
         }
     }
     
-    var phone = $('#txtPhone').val();
+    var phone = $('#txtPhone').val().trim();
     if (phone.length > 0){    
         var validatenophone = validatephone(phone);
         if (!validatenophone) {
@@ -3084,11 +3154,11 @@ function updateOrganisation(){
     }	
     
     
-    url = $('#txtWebsite').val();
+    url = $('#txtWebsite').val().trim();
     if (url.length > 0){
         valid = validUrl(url);
         if (!valid){
-                errorMessage('spanWebsite','Website is not valid', true);
+            errorMessage('spanWebsite','Website is not valid', true);
             return false;
         }    
     }
@@ -3269,13 +3339,12 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
  * call ajax function to send letter for a formal complaint
  */
 function sendLetter() {
-    
-    if ($('#txtEmailBusiness').val().length == 0){
+    if(checkIfBlank('txtEmailBusiness')){
         errorMessage('spanEmailBusiness','Field E-mail should not be blank ', true);
         return false;
     }    
     
-    if ($('#txtSubjectLetter').val().length == 0 ){
+    if(checkIfBlank('txtSubjectLetter')){
         errorMessage('spanSubjectLetter','Field Subject should not be blank', true);
         return false;
     }    
@@ -3286,7 +3355,7 @@ function sendLetter() {
         return false;
     }    
     
-    if ($('#txtMessageLetter').val().length == 0){
+    if(checkIfBlank('txtMessageLetter')){
         errorMessage('spanMessageLetter','Field Message should not be blank ', true);
         return false;
     }    
@@ -3355,6 +3424,13 @@ function sendLetter() {
     }
  
  }    
+ 
+ 
+ function showPopupMessage(msg){
+    $("#pmessages").html(msg);
+    $('#mgInformacion').modal('show');
+ }
+ 
     /**
      * Functions developed by Delstone Services, LTD
      * Carlos Parra -> parraparicio@gmail.com

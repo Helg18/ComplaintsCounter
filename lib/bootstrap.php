@@ -1,6 +1,5 @@
 <?php
 
-
 // 1. Autoload the SDK Package. This will include all the files and classes to your autoloader
 $path =  dirname(__DIR__)  . "/lib/PayPal-PHP-SDK/autoload.php";
 

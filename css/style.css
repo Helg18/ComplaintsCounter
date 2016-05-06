@@ -539,7 +539,6 @@ input[type="radio"]:checked + label span {
 }
 .buttonson {
   margin-top: 50px;
-  margin-left: 10px;
   display:inline-block;
   margin-right:0;
 }
@@ -600,6 +599,7 @@ a.btn.btn_red:visited {
   font-size: 120%;
   margin-right: 10%;
   margin-bottom: 10px;
+  
 }
 .button-large {
   width: 240px;
@@ -1515,14 +1515,22 @@ article.page {
   width: 100%;
 }
 
-@media screen and (max-width: 975px) and (min-width: 697px) {
+@media screen and (min-width: 1280px)  {
+    .positionnextadd{
+        width: 80% !important;
+        
+    }
+
+}
+@media screen and (min-width: 697px) and (max-width: 975px) {
   li.header_nav{
     padding: 0px 0px 0px 0px !important; 
   } 
   .login_nav{
     width: 100% !important;
     float: left;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
+    border: 2px black
   }
   .header_right{
     margin: 0px 0px 0px 0px !important;
@@ -1530,6 +1538,7 @@ article.page {
     height: 10px !important;
     width: 250px !important;
   }
+  
 }
 
 @media screen and (max-width: 714px) and (min-width: 699px) {
@@ -1539,6 +1548,9 @@ article.page {
   h3{
     font-size: 14px;
   }
+  
+  
+   
 }
 
 @media screen and (min-width: 701px) {
@@ -1561,6 +1573,7 @@ article.page {
 
   .buttonson{
     margin-top: 3% !important;
+    margin-left: 0 !important ;
   }
 
   .buttonwho{
@@ -1796,6 +1809,7 @@ article.page {
 
 
 @media screen and (max-width: 460px) {
+ 
   h1{
     font-size: 36px;
   }
@@ -1815,8 +1829,9 @@ article.page {
   }
   .buttonson{
     margin-top: 3% !important;
-    width: 87% !important;
+    width: 100% !important;
     float: left !important;
+    margin-left: 0 !important;
   }
   .button {
     font-size: 14px;
@@ -1832,6 +1847,8 @@ article.page {
   }
   .responsive{
       padding-right: 0 !important;
+      height: auto!important;
+      min-height: 30px !important;
   }
   
 
@@ -1957,13 +1974,9 @@ article.page {
     width: 100% !important;
   }
 
-  .buttonson{
-    margin-top: 200px;
-    margin-left: -10px;
-  }
   .button-small {
     white-space: normal;
-    text-align: right;
+    /*text-align: right;*/
   }
 
   .section_page{
@@ -1974,7 +1987,7 @@ article.page {
 
   .buttonson{
     margin-top: 200px;
-    margin-left: 20px !important;
+    margin-left: 0 !important;
   }
 
   .centered{
@@ -2023,12 +2036,14 @@ article.page {
 
     
   td { 
-    border: none;
+    width: 100% !important;
+    /*border: 2px solid red;*/
     position: relative;
-    padding-left: 50%;
+    padding-left: 45%;
     float: left;
-    margin-top:10px !important;
+    margin-top:15px !important;
     margin-bottom:10px !important;
+    word-wrap: break-word !important;
   }
 
   .trresponse td { 
@@ -2037,6 +2052,7 @@ article.page {
     padding-left: 25%;
     float: left;
     margin-top:10px !important;
+    
   }
     
   td:before { 
@@ -2048,6 +2064,8 @@ article.page {
     white-space: nowrap;
     float: left;
     font-weight: bold !important; 
+    margin-top: -5px;
+    
   }
 
                 
@@ -2128,6 +2146,7 @@ article.page {
     width: 100% !important;
     float: left;
     padding-bottom: 10px;
+    text-align: left !important;
   }
 
   .detailspadding{
@@ -2172,25 +2191,31 @@ article.page {
   }
 
   .error-messages.ng-active {
-    font-size: 80% !important;
+    font-size: 65% !important;
   }
   
   .descriptioncontainer{
       width: 100% !important;
       height: 100% !important;
-      
-      
   }
+  
   .checkspellcontainer{
       width: 100% !important;
   }
   
-  
   .checkspelltitle{
       margin-top: 0 !important; 
-      
+      text-align: left;
   }
+  
+.actionlinks{  
+     width: 100% !important;
+     float:left !important;
+     min-height: 30px !important;
+     z-index: 100;
+}
 
+  
   /*cpa*/
 }
 /*ipad y iphone horizontal 768 X 1024*/
@@ -2201,6 +2226,26 @@ article.page {
   .well-reviews{
     width: 47% !important;
   }    
+  .section_article{
+    padding-left: 2%;
+    padding-right: 2%;
+    text-align: center !important;
+  }
+  
+  .descriptioncontainer{
+      width: 100% !important;
+  }
+  
+  .footer_page{
+      width: 100% !important;
+  }
+  
+  #footer-scroll{
+      padding-left: 8% !important;
+  }
+  
+  
+ 
 }
 @media screen and (min-width: 461px) and (max-width: 700px) {
   h2{
@@ -2225,7 +2270,7 @@ article.page {
 
   .buttonson{
     margin-top: 3% !important;
-    width: 95% !important;
+    width: 100% !important;
     float: left !important;
   }
   .logo{
@@ -2245,7 +2290,7 @@ article.page {
   }
   .button-small {
     white-space: normal;
-    text-align: right;
+    /*text-align: right;*/
   } 
   .section_page{
     margin-top: 500px !important;
@@ -2356,6 +2401,7 @@ article.page {
     padding-bottom: 30px;
     text-align: center;
   }
+  
 
 /*cpa*/
 
@@ -2369,6 +2415,8 @@ article.page {
     text-align: center !important; 
     margin-bottom: 3% !important;
   }
+  
+ 
   .detailsbusiness{
     width: 100% !important;
     float: left !important;
@@ -2384,7 +2432,7 @@ article.page {
     margin-left: 18% !important;
   }
   
-
+  
 }
 
 /* Mobile Layout: 480px and below. */
@@ -2634,6 +2682,7 @@ article.page {
   bottom: 0px;
   padding-top: 50px;
   padding-bottom: 20px;
+  
 }        
 
 .footer_items{
@@ -2644,6 +2693,7 @@ article.page {
   margin-left:10px;
   float:left;    
   text-align: center !important;
+  font-size: 14px !important;
 }
 
 .footer_items_1{
@@ -3020,3 +3070,9 @@ article.page {
     float:left; 
     width: 20px;
 }
+
+.positionnextadd{
+    width: 100%;
+    float:left;
+}
+

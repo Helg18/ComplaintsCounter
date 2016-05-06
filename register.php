@@ -90,7 +90,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform">BUSINESS NAME*</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtBusinessName" id="txtBusinessName" class="inputform" onkeypress="businessList('txtBusinessName','organisationid')" onblur="checkCompanyName()" alt="Enter your business name">
+                                            <input type = "text" name="txtBusinessName" id="txtBusinessName" class="inputform" onkeypress="businessList('txtBusinessName','organisationid')" onblur="checkCompanyName()" alt="Enter your business name" maxlength="59">
 				         <div class = "messagesform"><span id = "spanBusinessNameregister" ></span></div>
 				    </div>
 				</div>
@@ -108,7 +108,7 @@
 				<div class="formsubscriber">
 					<div class = "labelform">STREET ADDRESS *</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtStreet" id="txtStreet" class="inputform" alt="Enter address" >
+                                            <input type = "text" name="txtStreet" id="txtStreet" class="inputform" alt="Enter address" maxlength="59">
                                             <div class = "messagesform"><span id = "spanStreetregister" ></span></div>
 					</div>
 				</div>
@@ -151,7 +151,7 @@
 				<div class="formsubscriber2col">
 					<div class = "labelform">POSTAL CODE</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtPostal" id="txtPostal" class="inputform" >
+                                            <input type = "text" name="txtPostal" id="txtPostal" class="inputform" maxlength="8" >
                                             <div class = "messagesform"><span id = "spanPostalregister" ></span></div>
 					</div>
 				</div>
@@ -186,7 +186,7 @@
 				<div class="formsubscriber">
 					<div class = "labelform">CONTACT NAME</div>
 					<div class = "controlform" >
-						<input type = "text" name="txtContactName" id="txtContactName" class="inputform" alt="Enter your name" >
+						<input type = "text" name="txtContactName" id="txtContactName" class="inputform" alt="Enter your name" maxlength="128">
                                                 <div class = "messagesform"><span id = "spanContactName" ></span></div>
 					</div>
 				</div>
@@ -194,14 +194,14 @@
 				<div class="formsubscriber">
 					<div class = "labelform">CONTACT EMAIL*</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtContactEmail" id="txtContactEmail" class="inputform" onblur= "CheckSubscriptionEmail()" alt="Enter your email" alt="Type your password">
+                                            <input type = "text" name="txtContactEmail" id="txtContactEmail" class="inputform" onblur= "CheckSubscriptionEmail()" alt="Enter your email" alt="Type your password" maxlength="100">
 					    <div class = "messagesform"><span id = "spanContactEmail" ></span></div>
 					</div>
 				</div>
 				<div class="formsubscriber2col">
 					<div class = "labelform">TELEPHONE</div>
 					<div class = "controlform" >
-                                                <input type = "text" name="txtPhone" id="txtPhone" class="inputform">	
+                                                <input type = "text" name="txtPhone" id="txtPhone" class="inputform" maxlength="15">	
                                                 <div class = "messagesform"><span id = "spanPhoneregister" ></span></div>
 					</div>
 				</div>
@@ -209,7 +209,7 @@
 				<div class="formsubscriber2col">
 					<div class = "labelform">WEBSITE</div>
 					<div class = "controlform" >
-                                            <input type = "text" name="txtWebsite" id="txtWebsite" class="inputform">
+                                            <input type = "text" name="txtWebsite" id="txtWebsite" class="inputform" maxlength="59">
                                             <div class = "messagesform"><span id = "spanWebsite" ></span></div>
                                         </div>
 				</div>
@@ -218,7 +218,7 @@
                                     <div class="formsubscriber2col">
                                             <div class = "labelform">PASSWORD*</div>
                                             <div class = "controlform" >
-                                                    <input type = "password" name="txtPasswordRegister" id="txtPasswordRegister" class="inputform"  alt="Enter your credit card number">
+                                                    <input type = "password" name="txtPasswordRegister" id="txtPasswordRegister" class="inputform"  maxlength="20">
                                                     <div class = "messagesform"><span id = "spanPasswordRegister" ></span></div>
                                             </div>
                                     </div>
@@ -245,7 +245,7 @@
                                     <div class="formsubscriber2col cvc_register" style = "margin-left:5px;">
                                             <div class = "labelform">EXP* MM/YYYY</div>
                                             <div class = "controlform " >
-                                                    <input type = "text" name="txtExp" id="txtExp" class="inputform" alt="Enter your CVV/CVC">
+                                                    <input type = "text" name="txtExp" id="txtExp" class="inputform" alt="Enter your CVV/CVC" maxlength="7">
 
                                             </div>
                                     </div>
@@ -253,7 +253,7 @@
                                     <div class="formsubscriber2col cvc_register" style = "margin-left:5px;">
                                             <div class = "labelform">CVC*</div>
                                             <div class = "controlform" >
-                                                <input type = "text" name="txtCvc" id="txtCvc" class="inputform" >
+                                                <input type = "text" name="txtCvc" id="txtCvc" class="inputform" maxlength="10">
                                             </div>
                                     </div>
                                 </div>    
@@ -313,7 +313,8 @@ $(function() {
 function validatePaidPlan(){
    $("#step2").attr("href", "#")
    result = true
-   if (!$('input:radio[name=paidplans]:checked').val()){
+   
+   if (!$('input[name=paidplans]:checked').val()){
         $('#spanPaidPlan').html('Select a Payment Plan');
 	$('#spanPaidPlan').addClass('error-messages ng-active');
        result = false;

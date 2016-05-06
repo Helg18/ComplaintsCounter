@@ -35,7 +35,7 @@
 
 
                                         <div class="formsubscriber">
-                                                <div id= "ajaxiconletter" class="ajaxicon" >
+                                            <div id= "ajaxiconletter" class="ajaxicon" style="margin-left: 40%" >
 
                                                 </div>
                                         </div>

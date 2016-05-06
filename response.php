@@ -85,7 +85,7 @@
                                </div>
 			
                                <div class="formsubscriber">
-                                    <div id= "ajaxiconresponse" class="ajaxicon" >
+                                    <div id= "ajaxiconresponse" class="ajaxicon" style ="margin-left: 40% " >
                                     </div>
                                </div>
 			       

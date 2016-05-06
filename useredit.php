@@ -24,7 +24,7 @@
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">BUSINESS NAME*</div>
                                                         <div class = "controlform" >
-                                                            <input type = "text" name="txtBusinessName" id="txtBusinessNameEdit" class="inputform">
+                                                            <input type = "text" name="txtBusinessName" id="txtBusinessNameEdit" class="inputform" maxlength="59">
                                                             <div class = "messagesform"><span id = "spanBusinessNameEdit" ></span></div>
                                                         </div>
                                                 </div>
@@ -42,7 +42,7 @@
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">STREET ADDRESS</div>
                                                         <div class = "controlform" >
-                                                            <input type = "text" name="txtStreet" id="txtStreetEdit" class="inputform" >
+                                                            <input type = "text" name="txtStreet" id="txtStreetEdit" class="inputform" maxlength="59">
                                                         </div>
                                                 </div>
 
@@ -82,7 +82,7 @@
                                                 <div class="formsubscriber2col">
                                                         <div class = "labelform">POSTAL CODE</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtPostal" id="txtPostalEdit" class="inputform">
+                                                                <input type = "text" name="txtPostal" id="txtPostalEdit" class="inputform" maxlength="8">
                                                                 <div class = "messagesform"><span id = "spanPostalEdit" ></span></div>
                                                         </div>
                                                 </div>
@@ -99,14 +99,14 @@
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">CONTACT NAME</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtContactName" id="txtContactNameEdit" class="inputform" >
+                                                                <input type = "text" name="txtContactName" id="txtContactNameEdit" class="inputform" maxlength="128">
                                                         </div>
                                                 </div>
 
                                                 <div class="formsubscriber">
                                                         <div class = "labelform">CONTACT EMAIL*</div>
                                                         <div class = "controlform" >
-                                                                <input type = "text" name="txtContactEmail" id="txtContactEmailEdit" class="inputform" onblur= "UserEditEmailChange('b')">
+                                                                <input type = "text" name="txtContactEmail" id="txtContactEmailEdit" class="inputform" onblur= "UserEditEmailChange('b')" maxlength="100">
                                                                 <div class = "messagesform"><span id = "spanContactEmailEdit" ></span></div>
                                                         </div>
                                                 </div>
@@ -114,7 +114,7 @@
                                                 <div class="formsubscriber2col">
                                                         <div class = "labelform">TELEPHONE</div>
                                                         <div class = "controlform" >
-                                                            <input type = "text" name="txtPhone" id="txtPhoneEdit" class="inputform">					
+                                                            <input type = "text" name="txtPhone" id="txtPhoneEdit" class="inputform" maxlength="15">					
                                                             <div class = "messagesform"><span id = "spanPhoneEdit" ></span></div>
                                                         </div>
                                                 </div>
@@ -122,7 +122,7 @@
                                                 <div class="formsubscriber2col">
                                                         <div class = "labelform">WEBSITE</div>
                                                         <div class = "controlform" >
-                                                            <input type = "text" name="txtWebsite" id="txtWebsiteEdit" class="inputform">
+                                                            <input type = "text" name="txtWebsite" id="txtWebsiteEdit" class="inputform" maxlength="59">
                                                             <div class = "messagesform"><span id = "spanWebsiteEdit" ></span></div>
                                                         </div>
                                                 </div>

@@ -51,7 +51,7 @@ table.sortable thead {
     .trusers td:nth-of-type(2):before { content: "Username"; }
     .trusers td:nth-of-type(3):before { content: "Email"; }
     .trusers td:nth-of-type(4):before { content: "User Type"; }
-    .trusers td:nth-of-type(5):before { content: "Registered Since"; }
+    .trusers td:nth-of-type(5):before { content: "Registered S."; }
     .trusers td:nth-of-type(6):before { content: "# Complaints"; }
     .trusers td:nth-of-type(7):before { content: "Status"; }
     .trusers td:nth-of-type(8):before { content: "Actions"; }

@@ -43,6 +43,7 @@ else {
         <!--<![endif]--> 
         
         <script src="js/bootstrap-3.3.6.js" ></script>
+        <script src="js/functions.js" ></script>
         
     
     <div id="body">
@@ -257,7 +258,7 @@ else {
                             	    success: function (data) {
                                        if (!data.validtoken) 
                                         {
-                                           alert('the token is incorrect or has expired.');
+                                           showPopupMessage('the token is incorrect or has expired.');
                                            return false;
                                         }   
                                         
@@ -267,7 +268,7 @@ else {
                             	        }
                             	        else
                             	        {
-                                            alert('We were unable to update your password, we try again?');
+                                            showPopupMessage('We were unable to update your password, we try again?');
                                             return false;
                             	        }
                             	    }

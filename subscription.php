@@ -82,10 +82,7 @@ if (isset($_GET['action'])){
                                                      $paymentid   
                                                     );
                 
-                
-                $result =  $payments->CreatePaymentDetail($organisationid, $paymentstate, $paymentid, $data['paidPlanAmount'],  "GBP");
-                
-            
+            $result =  $payments->CreatePaymentDetail($organisationid, $paymentstate, $paymentid, $data['paidPlanAmount'],  "GBP");
             $result = json_encode($result);
             break;
         case 'checksubscriptionemail':
@@ -316,8 +313,8 @@ if (isset($_GET['action'])){
                 $user = $result;
                 if  ($organisationid > 0){
                     $row = $subscription->GetOrganisation($organisationid);
-                    $row["email"] = $row["EmailAddresses"];
-                    $row["name"] = $user["name"];
+                    $row["email"] = @$row["EmailAddresses"];
+                    $row["name"] = @$user["name"];
                     
                 }else{
                     $row = $user;
@@ -537,6 +534,7 @@ class subscription{
     $query ="SELECT * FROM users WHERE (". $where. " and password = '$password' )  and (username = '$username' or  email = '$username' ) and (status = 'active' or status = 'blocked' )";
     $result = phpmkr_query($query);
     $row = $result->fetch_assoc();
+    
         $row["success"] = "";
         if (empty($row['username'])){ 
             $row["success"] = false;
@@ -649,6 +647,10 @@ class subscription{
  */  
     
     public function updateSubscription($organisationid,  $type, $status, $businessname, $address, $city, $state, $postalcode, $country, $contactname, $contactemail, $county, $userid = 0 ){
+        
+         $businessname = addslashes($businessname);
+         $address = addslashes($address);
+         $contactname = addslashes($contactname);
          
          $query =  " UPDATE subscriptions SET  type = '$type', businessname = '$businessname' , address = '$address', city = '$city', state = '$state', ";
          $query .= " postalcode = '$postalcode', country = '$country', contactname = '$contactname', contactemail = '$contactemail'";
@@ -945,6 +947,7 @@ class subscription{
     public function updateOrganisation($organisationid,  $businessname, $address, $city, $country, $county, $postalcode,  $contactname, $contactemail, $phone, $website, $industryid){
             $businessname = addslashes($businessname);
             $address = addslashes($address); 
+            $contactname = addslashes($contactname);
             
             $query = "UPDATE organisations SET CompanyName = '$businessname', Address = '$address', Address2 = '', TownID = '$city', CountyID = '$county', CountryID = '$country', ";
             $query .= " Postcode = '$postalcode', WebsiteAddress = '$website', ContactFullName = '$contactname', EmailAddresses = '$contactemail', TelephoneNumber = '$phone', IndustryID = '$industryid' ";
@@ -989,9 +992,14 @@ class subscription{
             $exist = true;
             $id = $row['userid'];
             $status = $row['status'];
+            $usertype = $row['usertype'];  
             $deletelink = "";
             if ($status != "deleted"){
-                $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteUser(".$id.");return false;\">Delete</a>";
+                if ($usertype == "User")
+                    $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteUser(".$id.");return false;\">Delete</a>";
+                else
+                    $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showPopupMessage('Delete the user in order to delete the business');return false;\">Delete</a>";
+                
             }
             
             $blocked = "Block";
@@ -1269,6 +1277,7 @@ class subscription{
     public function updateNewOrganisation($organisationid,  $businessname, $address, $city, $country, $county, $postalcode,  $contactname, $contactemail, $phone, $website, $industryid ){
          $businessname = addslashes($businessname);
          $address = addslashes($address); 
+         $contactname = addslashes($contactname);
         
          $query = "UPDATE neworganisations SET CompanyName = '$businessname', Address = '$address', TownID = '$city', CountyID = '$county', CountryID = '$country', ";
          $query .= " Postcode = '$postalcode', WebsiteAddress = '$website', ContactFullName = '$contactname', EmailAddresses = '$contactemail', TelephoneNumber = '$phone', IndustryID = '$industryid' ";
@@ -1310,7 +1319,8 @@ class subscription{
     $query  = "SELECT a.organisationID, a.CompanyName, a.Address,a.TownID,a.CountyID,a.Postcode,a.RegionID,a.CountryID,a.TelephoneNumber,a.WebsiteAddress,a.ContactFullName,a.EmailAddresses, b.Town, "  ;
     $query .=  "(select COUNT(*) from complaints as c where a.organisationID = c.organisationid) as complaintcount, ";        
     $query .=  "COALESCE((SELECT cardid FROM subscriptions d WHERE d.organisationID =  a.organisationID LIMIT 1  ),'') AS cardid, ";
-    $query .=  "COALESCE((SELECT e.agreementid FROM subscriptions e WHERE e.organisationID =  a.organisationID LIMIT 1  ),'') AS agreementid ";
+    $query .=  "COALESCE((SELECT e.agreementid FROM subscriptions e WHERE e.organisationID =  a.organisationID LIMIT 1  ),'') AS agreementid, ";
+    $query .=  "COALESCE((SELECT f.userid FROM users f WHERE f.businessid =  a.organisationID LIMIT 1  ),'0') AS userid ";
     $query .=  "from organisations as a LEFT JOIN organisationtowns as b on a.TownID = b.TownID ";        
  				
     if ($lastid > 0){
@@ -1334,13 +1344,16 @@ class subscription{
             $cardid = $row['cardid'];
             $agreementid = $row['agreementid'];
             $address = $row['Address'];
+            $userid = $row['userid'];
             if (empty($address)){
                 $address = "<p><br></p>";
             }
             
             $editlink = "<a id = 'editorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditOrganisation(".$id.");return false;\">Edit</a>";
-            
-            $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteOrganisation(".$id.");return false;\">Delete</a>";
+            if ($userid > 0)
+                $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showPopupMessage('delete the business in order to delete the user');return false;\">Delete</a>";
+            else
+                $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteOrganisation(".$id.");return false;\">Delete</a>";
             $exclamation = "";
             
             if (!empty($cardid)){
