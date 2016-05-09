@@ -935,10 +935,10 @@ $sSql.= $orderby;
                     <td id = 'status$id'>". $row['status']."</td>
                     <td class = 'broadcastdate' style='text-align: center' id = 'broadcastdate".$id."'>". $row['broadcastdate']."</td>
                     <td id = 'responded$id' class = 'businessresponded' style='text-align: center'>$response</td>
-                    <td  ><a class = 'actionlinks' href=\"#\" onclick='deleteComplaint(".$row['complaintsid']."); return false;'>Delete</a>  $pauselink
+                    <td><a class = 'actionlinks' href=\"#\" onclick='deleteComplaint(".$row['complaintsid']."); return false;'>Delete</a>  $pauselink
                     <a class = 'actionlinks' href=\"#\" onclick='previewComplaint(".$row['complaintsid']."); return false;'>Preview</a>
                     ".$broadcastlink."   
-                    ".$linkemail."   
+                    ".$linkemail."
                     </td>
                     <td id= 'imageajax".$id."' ></td>
                 </tr>\n";
@@ -981,8 +981,9 @@ $sSql.= $orderby;
         $id = $row['complaintsid'];
         $lastid = $row['complaintsid'];
         $complaint = $row;
-        $complain['success'] = $exist;		
-        $complain['complaints'] = $complaints;
+        $complaint['success'] = $exist;		
+        $complaint['title'] = $row['title'];
+        $complaint['complaint'] = $row['complaint'];
                                     
         $response = $this->GetResponseByComplaintid($id);
         if ($response){
@@ -1103,7 +1104,7 @@ $sSql.= $orderby;
  * @return array
  */		
  public function InsertResponse($complaintid,$from, $to, $response, $file="", $complainttitle = ""){
-    $message = addslashes($response); 
+    $message = htmlentities($response); 
     
     $attachmentid = 0;      
     if (!empty($file)){

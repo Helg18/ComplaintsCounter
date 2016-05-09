@@ -81,6 +81,11 @@ else {
       <a href="#"
       id="buttomnextdescomplainer"
       class="button button-next"><span>Activate</span></a></p>
+                  <div class="formsubscriber">
+                      <div id= "ajaxiconactivate" class="ajaxicon" style ="margin-left: 40% " >
+
+                      </div>
+                  </div>
 
         </section>
 
@@ -244,6 +249,10 @@ else {
                 var pass_conf = $("#pass_conf").val();
                
                 if (email != "" && token != '' && pass !== "" && pass_conf !== "") {
+                        var path = getBaseUrl()+'img/ajax-loader.gif';
+                         $("#ajaxiconactivate").html('<img src="'+path +'"/>');
+   
+                    
 
                             	$.ajax({
                             	    url: 'fun_jq.php',
@@ -252,10 +261,12 @@ else {
                             	    data: {action: 'activateuser', email: email, token: token, pass: pass, pass_conf: pass_conf},
                             	    dataType: 'json',
                             	    error: function (data) {
+                                        $("#ajaxiconactivate").html('');
                             	        console.log("errpr " + data);
                             	    },
                             	    timeout: 20000,
                             	    success: function (data) {
+                                       $("#ajaxiconactivate").html('');
                                        if (!data.validtoken) 
                                         {
                                            showPopupMessage('the token is incorrect or has expired.');

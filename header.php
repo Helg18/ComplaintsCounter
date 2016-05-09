@@ -120,21 +120,29 @@
                     <div class="bussiness_login"> 
                         <div class="popupBody">
                             <form id = "frmLogin" action="javascript:CheckLogin()" >
-                            <label class="button-small">Email / Username</label> <input type="text" id = "txtUsername" onfocus="clearfieldsloginusr(); return false;" name = "txtUsername" class="login" value = "<?php echo $remember_me ?>" autofocus autocomplete="off"><br>
-                            <label class="button-small">Password</label> <input type="password" id = "txtPassword" onfocus="clearfieldsloginpss(); return false;" name = "txtPassword" class="login" value = "<?php echo $rememberpass ?>" ><br><label id="errorinlogin"></label><br>
-                            <div style = "height:30px; font-size:120%"><span id="spanmsg" ></span> </div>
+                                <label class="button-small">Email / Username</label> 
+                                <input type="text" id = "txtUsername" onfocus="clearfieldsloginusr(); return false;" name = "txtUsername" class="login login_input" value = "<?php echo $remember_me ?>" autofocus autocomplete="off"><br>
+                                <label class="button-small">Password</label> 
+                                <input type="password" id = "txtPassword" onfocus="clearfieldsloginpss(); return false;" name = "txtPassword" class="login login_input" value = "<?php echo $rememberpass ?>">
+                                <br><label id="errorinlogin"></label><br>
+                                <div class="formsubscriber">
+                                    <div id= "ajaxiconlogin" class="ajaxicon" style ="margin-left: 40%" >
+                                    </div>
+                                </div>
+                                
+                                <div style = "height:30px; font-size:120%"><span id="spanmsg" ></span> </div>
 
-                            <div class="checkbox-simple" style="margin-bottom: 20px;" >
-                                <input id="rememberuser" name ="rememberuser" type="checkbox">
-                                <label for= "rememberbusiness" class="rememberme">Remember me on this computer</label>
-                            </div>
-                            <div class="action_btns">
-                                  <input type="submit" name = "cmdLogin" id = "cmdLogin" class="savebutton" value ="Login" onclick="validatelogin(); return false;">
-                            </div>
-          <a href="reset.php" id="forgotpassword" class="forgot_password" >Forgot password?</a>
-                            <a href="register.php" id="registerlogin" class="forgot_password" >Register</a>
-          <input type = "hidden" id ="logintype" name ="logintype" >
-                        </form>
+                                <div class="checkbox-simple" style="margin-bottom: 20px;" >
+                                    <input id="rememberuser" name ="rememberuser" type="checkbox">
+                                    <label for= "rememberbusiness" class="rememberme">Remember me on this computer</label>
+                                </div>
+                                <div class="action_btns">
+                                      <input type="submit" name = "cmdLogin" id = "cmdLogin" class="savebutton" value ="Login" onclick="validatelogin(); return false;">
+                                </div>
+                                <a href="reset.php" id="forgotpassword" class="forgot_password" >Forgot password?</a>
+                                <a href="register.php" id="registerlogin" class="forgot_password" >Register</a>
+                                <input type = "hidden" id ="logintype" name ="logintype" >
+                            </form>
                         </div>
                       </div>
                     </div>

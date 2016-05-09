@@ -36,7 +36,7 @@
             <label class="instruction">just let us have their business name</label>
         </div>
         
-        <div style="width:100%;float:left; height: auto; margin-bottom: 10px;" >
+        <div class ="selectcompany" >
           
             <form onsubmit="return false;" class="no-submit team-members business-name wide ng-pristine ng-valid inputindex " style="width:100%; "  >
               <input
@@ -50,7 +50,7 @@
                     style ="width: 100%; font-size: 30px;"
                     class="inputindex" 
                     onfocus="businessnamefontsize();">
-              <input type="submit" value="submit" class="hidden who-submit">
+              <input type="button" value="submit" class="hidden who-submit">
               <label class="instruction" id="msg-error-businessname" style="float: left; width:100%; text-align: center;">Business name</label>
             </form>
             <input id="exist" value="" type="hidden">
@@ -172,7 +172,7 @@
             onfocus="clearnamecomplainer();"
             value="<?php echo $nameuser ?>" >
             
-            <input type="submit" id='name_conf' value="Add another member" class="hidden who-submit" >
+            <input type="button" id='name_conf' value="Add another member" class="hidden who-submit" >
             <label id="namecomplainer" class="instruction longer" >Name</label>
             
             <input 
@@ -186,7 +186,7 @@
             onfocus="clearemailcomplainer();"
             autocomplete="off"
             value="<?php echo $useremail ?>">
-            <input type="submit" value="Add another email" class="hidden who-submit">
+            <input type="button" value="Add another email" class="hidden who-submit">
             <label id="emailcomplainer" class="instruction">Email Address</label>
             
           </form>
@@ -309,7 +309,7 @@
                     </div>
                   </div>
                   <div>
-                    <p class="buttons next" style="width: 100%; float: left; text-align: center;" id="botonextsend"><a tabindex="17" href="#send" class="button button-next"><span>Next</span></a></p>
+                    <p class="buttons next" style="width: 100%; float: left; text-align: center;" ><a id="botonextsend" tabindex="17" href="#send" class="button button-next"><span>Next</span></a></p>
                   </div>
                 </div>
             </div>
@@ -1308,6 +1308,15 @@ function checkSpellComplaint(){
     
     removeErrorMessage('feedbacktitle','spanFeedbackTitle' );
     removeErrorMessage('feedbackcontent','spanFeedbackMessage');
+    
+    
+$(window).keydown(function(event){
+    if (event.keyCode == 13){ 
+        if($("#myComplaints").is(":focus")){
+            $("#nextMyComplaints").get(0).click();
+        }
+    }
+});
     
 </script>
     </body>

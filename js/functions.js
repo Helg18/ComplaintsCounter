@@ -638,6 +638,8 @@ function showSpellCheck(selector, divSelector){
    if (checkIfBlank('txtPassword'))
        return false;
    
+     var path = getBaseUrl()+'img/ajax-loader.gif';
+     $("#ajaxiconlogin").html('<img src="'+path +'"/>');
     
     $('#spanmsg').html('');
         $('#spanmsg').removeClass('ng-msgbox ');
@@ -648,6 +650,7 @@ function showSpellCheck(selector, divSelector){
                 dataType: 'json',
                 success:function(data){
                     //console.log(data)
+                    $("#ajaxiconlogin").html('');
                     if (data.success){
                             window.top.location = 'userlog.php';
                     } 
@@ -663,10 +666,11 @@ function showSpellCheck(selector, divSelector){
                     }
                 },
                     error: function(data) {
-                     console.log(data)
-                     $('#spanmsg').html('Username or password invalid!'); 
-                     $('#spanmsg').addClass('ng-msgbox ');
-                     alert('An error occurred');
+                        $("#ajaxiconlogin").html('');
+                        $('#spanmsg').html('Username or password invalid!'); 
+                        $('#spanmsg').addClass('ng-msgbox ');
+                        alert('An error occurred');
+                        console.log(data)
                 }                
             });
 }
@@ -1124,6 +1128,7 @@ function insertComplaint() {
                             },
                                 error: function(data) {
                                     console.log(data)
+                                    $("#botonextsend").get(0).click();
                                     $("#ajaxiconcomplaintinsert").html('');
                                     alert('An error occurred inserting complaint');
                                     successful = false;                        
@@ -1135,7 +1140,8 @@ function insertComplaint() {
                         $("#ajaxiconcomplaintinsert").html('');
                         successful = false;       
                         showPopupMessage('Captcha is not valid!');
-                        $("#gotodone").attr("href", "#send");
+                        $("#botonextsend").get(0).click();
+                        
                     }
                  
                 },
@@ -1450,7 +1456,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                     $('#status'+complaintid).html(data.status);
                     
                     $("#actionlink"+complaintid).removeAttr("onclick");
-                    $("#actionlink"+complaintid).attr('onclick',"actionComplaint('"+id+"','"+data.action+"')");
+                    $("#actionlink"+complaintid).attr('onclick',"actionComplaint('"+id+"','"+data.action+"');return false;");
                 },
                     error: function(data) {
                      console.log(data)
@@ -2163,14 +2169,11 @@ function showMoreBusiness(){
 function approveBusiness(id){
 id = parseInt(id);
 
-var op = confirm("Are you sure that you want approve this business?");
-    if (!op)
-    {
-        return false;
-    }
+    $('#pmessagesconfirm').html('Are you sure that you want approve this business?');
+    $('#mgConfirmation').modal('show');
+    $("#btn_confirm").click(function(){
 
-
-var path = getBaseUrl()+'img/ajax-loader.gif';
+    var path = getBaseUrl()+'img/ajax-loader.gif';
 
       
      $("#imageajaxbusiness"+id).html('<img src="'+path +'"/>');
@@ -2199,6 +2202,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                 }
                 
             });
+        });            
 }
 
 
@@ -2208,14 +2212,12 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
 function rejectBusiness(id){
 id = parseInt(id);
 
-var op = confirm("Are you sure that you want reject this business?");
-    if (!op)
-    {
-        return false;
-    }
+    $('#pmessagesconfirm').html('Are you sure that you want reject this business?');
+    $('#mgConfirmation').modal('show');
+    $("#btn_confirm").click(function(){
 
 
-var path = getBaseUrl()+'img/ajax-loader.gif';
+     var path = getBaseUrl()+'img/ajax-loader.gif';
       
      $("#imageajaxbusiness"+id).html('<img src="'+path +'"/>');
 
@@ -2237,6 +2239,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                 }
                 
             });
+    });            
 }
 
 

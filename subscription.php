@@ -434,9 +434,9 @@ class subscription{
 
     public function InsertSubscription($type, $status, $cardno,$expirydate,$cvv, $businessname, $address, $city, $state, $postalcode, $country, $contactname, $contactemail, $paidplan, $password, $amount, $agreementid, $organisationid = 0, $cardid, $paymentid ){
         
-            $businessname = addslashes($businessname);
-            $address = addslashes($address);
-            $contactname = addslashes($contactname);
+            $businessname = htmlentities($businessname);
+            $address = htmlentities($address);
+            $contactname = htmlentities($contactname);
 
         
             if (empty($expirydate))
@@ -624,6 +624,11 @@ class subscription{
             $row = $result->fetch_assoc();
             if ($row['organisationID'] > 0){ 
                 $row['success'] = true;
+                $row['businessname'] = html_entity_decode($row['businessname']);
+                $row['address'] = html_entity_decode($row['address']);
+                $row['contactname'] = html_entity_decode($row['contactname']);
+                
+                
                 return $row; 
             }
          }    
@@ -648,9 +653,9 @@ class subscription{
     
     public function updateSubscription($organisationid,  $type, $status, $businessname, $address, $city, $state, $postalcode, $country, $contactname, $contactemail, $county, $userid = 0 ){
         
-         $businessname = addslashes($businessname);
-         $address = addslashes($address);
-         $contactname = addslashes($contactname);
+         $businessname = htmlentities($businessname);
+         $address = htmlentities($address);
+         $contactname = htmlentities($contactname);
          
          $query =  " UPDATE subscriptions SET  type = '$type', businessname = '$businessname' , address = '$address', city = '$city', state = '$state', ";
          $query .= " postalcode = '$postalcode', country = '$country', contactname = '$contactname', contactemail = '$contactemail'";
@@ -847,9 +852,9 @@ class subscription{
  */
   public function InsertOrganisation($companyname, $address, $townid, $countryid, $regionid, $countyid, $phone, $email, $locality, $website, $postcode, $contactname, $industryid = 0){
       
-        $companyname = addslashes($companyname);
-        $address = addslashes($address);
-        $contactname = addslashes($contactname);
+        $companyname = htmlentities($companyname);
+        $address = htmlentities($address);
+        $contactname = htmlentities($contactname);
         
         $query = "insert into organisations(CompanyName, Address, Address2, TownID, CountryID, RegionID, CountyID, TelephoneNumber,EmailAddresses, Locality, WebsiteAddress, Postcode, ContactFullName, industryid ) "
                 . "values('$companyname','$address','','$townid','$countryid','$regionid','$countyid','$phone','$email','$locality','$website', '$postcode','$contactname', $industryid) ";
@@ -945,9 +950,9 @@ class subscription{
  */  
     
     public function updateOrganisation($organisationid,  $businessname, $address, $city, $country, $county, $postalcode,  $contactname, $contactemail, $phone, $website, $industryid){
-            $businessname = addslashes($businessname);
-            $address = addslashes($address); 
-            $contactname = addslashes($contactname);
+            $businessname = htmlentities($businessname);
+            $address = htmlentities($address); 
+            $contactname = htmlentities($contactname);
             
             $query = "UPDATE organisations SET CompanyName = '$businessname', Address = '$address', Address2 = '', TownID = '$city', CountyID = '$county', CountryID = '$country', ";
             $query .= " Postcode = '$postalcode', WebsiteAddress = '$website', ContactFullName = '$contactname', EmailAddresses = '$contactemail', TelephoneNumber = '$phone', IndustryID = '$industryid' ";
@@ -1026,7 +1031,7 @@ class subscription{
                     <td class = 'registered'style='text-align: center'>".$row['date']."</td>
                     <td class = 'ncomplaints' style='text-align: center'>".$row['complaintscount']."</td>
                     <td id = 'statususer$id'>".$row['status']."</td>
-                    <td>".$editlink." ".$deletelink." ".$blocklink."</td>
+                    <td>".$editlink." ".$deletelink." ".$blocklink."</div></td>
                     <td id= 'imageajaxusers".$id."' ></td>
                 </tr>";
                 $users .= trim($option);
@@ -1232,6 +1237,10 @@ class subscription{
             $row = $result->fetch_assoc();
             $success = false;
             $row['success'] = true;
+            $row['CompanyName'] = html_entity_decode($row['CompanyName']);
+            $row['Address'] = html_entity_decode($row['Address']);
+            $row['ContactFullName'] = html_entity_decode($row['ContactFullName']);
+            
             return $row; 
          }    
          return $row['success'] = false;
@@ -1253,6 +1262,10 @@ class subscription{
             $row = $result->fetch_assoc();
             $success = false;
             $row['success'] = true;
+            $row['CompanyName'] = html_entity_decode($row['CompanyName']);
+            $row['Address'] = html_entity_decode($row['Address']);
+            $row['ContactFullName'] = html_entity_decode($row['ContactFullName']);
+            
             return $row; 
          }    
          return $row['success'] = false;
@@ -1275,9 +1288,9 @@ class subscription{
  * @return array 
  */  
     public function updateNewOrganisation($organisationid,  $businessname, $address, $city, $country, $county, $postalcode,  $contactname, $contactemail, $phone, $website, $industryid ){
-         $businessname = addslashes($businessname);
-         $address = addslashes($address); 
-         $contactname = addslashes($contactname);
+         $businessname = htmlentities($businessname);
+         $address = htmlentities($address); 
+         $contactname = htmlentities($contactname);
         
          $query = "UPDATE neworganisations SET CompanyName = '$businessname', Address = '$address', TownID = '$city', CountyID = '$county', CountryID = '$country', ";
          $query .= " Postcode = '$postalcode', WebsiteAddress = '$website', ContactFullName = '$contactname', EmailAddresses = '$contactemail', TelephoneNumber = '$phone', IndustryID = '$industryid' ";
@@ -1343,7 +1356,7 @@ class subscription{
             $idajax = $id;
             $cardid = $row['cardid'];
             $agreementid = $row['agreementid'];
-            $address = $row['Address'];
+            $address = html_entity_decode($row['Address']);
             $userid = $row['userid'];
             if (empty($address)){
                 $address = "<p><br></p>";

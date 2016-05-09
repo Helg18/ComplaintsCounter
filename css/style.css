@@ -1522,6 +1522,23 @@ article.page {
     }
 
 }
+/*mini laptop*/
+@media screen and (min-width: 680px) and (max-width: 1024px) {
+    .login_nav{
+        float: left !important;
+        padding-bottom: 15px;
+     }
+  
+    .header_right{
+       width: 35% !important;
+    }
+  
+    .selectcompany{
+        padding-right: 2%;
+        padding-left: 2%;
+    }  
+}
+
 @media screen and (min-width: 697px) and (max-width: 975px) {
   li.header_nav{
     padding: 0px 0px 0px 0px !important; 
@@ -1530,7 +1547,7 @@ article.page {
     width: 100% !important;
     float: left;
     padding-bottom: 30px;
-    border: 2px black
+    
   }
   .header_right{
     margin: 0px 0px 0px 0px !important;
@@ -2208,11 +2225,27 @@ article.page {
       text-align: left;
   }
   
-.actionlinks{  
+.actionlinks{
+     
      width: 100% !important;
      float:left !important;
-     min-height: 30px !important;
-     z-index: 100;
+     padding-top: 10px !important;
+     padding-bottom: 10px !important;
+     
+     z-index: 100 !important;
+     margin-bottom: 10px;
+     
+}
+.login_input{
+    height: 50px !important;
+}
+
+.reponsivebutton{
+    width: 100% !important;
+    float:left !important;
+    margin-bottom: 20px !important;
+    
+    
 }
 
   
@@ -2780,6 +2813,7 @@ article.page {
 
 .actionlinks{
   color:#06E !important;
+  z-index: 100;
 }
 .paidplan_list{
   margin-top: 5px !important;
@@ -3074,5 +3108,12 @@ article.page {
 .positionnextadd{
     width: 100%;
     float:left;
+}
+
+.selectcompany{
+    width:100%;
+    float:left; 
+    height: auto; 
+    margin-bottom: 10px;
 }
 

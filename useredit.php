@@ -140,10 +140,10 @@
                                                 <input type = "hidden" id= "emailrecoverbusiness" name = "emailrecoverbusiness">
                                         </form>  
 		 		</div>	
-                                <div class="modal-footer" style = "text-align: center; width: 100% ">
-                                    <button type="button" class="btn btn-primary btn-default" id = "cmdResetBusinessUser" onclick = "ResetPasswordEditUser('b');return false;">Reset Password</button>
-                                    <button type="button" class="btn btn-primary btn-default" id = "cmdUpdateOrganisation" onclick = "updateEditUser('b');return false;">Save</button>
-				    <button type="button" class="btn btn-primary" data-dismiss="modal" id = "myBtn" >Cancel</button>
+                                <div class="modal-footer" style = "text-align: center; width: 100%;">
+                                    <button type="button" class="btn btn-primary btn-default reponsivebutton" id = "cmdResetBusinessUser" onclick = "ResetPasswordEditUser('b');return false;">Reset Password</button>
+                                    <button type="button" class="btn btn-primary btn-default reponsivebutton" id = "cmdUpdateOrganisation" onclick = "updateEditUser('b');return false;">Save</button>
+				    <button type="button" class="btn btn-primary btn-default reponsivebutton" data-dismiss="modal" id = "myBtn" >Cancel</button>
 				</div>
 			</div>
 		</div>
@@ -197,9 +197,9 @@
                                         </form>  
 		 		</div>	
                                 <div class="modal-footer" style = "text-align: center; width: 100% ">
-                                    <button type="button" class="btn btn-primary btn-default" id = "cmdResetUser" onclick = "ResetPasswordEditUser('u');return false;">Reset Password</button>
-                                    <button type="button" class="btn btn-primary btn-default" id = "cmdUpdateSubscription" onclick = "updateEditUser('u');return false;">Save</button>
-				    <button type="button" class="btn btn-primary" data-dismiss="modal" id = "myBtn" >Cancel</button>
+                                    <button type="button" class="btn btn-primary btn-default reponsivebutton" id = "cmdResetUser" onclick = "ResetPasswordEditUser('u');return false;">Reset Password</button>
+                                    <button type="button" class="btn btn-primary btn-default reponsivebutton" id = "cmdUpdateSubscription" onclick = "updateEditUser('u');return false;">Save</button>
+				    <button type="button" class="btn btn-primary btn-default reponsivebutton" data-dismiss="modal" id = "myBtn" >Cancel</button>
 				</div>
 			</div>
 		</div>

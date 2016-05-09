@@ -503,10 +503,10 @@ if ($var_action == "insertcomplaint") {
 		$row['success'] = false;
 		$data = $_POST;
 		$organsationid = $data['organisationid'];
-		$name = $data['name'];
-		$email = $data['email'];
-		$title = addslashes($data['title']);
-		$complaints = addslashes($data['complaint']);
+		$name = htmlentities($data['name']);
+		$email = htmlentities($data['email']);
+		$title = htmlentities($data['title']);
+		$complaints = htmlentities($data['complaint']);
 		$review = $data['review'];
 		$broadcast = $data['broadcast'];
                 $industryid = $data['industryid'];
