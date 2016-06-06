@@ -4,6 +4,6 @@
 	$broadcast = new broadcast();
 	$broadcast->broadcast24();
 	
-	$payments = new payments();
-	$payments->CheckPendingPayments();
+	/*$payments = new payments();
+	$payments->CheckPendingPayments();*/
 ?>

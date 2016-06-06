@@ -121,9 +121,10 @@
 				</div>
 
                                 <div class="formsubscriber">
-					<div class = "labelform">CONTACT NAME*</div>
+					<div class = "labelform">CONTACT NAME</div>
 					<div class = "controlform" >
 						<input type = "text" name="txtContactName" id="txtContactName" class="inputform" value ="<?php echo $subscription['contactname'] ?>" >
+                                                <div class = "messagesform"><span id = "spanContactName" ></span></div>
 					</div>
 				</div>
 
@@ -189,10 +190,12 @@
     fillDropdownRegions('townlistregister', 'town',$("#town").val());
     fillDropdownOrganisationIndustries('industrylistregister', $("#industryid").val());
     
+
     removeErrorMessage('txtBusinessName', 'spanBusinessName');
     removeErrorMessage('txtStreet', 'spanStreetRegister');
     removeErrorMessage('txtPhone', 'spanPhoneregister');
     removeErrorMessage('txtPostalRegister', 'spanPostalregister');    
+    removeErrorMessage('txtContactName', 'spanContactName');
 </script>    
 </body>
 

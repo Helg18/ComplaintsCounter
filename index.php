@@ -28,9 +28,12 @@
           <a href="contact.php" target="_self" class="smaller-button linkclean secondfooterbutton">Contact Us</a>
         </footer>
   </div>    
+    <div   class="section_article">
+        
+      <div  class="content content-with-progress section_page">
+            <div  id="who" style="float:left; width: 100%; height: 200px">
+            </div>
 
-    <div class="section_article">
-      <div id="who" class="content content-with-progress section_page">
         <div>
             <h2 >What's the company you want to complain about?</h2>
             <label class="instruction">just let us have their business name</label>
@@ -921,7 +924,7 @@ function gpluspassclean()
                     $("#nextOne").attr("href", "#what");
                     if (allvalid == false)
                         setTimeout(function (){
-                                $("#myComplaints").focus();
+                              $("#myComplaints").focus();
                         }, 100);
                     return true;
                 } else {

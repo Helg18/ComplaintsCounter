@@ -28,7 +28,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" id ="btn_cancel" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-					<button type="button" id ="btn_confirm" class="btn btn-primary" data-dismiss="modal" >OK</button>
+					<button type="button" id ="btn_confirm" class="btn btn-primary" data-dismiss="modal" >Yes</button>
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">NAME <label style="color:red;">&nbsp;*</label></div>
 					<div class = "controlform-inline" >
-                                            <input type="text" id="txtBusinessNameAdd" name = "txtBusinessName" class="inputform inputaddbusiness" tabindex="30" onblur="checkCompanyNameAddBussiness()">
+                                            <input type="text" id="txtBusinessNameAdd" name = "txtBusinessName" class="inputform inputaddbusiness" tabindex="30" onblur="checkCompanyNameAddBussiness()" maxlength="59">
 				         <div class = "messagesform"><span id = "spanBusinessNameAdd"></span></div>
 				    </div>
 				</div>                            
@@ -69,7 +69,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">ADDRESS <label style="color:red;">&nbsp;*</label></div>
 					<div class = "controlform-inline" >
-                                            <input type= "text" id="address" class="inputform inputaddbusiness" tabindex="32">
+                                            <input type= "text" id="address" class="inputform inputaddbusiness" tabindex="32" maxlength="59">
 				         <div class = "messagesform"><span id = "spanAddressAdd"></span></div>
 				    </div>
 				</div>  
@@ -107,7 +107,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">TELEPHONE</div>
 					<div class = "controlform-inline" >
-                                            <input type="text" id="phone" class="inputform inputaddbusiness" tabindex="36">
+                                            <input type="text" id="phone" class="inputform inputaddbusiness" tabindex="36" maxlength="15">
                                             <div class = "messagesform"><span id ="spanPhoneAdd"></span></div>
                                         </div>
                                         
@@ -116,7 +116,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">POSTCODE</div>
 					<div class = "controlform-inline" >
-                                            <input type="text" id="postcode" class="inputform inputaddbusiness" tabindex="37">
+                                            <input type="text" id="postcode" class="inputform inputaddbusiness" tabindex="37" maxlength="8">
                                             <div class = "messagesform"><span id ="spanPostcodeAdd"></span></div>
                                         </div>
 				</div>                          
@@ -124,7 +124,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">EMAIL</div>
 					<div class = "controlform-inline" >
-                                            <input type = "text" id='email'class="inputform inputaddbusiness" tabindex="38">
+                                            <input type = "text" id='email'class="inputform inputaddbusiness" tabindex="38" maxlength="100">
                                             <div class = "messagesform"><span id ="spanEmailAdd"></span></div>
                                         </div>
 				</div>                          
@@ -132,7 +132,7 @@
 				<div class="formsubscriber">
                                     <div class = "labelform-inline">WEBSITE</div>
 					<div class = "controlform-inline" >
-                                            <input type="text"  id='website'class="inputform inputaddbusiness" tabindex="39">
+                                            <input type="text"  id='website'class="inputform inputaddbusiness" tabindex="39" maxlength="59">
                                             <div class = "messagesform"><span id ="spanWebsiteAdd"></span></div>
                                         </div>
 				</div>                          

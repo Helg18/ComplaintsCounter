@@ -17,31 +17,44 @@ if (isset($_GET['action'])){
     switch ($action) {
 		
         case 'insert':
+                
                 require_once 'payments.php';
                 $active = true;
                 $agreementid ="";
                 $card ="";
+                $cardid = "";
+                $subscriptionid = "";
+                $paymentid = "";
+                
                 $payments = new payments();         
-                $card = $payments->CreateCreditCard($data['txtCard'], $data['typecard'], $data['txtExp'],$data['txtCvc'], $data['txtContactEmail'], $data['txtBusinessName']);
-                if ($card){
-                    $cardid = $card->id;
-                    $cardstate = $card->state;
-                    $payment = $payments->CreatePayment($cardid, $data['paidPlanAmount'], GetPlanName($data['planpaid']));
-                    $paymentstate = $payment->state;
-                    $paymentid = $payment->id;
+                $payments->planid = $data['planpaid']; 
+                //$card = $payments->CreateCreditCard($data['txtCard'], $data['typecard'], $data['txtExp'],$data['txtCvc'], $data['txtContactEmail'], $data['txtBusinessName']);
+                $customer = $payments->CreateCustomerBraintree($data['txtCard'], $data['typecard'], $data['txtExp'],$data['txtCvc'], $data['txtContactEmail'], $data['txtBusinessName'], $data['txtPhone']);
+                
+                if ($customer->success){
+                    $customerdetail = $customer->customer;
+                    //$customerid = $customerdetail->customer->id;
+                    $paymentmethod = $customerdetail->creditCards;
+                    $creditCardToken = $paymentmethod[0]->token;
+                    $cardid = $creditCardToken;
+                    
+                    $payments->planid = $data['planpaid']; 
+                    $agreement = $payments->create_transaction($creditCardToken);
                 }
                 
-                if ($paymentstate != "approved"){
+                if (!$agreement['success']){
                     $result = false;
                     break;
+                }else{
+                    $subscriptionid  = $agreement['subscriptionid'];
+                   
                 }
             
 	        $data['status'] = 'active';
                 $subscription = new subscription();         
+                $organisationid = $data['organisationid'];
                 
-               $organisationid = $data['organisationid'];
-               
-               if ($organisationid == 0){     
+                if ($organisationid == 0){     
                     $organisationid = $subscription->InsertOrganisation(
                                                                         $data['txtBusinessName'], 
                                                                         $data['txtStreet'], 
@@ -76,13 +89,14 @@ if (isset($_GET['action'])){
 						     $data['planpaid'],
 						     $data['txtPasswordRegister'],
 						     $data['paidPlanAmount'],
-                                                     $agreementid,
+                                                     $subscriptionid,
                                                      $organisationid,
                                                      $cardid,
                                                      $paymentid   
                                                     );
                 
-            $result =  $payments->CreatePaymentDetail($organisationid, $paymentstate, $paymentid, $data['paidPlanAmount'],  "GBP");
+            //$result =  $payments->CreatePaymentDetail($organisationid, $paymentstate, $paymentid, $data['paidPlanAmount'],  "GBP");*/
+            //$result['success'] = true;
             $result = json_encode($result);
             break;
         case 'checksubscriptionemail':
@@ -369,6 +383,7 @@ if (isset($_GET['action'])){
                                                                     $data['industrylist']
                                                                     );
                     }                    
+                    
 		    $result = json_encode($result);
                     break;
                     
@@ -398,8 +413,11 @@ if (isset($_GET['action'])){
             $result = json_encode($result);
             break;                     
     }
-if (!empty($result))
-    echo $result;    
+    if (!empty($result)){
+        
+        echo $result;    
+        
+    }
 
 }
 
@@ -819,9 +837,9 @@ class subscription{
         $welcome_email .= "For future reference your username is: ".$username." \r\n\r\n";
         
         if (!empty($agreementid))
-            $welcome_email .= "Your paypal agreement is: $agreementid. \r\n\r\n";
+            $welcome_email .= "Your agreement is: $agreementid. \r\n\r\n";
         else
-            $welcome_email .= "Your paypal payment is: $$paymentid. \r\n\r\n";
+            $welcome_email .= "Your agreement is: $$paymentid. \r\n\r\n";
         
         $welcome_email .="As a member of ComplaintsCounter you will now be able to:\r\n\r\n";
 	$welcome_email .="- Create and send out complaints quickly";
@@ -1001,9 +1019,9 @@ class subscription{
             $deletelink = "";
             if ($status != "deleted"){
                 if ($usertype == "User")
-                    $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteUser(".$id.");return false;\">Delete</a>";
+                    $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteUser(".$id.");return false;\"><div class = 'actionbutton'>Delete</div></a>";
                 else
-                    $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showPopupMessage('Delete the user in order to delete the business');return false;\">Delete</a>";
+                    $deletelink = "<a id = 'deleteuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showPopupMessage('Delete the user in order to delete the business');return false;\"><div class = 'actionbutton'>Delete</div></a>";
                 
             }
             
@@ -1017,9 +1035,9 @@ class subscription{
             if ($row["usertype"] == "Business")
                 $editparam = "'$id','b' ";
             
-            $blocklink = "<a id = 'blockuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"blockUser(".$blockparam.");return false;\">$blocked</a>";
+            $blocklink = "<a id = 'blockuser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"blockUser(".$blockparam.");return false;\"><div id = 'blockuserdiv".$id."' class = 'actionbutton'>$blocked</div></a>";
             
-            $editlink = "<a id = 'edituser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditUser(".$editparam.");return false;\">Edit</a>";
+            $editlink = "<a id = 'edituser".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditUser(".$editparam.");return false;\"><div class = 'actionbutton'>Edit</div></a>";
 
             
              $option ="                     
@@ -1081,13 +1099,13 @@ class subscription{
             
             $rejectlink = "";
             if ($status != "d"){
-                $rejectlink = "<a id = 'rejectbusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"rejectBusiness(".$id.");return false;\">Reject</a>";
+                $rejectlink = "<a id = 'rejectbusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"rejectBusiness(".$id.");return false;\"><div class = 'actionbutton'>Reject</div></a>";
             }
-            $approvelink = "<a id = 'approvebusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"approveBusiness(".$id.");return false;\">Approve</a>";
+            $approvelink = "<a id = 'approvebusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"approveBusiness(".$id.");return false;\"><div class = 'actionbutton'>Approve</div></a>";
             
-            $editlink = "<a id = 'editbusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditBusiness(".$id.");return false;\">Edit</a>";
+            $editlink = "<a id = 'editbusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditBusiness(".$id.");return false;\"><div class = 'actionbutton'>Edit</div></a>";
             
-            $deletelink = "<a id = 'deletebusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteBusiness(".$id.");return false;\">Delete</a>";
+            $deletelink = "<a id = 'deletebusiness".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteBusiness(".$id.");return false;\"><div class = 'actionbutton'>Delete</div></a>";
 
              $option ="                     
                 <tr id = 'businessrow".$id."' class = 'trbusiness'>
@@ -1271,7 +1289,6 @@ class subscription{
          return $row['success'] = false;
     }       
     
-    
 /** 
  * update the fields of a organisations table
  * @param integer organisationid
@@ -1362,31 +1379,16 @@ class subscription{
                 $address = "<p><br></p>";
             }
             
-            $editlink = "<a id = 'editorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditOrganisation(".$id.");return false;\">Edit</a>";
+            $editlink = "<a id = 'editorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showEditOrganisation(".$id.");return false;\"><div class = 'actionbutton'>Edit</div></a>";
             if ($userid > 0)
-                $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showPopupMessage('delete the business in order to delete the user');return false;\">Delete</a>";
+                $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"showPopupMessage('delete the business in order to delete the user');return false;\"><div class = 'actionbutton'>Delete</div></a>";
             else
-                $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteOrganisation(".$id.");return false;\">Delete</a>";
+                $deletelink = "<a id = 'deleteorganisation".$id."' class = 'actionlinks' a href=\"#\" onclick=\"deleteOrganisation(".$id.");return false;\"><div class = 'actionbutton'>Delete</div></a>";
             $exclamation = "";
             
-            if (!empty($cardid)){
-                $query = "SELECT e.status FROM subscriptions as d join subscriptionpayments as e on e.organisationID = d.organisationID WHERE d.organisationID =  $id ORDER BY e.subscriptionpaymentsid DESC LIMIT 1 ";
-                $pay = phpmkr_query($query);
-                
-                if ($pay){
-                    $paymenttype = 'c';
-                    $pay  = $pay->fetch_assoc();
-                    $paymentstatus = $pay['status'];
-                            
-                    if  ($paymentstatus != "approved"){
-                        $exclamation  = "<div class='tooltipcp' style = 'padding-left:5px'><img src = 'img/exclamation.png'/><span class='tooltiptext'>recurring payment problem. Click here to see details</span> </div>";
-                    }else
-                        $payments = "<a id = 'paymentid$id' class = 'actionlinks' a href=\"#\" onclick=\"showPaymentDetails('".$id."','$paymenttype');return false;\"><span style='float:left'>Payment Details</span> $exclamation</a><span id='imageajaxiconpayment$id' style = 'float:right; margin-right: 20%'></span>";    
-                }           
-            }
-            else if (!empty($agreementid)){
+           if (!empty($agreementid)){
                     $paymenttype = 'p';
-                    $payments = "<a id = 'paymentid$id' class = 'actionlinks' a href=\"#\" onclick=\"showPaymentDetails('".$agreementid."','$paymenttype');return false;\"><span style='float:left'>Payment Details</span> $exclamation</a><span id='imageajaxiconpayment$agreementid' style = 'float:right; margin-right: 20%'></span>";    
+                    $payments = "<a id = 'paymentid$id' class = 'actionlinks' a href=\"#\" onclick=\"showBraintreePaymentDetails('".$agreementid."');return false;\"><span style='float:left'>Payment Details</span> $exclamation</a><span id='imageajaxiconpayment$agreementid' style = 'float:right; margin-right: 20%'></span>";    
                     $idajax = $agreementid; 
            }
            if (empty($payments))
@@ -1441,3 +1443,5 @@ class subscription{
  
     
 }//end class
+
+?>

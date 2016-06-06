@@ -832,9 +832,9 @@ $sSql.= $orderby;
     $query  = "SELECT a.complaintsid, DATE_FORMAT(a.date, '%d-%m-%Y') as date, a.broadcastdays, u.email,   ";
     $query .= " DATE_FORMAT(a.broadcastdate,'%d-%m-%Y') AS broadcastdate, a.title, b.CompanyName, ";
     $query .= " CASE a.status  WHEN 'a' THEN 'Awaiting broadcast'  WHEN 'b' THEN 'Broadcasted' ";
-    $query .= " WHEN 'e' THEN 'Emailed'  WHEN 's' THEN 'Suspended' WHEN 'p' THEN 'Paused'  END AS status, ";
+    $query .= " WHEN 'e' THEN 'Emailed'  WHEN 's' THEN 'Suspended' WHEN 'p' THEN 'Paused'  END AS status, a.organisationid, ";
     $query .= " a.status as broadcast, coalesce((SELECT correspondenceid FROM correspondence c WHERE c.complaintsid = a.complaintsid LIMIT 1),0) AS correspondenceid  ";
-    $query .= " FROM complaints as a join organisations as b on a.organisationid = b.organisationID join users as u  on u.userid = a.userid ";
+    $query .= " FROM complaints as a left join organisations as b on a.organisationid = b.organisationID join users as u  on u.userid = a.userid ";
     
     if ($usertype != "a")
         $where .= " WHERE a.userid = $userid ";
@@ -862,6 +862,15 @@ $sSql.= $orderby;
                 $response = "Yes";
             else
                 $response = "No";
+            
+            
+        if (empty($row['CompanyName'])){
+                $neworganisationid = intval($row['organisationid']) * -1;
+                $query = "SELECT CompanyName FROM  neworganisations where organisationID = $neworganisationid";
+                $newresult = phpmkr_query($query);
+                $neworganisation  = $newresult->fetch_assoc();
+                $row['CompanyName'] = $neworganisation['CompanyName'];
+            }            
                     
             $i++; 
             $exist = true;
@@ -894,7 +903,7 @@ $sSql.= $orderby;
                      $onclick = "broadcastComplaintUser(".$id.");";
                      $broadcasttext = "Broadcast"; 
                      $href = "href=\"#\"";
-                     $pauselink = "<a id = 'actionlink".$id."' class = 'actionlinks' a href=\"#\" onclick=\"actionComplaint(".$param.");return false;\"><span id = 'action".$id."'>".$action."</a>";
+                     $pauselink = "<a id = 'actionlink".$id."' class = 'actionlinks' a href=\"#\" onclick=\"actionComplaint(".$param.");return false;\"><div class = 'actionbutton'><span id = 'action".$id."'>".$action."</span></div></a>";
                      
                  }else
                  {
@@ -912,18 +921,22 @@ $sSql.= $orderby;
                         
                      }
                 } 
-                $pauselink = "<a id = 'actionlink".$id."' class = 'actionlinks' a href=\"#\" onclick=\"actionComplaint(".$param.");return false;\"><span id = 'action".$id."'>".$action."</a>";                    
-                 
-                $broadcastlink = "<a id = 'broadcast".$id."'class = 'actionlinks' $href onclick= '$onclick return false;'>".$broadcasttext."</a>";    
+                $pauselink = "<a id = 'actionlink".$id."' class = 'actionlinks' a href=\"#\" onclick=\"actionComplaint(".$param.");return false;\"><div class = 'actionbutton'><span id = 'action".$id."'>".$action."</span></div></a>";                    
+                if ($row['organisationid'] > 0 )
+                    $broadcastlink = "<a id = 'broadcast".$id."'class = 'actionlinks' $href onclick= '$onclick return false;'><div class = 'actionbutton'>".$broadcasttext."</div></a>";    
+                
                 if ($organisationid > 0){
                     $onclick = "showResponse(".$id.");";
                     $broadcasttext = "Response"; 
-                    $broadcastlink = "<a id = 'response".$id."'class = 'actionlinks' href = '#' onclick= '$onclick return false;'>".$broadcasttext."</a>";    
+                    $broadcastlink = "<a id = 'response".$id."'class = 'actionlinks' href = '#' onclick= '$onclick return false;'><div class = 'actionbutton'>".$broadcasttext."</div></a>";    
                 }    
                 
              }
              
-             $linkemail = "<a id = 'sendemail".$id."'class = 'actionlinks' href = '#' onclick= 'showEmailLetter($id); return false;'>Letter</a>"; 
+             $linkemail = "";
+             if ($row['organisationid'] > 0  &&  $_SESSION['usertype'] == "a"){
+                $linkemail = "<a id = 'sendemail".$id."'class = 'actionlinks' href = '#' onclick= 'showEmailLetter($id); return false;'><div class = 'actionbutton'>Letter</div></a>"; 
+             }
 
              $option ="                     
                 <tr id = 'complaintrow".$id."' class = 'trcomplaint'>
@@ -935,8 +948,8 @@ $sSql.= $orderby;
                     <td id = 'status$id'>". $row['status']."</td>
                     <td class = 'broadcastdate' style='text-align: center' id = 'broadcastdate".$id."'>". $row['broadcastdate']."</td>
                     <td id = 'responded$id' class = 'businessresponded' style='text-align: center'>$response</td>
-                    <td><a class = 'actionlinks' href=\"#\" onclick='deleteComplaint(".$row['complaintsid']."); return false;'>Delete</a>  $pauselink
-                    <a class = 'actionlinks' href=\"#\" onclick='previewComplaint(".$row['complaintsid']."); return false;'>Preview</a>
+                    <td><a class = 'actionlinks' href=\"#\" onclick='deleteComplaint(".$row['complaintsid']."); return false;'><div class = 'actionbutton'>Delete</div></a>  $pauselink
+                    <a class = 'actionlinks' href=\"#\" onclick='previewComplaint(".$row['complaintsid']."); return false;'><div class = 'actionbutton'>Preview</div></a>
                     ".$broadcastlink."   
                     ".$linkemail."
                     </td>
@@ -966,9 +979,9 @@ $sSql.= $orderby;
     $exist = false;
     $query  = "SELECT  a.complaintsid, DATE_FORMAT(a.date, '%d-%m-%Y') as date, a.review as review,  "
                        . " DATE_FORMAT(a.broadcastdate,'%d-%m-%Y')  AS broadcastdate ,  a.title, a.complaint, b.CompanyName,  ";
-    $query .= " CASE a.status  WHEN 'a' THEN 'Awaiting broadcast'  WHEN 'b' THEN 'Broadcasted'   END AS status ";
+    $query .= " CASE a.status  WHEN 'a' THEN 'Awaiting broadcast'  WHEN 'b' THEN 'Broadcasted'   END AS status, a.organisationid ";
     
-    $query .= " FROM complaints as a join organisations as b on a.organisationid = b.organisationID  WHERE a.complaintsid = $complaintid";
+    $query .= " FROM complaints as a left join organisations as b on a.organisationid = b.organisationID  WHERE a.complaintsid = $complaintid";
 				
     $query = $query.$where;  
 				
@@ -979,11 +992,20 @@ $sSql.= $orderby;
         $row  = $result->fetch_assoc();
         $exist = true;
         $id = $row['complaintsid'];
+        
         $lastid = $row['complaintsid'];
         $complaint = $row;
         $complaint['success'] = $exist;		
         $complaint['title'] = $row['title'];
         $complaint['complaint'] = $row['complaint'];
+        if (empty($row['CompanyName'])){
+            $neworganisationid = intval($row['organisationid']) * -1;
+            $query = "SELECT CompanyName FROM  neworganisations where organisationID = $neworganisationid";
+            $result = phpmkr_query($query);
+            $neworganisation  = $result->fetch_assoc();
+            $complaint['CompanyName'] = $neworganisation['CompanyName'];
+        }
+        
                                     
         $response = $this->GetResponseByComplaintid($id);
         if ($response){
@@ -1182,7 +1204,7 @@ public function DeleteUploadFile($filename){
     
     $query  = "SELECT  a.complaintsid, DATE_FORMAT(a.date, '%d-%m-%Y') as date, a.review as review,  ";
     $query .= " DATE_FORMAT(a.broadcastdate,'%d-%m-%Y')  AS broadcastdate ,  a.title, a.complaint, b.CompanyName, b.EmailAddresses, ";
-    $query .= "  u.email ";
+    $query .= "  u.email, u.username, u.name ";
     $query .= " FROM complaints as a join organisations as b on a.organisationid = b.organisationID  ";
     $query .= " JOIN users as u on u.userid = a.userid ";
     $query .= " WHERE a.complaintsid = $complaintid";

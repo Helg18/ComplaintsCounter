@@ -171,7 +171,7 @@
     
     	
 $( document ).ready(function() {
-    removeErrorMessage('txtBusinessName', 'spanBusinessName');
+    removeErrorMessage('txtBusinessName', 'spanBusinessNameEdit');
     removeErrorMessage('txtWebsite', 'spanWebsite');
     removeErrorMessage('txtWebsite', 'spanWebsite');
     removeErrorMessage('txtContactEmail', 'spanContactEmail');

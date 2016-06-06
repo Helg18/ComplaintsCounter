@@ -275,6 +275,20 @@ function checkIfBlank(selector){
     
 }
 /** 
+ * check especial chars 
+ * @return boolean
+ */
+    
+function checkEspecialChars(value){
+       var characterReg = /[`~!@#$%^*_°¬|+\-=?;:'",.<>\{\}\[\]\\\/]/gi;
+       if(characterReg.test(value)) {			
+           
+           return true;
+       }
+       return false;
+}
+
+/** 
  * check if browser is internet explorer version 6,7,8
  * @return boolean
  */
@@ -356,10 +370,25 @@ function registerBusiness() {
             return false;
     }    
     
+    
+    var name = $('#txtBusinessName').val();
+    if (checkEspecialChars(name)){
+            errorMessage('spanBusinessNameregister','Field Business Name is not valid', true);
+            return false;
+    }    
+        
+    
     if ($('#industrylistregister').val() == 0){
         errorMessage('spanIndustryregisters','You must select a Industry', true);
         return false;
     }   
+    
+    var address = $('#txtStreet').val();
+    if (checkEspecialChars(address)){
+            errorMessage('spanBusinessNameregister','Field Address is not valid', true);
+            return false;
+    }    
+    
     
     if (checkIfBlank('txtStreet')){
             errorMessage('spanStreetregister','Field Address Should not be blank', true);
@@ -492,17 +521,26 @@ function registerBusiness() {
                    dataType: 'json',
                    //timeout: 60000,
                    success:function(data){
-                       $("#ajaxiconsubscription").html('');
-                       $("#cmdSaveSubscription").removeAttr("disabled");
+                       console.log(data.success);
+                       if (data.success){
+                            $("#ajaxiconsubscription").html('');
+                            $("#cmdSaveSubscription").removeAttr("disabled");
 
-                        $('#frmSubscription').trigger("reset");
-                        window.top.location = 'register_success.php';
+                             $('#frmSubscription').trigger("reset");
+                             window.top.location = 'register_success.php';
+                         }else{
+                             $("#ajaxiconsubscription").html('');
+                             $("#cmdSaveSubscription").removeAttr("disabled");
+                             showPopupMessage('Error processing payment, please check payment data are correct');
+                             
+                         }
+                             
                    },
                        error: function(data) {
                            console.log(data)
                            $("#ajaxiconsubscription").html('');
                            $("#cmdSaveSubscription").removeAttr("disabled");
-                           alert('An error occurred');
+                           showPopupMessage('Error processing payment, please check payment data are correct');
                    }
 
                });
@@ -527,9 +565,9 @@ function registerBusiness() {
 
                }); 
         }    
-}     
+} 
 
-/*/**
+ /*
  * call ajax function to check if a subscription email already exist in subscription screen
  * @return boolean
  */   
@@ -559,7 +597,7 @@ function CheckSubscriptionEmail() {
                 
                  $('#spanContactEmail').html('Email already registered');       
                  $('#spanContactEmail').addClass('error-messages ng-active');
-         $('#txtValid').val(0);
+                 $('#txtValid').val(0);
                  
 
             }else {
@@ -754,17 +792,21 @@ function updateBusiness(){
    errorMessage('spanPostalregister','', false);
    errorMessage('spanPhoneregister','', false);
    
-
-   
-    pattern = validEmail($('#txtContactEmail').val())
+   pattern = validEmail($('#txtContactEmail').val())
     
     if (checkIfBlank('txtBusinessName')){
         errorMessage('spanBusinessName','Field Business Name should not be blank', true);
         return false;
     }    
     
+    var name = $('#txtBusinessName').val();
+    if (checkEspecialChars(name)){
+        errorMessage('spanBusinessName','Field Business Name is not valid', true);
+        return false;
+    }    
+    
+    
     if ($('#industrylistregister').val() == 0 ){
-        
         $('#spanIndustryRegister').html('You must select a Industry');
         $('#spanIndustryRegister').addClass('error-messages ng-active');
         return false;
@@ -774,6 +816,13 @@ function updateBusiness(){
         errorMessage('spanStreetRegister','Field Street Adddress should not be blank', true);
         return false;
     }    
+    
+    var address = $('#txtStreet').val();
+    if (checkEspecialChars(address)){
+        errorMessage('spanStreetRegister','Field Street Adddress is not valid', true);
+        return false;
+    }    
+    
     
     if ($('#townlistregister').val()  == 0){
         errorMessage('spanTownRegister','You must select a city', true);
@@ -789,6 +838,13 @@ function updateBusiness(){
         errorMessage('spanContactEmail','Field E-mail should not be blank', true);
         return false;
     }    
+    
+
+    var contactName = $('#txtContactName').val();
+    if (checkEspecialChars(contactName)){
+        errorMessage('spanContactName','Field Contact Name is not valid', true);
+        return false;
+    }      
     
     
     if (!pattern){
@@ -819,7 +875,7 @@ function updateBusiness(){
             return false;
         }
     }    
-    
+  
     
     url = $('#txtWebsite').val();
     if (url.length > 0){
@@ -830,8 +886,8 @@ function updateBusiness(){
         }    
     }      
     
+    
       var path = getBaseUrl()+'img/ajax-loader.gif';
-      
       
       $("#ajaxiconsubscription").html('<img src="'+path +'"/>');
       
@@ -860,8 +916,6 @@ function updateBusiness(){
                 }
                 
             });
-            
-            
 }
 
 /**
@@ -1409,6 +1463,13 @@ function updateUser(){
         return false;
     }    
     
+    
+    var name = $('#txtUserUsername').val();
+    if (checkEspecialChars(name)){
+        errorMessage('spanUsername','Field Name is not valid', true);
+        return false;
+    }    
+    
       var path = getBaseUrl()+'img/ajax-loader.gif';
       
       $("#ajaxiconsubscription").html('<img src="'+path +'"/>');
@@ -1596,6 +1657,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
  * call ajax function register a new business
  */
  function addB() {
+        
         var name = $("#txtBusinessNameAdd").val().trim();
         var address = $("#address").val().trim();
         var city = $("#townlist").val();
@@ -1622,6 +1684,13 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
             return false;
         }    
         
+        
+        if (checkEspecialChars(name) ){
+            errorMessage('spanBusinessNameAdd','Field Business Name is not valid', true);
+            return false;
+        }    
+        
+        
         if (industryid == 0 ){
             errorMessage('spanIndustryAdd','You must select a industry', true);
             return false;
@@ -1631,6 +1700,10 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
             errorMessage('spanAddressAdd','Field Address should not be blank', true);
             return false;
         }    
+        if (checkEspecialChars(address) ){
+            errorMessage('spanAddressAdd','Field Address is not valid', true);
+            return false;
+        }            
         
         if (city == 0 ){
             errorMessage('spanTownAdd','You must select a city', true);
@@ -2262,12 +2335,12 @@ function blockUser(id, block){
                     
                     if (block == 1){
                         block = 0;
-                        $('#blockuser'+id).html('Unblock');
+                        $('#blockuserdiv'+id).html('Unblock');
                         $('#statususer'+id).html('blocked');
                         
                     }else{
                         block = 1;
-                        $('#blockuser'+id).html('Block');
+                        $('#blockuserdiv'+id).html('Block');
                         $('#statususer'+id).html('active');
                         
                     }
@@ -2321,7 +2394,7 @@ $("#btn_confirm").click(function(){
 function showEditBusiness(id){
  id = parseInt(id);
  
- errorMessage('spanBusinessName','',false); 
+ errorMessage('spanBusinessNameEdit','',false); 
  errorMessage('spanIndustryEdit','',false); 
  errorMessage('spanStreetregister','',false); 
  errorMessage('spanCity','',false); 
@@ -2390,7 +2463,7 @@ function updateNewOrganisation(){
    
     pattern = validEmail($('#txtContactEmail').val())
     
- errorMessage('spanBusinessName','',false); 
+ errorMessage('spanBusinessNameEdit','',false); 
  errorMessage('spanIndustryEdit','',false); 
  errorMessage('spanStreetregister','',false); 
  errorMessage('spanCity','',false); 
@@ -2400,9 +2473,15 @@ function updateNewOrganisation(){
  errorMessage('spanWebsite','',false);      
     
     if(checkIfBlank('txtBusinessName')){
-        errorMessage('spanBusinessName','Field Business Name should not be blank', true);
+        errorMessage('spanBusinessNameEdit','Field Business Name should not be blank', true);
         return false;
     }    
+    
+    if (checkEspecialChars(businessName)){
+            errorMessage('spanBusinessNameEdit','Field Business Name is not valid', true);
+            return false;
+    }    
+    
     
     if ($('#townlistregister').val()  == 0){
         errorMessage('spanCity','You must select a city', true);
@@ -2422,6 +2501,12 @@ function updateNewOrganisation(){
     if(checkIfBlank('txtStreet')){
         errorMessage('spanStreetregister','Field Street Address should not be blank', true);
         return false;
+    }    
+    
+    
+    if (checkEspecialChars(address)){
+            errorMessage('spanStreetregister','Field Street Address is not valid', true);
+            return false;
     }    
     
     
@@ -3023,7 +3108,7 @@ function showEditOrganisation(id){
  id = parseInt(id);
  $('#frmSubscription').trigger("reset");
  
- errorMessage('spanBusinessName','',false); 
+ errorMessage('spanBusinessNameEdit','',false); 
  errorMessage('spanIndustryEdit','',false); 
  errorMessage('spanStreetregister','',false); 
  errorMessage('spanCity','',false); 
@@ -3087,7 +3172,7 @@ function updateOrganisation(){
    $('#spanBusinessname').removeClass();
    $('#spanContactemail').removeClass();
    
- errorMessage('spanBusinessName','',false); 
+ errorMessage('spanBusinessNameEdit','',false); 
  errorMessage('spanIndustryEdit','',false); 
  errorMessage('spanStreetregister','',false); 
  errorMessage('spanCity','',false); 
@@ -3103,9 +3188,15 @@ function updateOrganisation(){
     pattern = validEmail($('#txtContactEmail').val())
     
     if(checkIfBlank('txtBusinessName')){
-        errorMessage('spanBusinessName','Field Business Name should not be blank', true);
+        errorMessage('spanBusinessNameEdit','Field Business Name should not be blank', true);
         return false;
     }    
+    
+    if (checkEspecialChars(businessName)){
+            errorMessage('spanBusinessNameEdit','Field Business Name is not valid', true);
+            return false;
+    }    
+    
     
     if ($('#townlistregister').val()  == 0){
         errorMessage('spanCity','You must select a city', true);
@@ -3127,6 +3218,13 @@ function updateOrganisation(){
             errorMessage('spanStreetregister','Field Address Should not be blank', true);
             return false;
     }    
+    
+
+    if (checkEspecialChars(address)){
+            errorMessage('spanStreetregister','Field Address is not valid', true);
+            return false;
+    }    
+    
     
     if (!pattern && $('#txtContactEmail').val().length > 0){
         errorMessage('spanContactEmail','Email not valid!', true);
@@ -3257,9 +3355,6 @@ $("#imageajaxiconpayment"+id).html('<img src="'+path +'" class = "ajaxiconpaymen
         }
    
 }    
-    
-    
-    
         
 
 /**
@@ -3318,7 +3413,7 @@ var path = getBaseUrl()+'img/ajax-loader.gif';
                 success:function(data){
                     if (data.success){
                         $('#txtEmailBusiness').val(data.EmailAddresses);
-                        $('#txtSubjectLetter').val('Formal Complaint');
+                        $('#txtSubjectLetter').val('Formal Complaint' + ' – From ' + data.name + ' via complaintblaster.com');
                         $('#txtMessageLetter').val(data.body);
                         $('#ModalSendLetter').modal('show');
                         $("#imageajax"+id).html('');
@@ -3428,11 +3523,50 @@ function sendLetter() {
  
  }    
  
+ /**
+ * show popup messages
+ * @param string message to show
+  */ 
  
  function showPopupMessage(msg){
     $("#pmessages").html(msg);
     $('#mgInformacion').modal('show');
  }
+ 
+ 
+ /**
+ * show popup preview with business payment on braintree
+ * @param id integer organisation id
+ * 
+ */ 
+
+function showBraintreePaymentDetails(id){
+var path = getBaseUrl()+'img/ajax-loader.gif';
+$("#imageajaxiconpayment"+id).html('<img src="'+path +'" class = "ajaxiconpayment"/>');
+                     $.ajax({
+                        url: 'payments.php?action=showbraintreeagreementdetails&agreementid='+ id,
+                        type: "POST",
+                        dataType: 'json',
+                        success:function(data){
+                            $('#agreementdate').html(data.start_date);
+                            $('#agreementpaymentid').html(data.agreementid);
+                            $('#agreementstatus').html(data.state);
+                            $('#agreementvalue').html(data.value +' '+ data.currency);
+                            $('#agreementnextpayment').html(data.next_billing_date);
+                            $('#ModalPreviewPaymentAgreement').modal('show');
+                            $("#imageajaxiconpayment"+id).html('');
+
+                        },
+                            error: function(data) {
+                             console.log(data)
+                             $("#imageajaxiconpayment"+id).html('');
+                             alert('error')
+                        }
+                    });
+        
+   
+}    
+
  
     /**
      * Functions developed by Delstone Services, LTD

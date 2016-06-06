@@ -16,7 +16,7 @@
                                 </div>
 
                                 <div class="preview_payment_left">
-                                    <div class = "preview_label">Payment Id:</div>
+                                    <div class = "preview_label">Subscription Id:</div>
                                 </div>
                                 <div class="preview_payment_right">
                                     <span class = "preview_label" id = "paymentpaymentid"></span>
@@ -49,8 +49,6 @@
                         <div id = "divresponse" class="section_preview">
                             
                         </div>
-                        
-
 	            </div>
                     <div class="modal-footer">
 			   <button type="submit" class="btn btn-primary btn-default"  data-dismiss="modal" id = "myBtn" tabindex="-1" style ="width: 100px " >OK</button>
@@ -79,7 +77,7 @@
                                 </div>
 
                                 <div class="preview_payment_left">
-                                    <div class = "preview_label">Payment Id:</div>
+                                    <div class = "preview_label">Subscription Id:</div>
                                 </div>
                                 <div class="preview_payment_right">
                                     <span class = "preview_label" id = "agreementpaymentid"></span>

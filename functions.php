@@ -317,6 +317,22 @@ function GetPlanName($planid){
     return $planname;
 }
 
+function GetPlanIdBraintree($planid){
+    $plan = "";
+                switch ($planid) {
+                case 1:
+                     $plan = 'complaintblastersmall)';    
+                    break;
+                case 2:
+                     $plan = 'complaintblastermedium';    
+                    break;
+                case 3:
+                     $plan = 'complaintblasterlarge';    
+                    break;
+            }
+    return $plan;
+}
+
 /**
  * return geolocation by ip address
  * @param string ip address

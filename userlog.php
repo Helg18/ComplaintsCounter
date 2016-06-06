@@ -114,11 +114,11 @@ table.sortable thead {
                                       <th width="8%">Business Name</th>
                                       <th width="2%">ID</th>
                                       <th width="10%">Complaint Title</th>
-                                      <th width="16%">Email</th>
-                                      <th width="5%">Status</th>
+                                      <th width="15%">Email</th>
+                                      <th width="6%">Status</th>
                                       <th width="6%" style="text-align: center">Broadcast Date</th>
-                                      <th width="7%" class ="businessresponded"  style="text-align: center">Business Responded</th>
-                                      <th width="12%" class="sorttable_nosort nohover" style="text-align: left">Actions</th>
+                                      <th width="6%" class ="businessresponded"  style="text-align: center">Business Responded</th>
+                                      <th width="11%" class="sorttable_nosort nohover" style="text-align: left">Actions</th>
                                       <th width="1%"></th>
                                     </tr>
                               </thead>      
@@ -170,11 +170,11 @@ table.sortable thead {
                               <thead>
                                     <tr id="titles" align="center">
                                       <th width="3%">ID</th>                              
-                                      <th width="10%">Username</th>
+                                      <th width="9%">Username</th>
                                       <th width="15%">Email</th>
                                       <th width="5%">User Type</th>
                                       <th width="5%" style="text-align: center">Registered Since</th>
-                                      <th width="5%" style="text-align: center"># Complaints</th>
+                                      <th width="6%" style="text-align: center"># Complaints</th>
                                       <th width="5%">Status</th>
                                       <th width="10%" class="sorttable_nosort nohover" style="text-align: left">Actions</th>
                                       <td width="1%"></td>

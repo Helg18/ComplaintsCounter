@@ -2,15 +2,13 @@
 require_once 'db.php';
 require_once  'functions.php';
 
-
-
 use PayPal\Api\Agreement;
 use PayPal\Api\CreditCard;
 use PayPal\Api\CreditCardToken;
 use PayPal\Api\FundingInstrument;
 use PayPal\Api\Payer;
 use PayPal\Api\PayerInfo;
-use PayPal\Api\Plan;
+use PayPal\Api\Plan; 
 use PayPal\Api\ShippingAddress;
 use PayPal\Api\ChargeModel;
 use PayPal\Api\Currency;
@@ -180,11 +178,18 @@ if (isset($_GET['action'])){
                // require dirname(__FILE__ ) . '/lib/common.php';
                 $rooturl = getBaseUrl();
                 header("location:$rooturl/register_success.php"); 
-                
             }else
                 header("location:$rooturl/register_cancel.php"); 
             //echo $result;    
             break;     
+        case 'showbraintreeagreementdetails':
+            $payments = new payments();         
+            $agreementid = $_GET['agreementid'];   
+            $result = $payments ->ShowBraintreeAgreementDetails($agreementid);
+            $result = json_encode($result);
+            echo $result;    
+            break;               
+            
     }
 
 }
@@ -205,6 +210,8 @@ class payments{
  var $paymentamount;
  var $planid;
  var $datapost;
+ var $braintreeplanid;
+ 
  
     
 function CreatePaymentDetail($organisationid, $status, $paymentid, $amount, $currency){
@@ -426,7 +433,6 @@ function ShowPaymentDetails($organisationid){
     
     
 }  
-
    
 /**
  * 
@@ -859,8 +865,127 @@ require dirname(__FILE__ ) . '/lib/bootstrap.php';
     
     return $row;
 }  
- 
 
+
+/** 
+ * Create a customer with payment method 
+ * @param integer credit card number
+ * @param string type = visa, mastercard, discover
+ * @param string expiration date format MM/YYYY
+ * @param string CVV security code
+ * @param string email
+ * @param string name 
+ * @param string lastname
+ * @return object
+ */  
+function CreateCustomerBraintree($cardnumber, $type, $expirydate, $cvc, $email, $name = "", $lastname = "", $phone = ""  ){
+
+require dirname(__FILE__ ) . '/lib/_enviroment.php';
+
+
+ $pos = strpos($expirydate, '/');
+ $expmonth = substr($expirydate, 0, $pos ); 
+ $expyear = substr($expirydate, $pos+1, strlen($expirydate)); 
+ $expyear = substr($expyear, 2, strlen($expirydate)); 
+            
+ $includeAddOn = false;
+ 
+ /* First we create a new user using the BT API */
+ $result = Braintree_Customer::create(array(
+                'firstName' => $name,
+                'lastName' => $lastname,
+                'company' => "",
+                'email' => $email,
+                'phone' => $phone,
+
+ // we can create a credit card at the same time
+                'creditCard' => array(
+                    'cardholderName' => $name,
+                    'number' => $cardnumber,
+                    'expirationMonth' => $expmonth,
+                    'expirationYear' => $expyear,
+                    'cvv' => $cvc)
+            ));
+ 
+    if ($result->success) {
+        return $result;
+    } else {
+        foreach ($result->errors->deepAll() as $error) {
+            $errorFound[] = $error->message;
+        }
+        return $errorFound;
+        exit;
+    }
+}
+
+
+function create_transaction($creditCardToken){
+ 
+ require_once dirname(__FILE__ ) . '/lib/_enviroment.php';
+
+ //$planId = 'complaintblastersmall';
+ $planId = GetPlanIdBraintree($this->planid);
+ 
+ $subscriptionData = array(
+ 'paymentMethodToken' => $creditCardToken,
+ 'planId' => $planId
+ );
+ 
+ $result1 = Braintree_Subscription::create($subscriptionData);
+ if ($result1->success) {
+     $row['subscriptionid'] = $result1->subscription->id;
+     $row['success'] = $result1->success;
+     return $row;
+ } else {
+    foreach ($result1->errors->deepAll() as $error1) {
+       $errorFound[] = $error1->message;
+    }
+ }
+ return $errorFound;
+}
+
+ /** 
+ * get Agreement from braintree
+ * @param string agreement id
+ * @return array
+ */  
+function ShowBraintreeAgreementDetails($AgreementId){
+    require dirname(__FILE__ ) . '/lib/_enviroment.php';
+
+   $success = false;
+    try {
+        $agreement = Braintree_Subscription::find($AgreementId);
+        $success = true;
+        
+    } catch (Exception $ex) {
+        exit(1);
+    }
+    //date_default_timezone_set('UTC');
     
+    
+    $row['agreementid'] = $AgreementId;
+    $row['state'] = $agreement->status;
+    
+    
+    $row['description'] = '$agreement->description;';
+    
+    $date = $agreement->billingPeriodStartDate;
+    $date = $date->format('d-m-Y');
+    $row['start_date'] = $date;
+    
+    $date = $agreement->nextBillingDate;
+    $date = $date->format('d-m-Y');
+    $row['next_billing_date'] = $date;
+    
+    
+    $row['currency'] = "";
+    $row['value'] = $agreement->nextBillAmount;
+
+    $row['success'] = $success;
+    
+    return $row;
+    
+}  
+   
     
 }//end class

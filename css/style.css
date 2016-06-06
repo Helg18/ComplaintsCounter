@@ -1996,12 +1996,6 @@ article.page {
     /*text-align: right;*/
   }
 
-  .section_page{
-    margin-top: 500px !important;
-    margin-bottom: 10px !important;
-    padding-top: 10px !important;
-  }
-
   .buttonson{
     margin-top: 200px;
     margin-left: 0 !important;
@@ -2112,6 +2106,13 @@ article.page {
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
+  
+ .section_page{
+    margin-top: 500px !important;
+    margin-bottom: 10px !important;
+    padding-top: 10px !important;
+  }
+
 
   .article_section{
     padding-left: 20px !important;
@@ -2276,6 +2277,17 @@ article.page {
   #footer-scroll{
       padding-left: 8% !important;
   }
+  
+   td { 
+    word-wrap: break-word !important;
+    font-size: 73% !important;
+  }
+  th{
+      font-size: 80% !important;
+  }
+
+    
+  
   
   
  
@@ -2586,6 +2598,7 @@ article.page {
   width: 100%; 
   min-height: 450px !important;
   text-align:center !important;
+  
 }
 
 .page_min_height{
@@ -3115,5 +3128,30 @@ article.page {
     float:left; 
     height: auto; 
     margin-bottom: 10px;
+}
+
+.actionbutton{
+  z-index: 100;
+    background: #0099FF;
+    color: #FFF;
+    float:left;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: solid 1px #0099FF;
+    float:left;
+    
+}
+
+.actionbutton:hover{
+    background: #FFF;
+    color: #06E;
+    border: solid 1px  #06E;
+}
+
+td{ 
+   word-wrap: break-word !important;
 }
 

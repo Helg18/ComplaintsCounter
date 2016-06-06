@@ -224,11 +224,11 @@
                                     </div>
 
                                     <div class="formsubscriber2col">
-                                            <div class = "labelform">SELECT PAYPAL PAYMENT METHOD</div>
+                                            <div class = "labelform">SELECT PAYMENT METHOD</div>
                                             <div class = "controlform" >
                                                 <select name="paymentmethod" id="paymentmethod" class="inputform inputaddbusiness" onchange="paymentMethodChange()">
                                                     <option value="0">Credit Card</option>
-                                                    <option value="1">Paypal</option>
+                                                    <!--option value="1">Paypal</option-->
                                                 </select>                  
                                             </div>
                                     </div>
